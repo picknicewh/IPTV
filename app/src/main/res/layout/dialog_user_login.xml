@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_scancode"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/space_x1.5"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_code"
+            android:layout_width="@dimen/TOWCODE_HEIGHT"
+            android:layout_height="@dimen/TOWCODE_HEIGHT"
+            android:padding="@dimen/space" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/dialog_user_login01"
+            android:textColor="@color/black"
+            android:textSize="@dimen/ts_x_large" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/space"
+            android:text="@string/dialog_user_login02"
+            android:textColor="@color/black"
+            android:textSize="@dimen/ts_x_large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_scancode_success"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/space_x1.5">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_leimu"
+            app:civ_border_color="#0ff"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="扫码成功"
+            android:textColor="@color/black"
+            android:textSize="@dimen/ts_xx_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_x2"
+            android:text="请在手机上点击确认以登录"
+            android:textSize="@dimen/ts_x_large" />
+
+        <TextView
+            android:padding="@dimen/space"
+            android:background="@drawable/select_focuse_bg"
+            android:id="@+id/tv_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:focusable="true"
+            android:text="返回二维码登录"
+            android:textSize="@dimen/ts_x_large" />
+    </LinearLayout>
+</LinearLayout>

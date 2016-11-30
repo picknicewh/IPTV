@@ -1,0 +1,93 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="mirror_ref_height">55dp</dimen>
+    <!--<dimen name="ITEM_V_WIDTH">300dp</dimen>-->
+    <!--<dimen name="ITEM_V_HEIGHT">500dp</dimen>-->
+
+    <!--<dimen name="ITEM_H_WIDTH">400dp</dimen>-->
+    <!--<dimen name="ITEM_H_HEIGHT">250dp</dimen>-->
+
+    <!--<dimen name="ITEM_NORMAL_SIZE">250dp</dimen>-->
+
+    <!--<dimen name="ITEM_V_WIDTH">134dp</dimen>-->
+    <!--<dimen name="ITEM_V_HEIGHT">202dp</dimen>-->
+    <!--<dimen name="ITEM_H_WIDTH">202dp</dimen>-->
+    <!--<dimen name="ITEM_H_HEIGHT">100dp</dimen>-->
+    <!--<dimen name="ITEM_DIVIDE_SIZE">2dp</dimen>-->
+    <!--<dimen name="ITEM_NORMAL_SIZE">100dp</dimen>-->
+
+    <!--<dimen name="ITEM_V_WIDTH">201dp</dimen>-->
+    <!--<dimen name="ITEM_V_HEIGHT">303dp</dimen>-->
+    <!--<dimen name="ITEM_H_HEIGHT">150dp</dimen>-->
+    <!--<dimen name="ITEM_H_WIDTH">303dp</dimen>-->
+
+     <!--Text Size  720p方案一-->
+    <!--<dimen name="ts_small">18sp</dimen>-->
+    <!--<dimen name="ts_medium">20sp</dimen>-->
+    <!--<dimen name="ts_large">22sp</dimen>-->
+    <!--<dimen name="ts_x_large">24sp</dimen>-->
+    <!--<dimen name="ts_xx_large">26sp</dimen>-->
+    <!--<dimen name="ts_xxx_large">28sp</dimen>-->
+
+    <!--<dimen name="ITEM_V_WIDTH">200dp</dimen>-->
+    <!--<dimen name="ITEM_V_HEIGHT">410dp</dimen>-->
+    <!--<dimen name="ITEM_H_WIDTH">410dp</dimen>-->
+    <!--<dimen name="ITEM_H_HEIGHT">200dp</dimen>-->
+    <!--<dimen name="ITEM_NORMAL_SIZE">200dp</dimen>-->
+
+    <!--<dimen name="ITEM_VS_HEIGHT">270dp</dimen>-->
+    <!--<dimen name="ITEM_HS_HEIGHT">130dp</dimen>-->
+    <!--<dimen name="ITEM_NORMALS_HEIGHT">130dp</dimen>-->
+    <!--<dimen name="KIYBORDWIDTH">100dp</dimen>-->
+
+    <!--<dimen name="COVER_HEIGHT">200dp</dimen>-->
+    <!--<dimen name="TOWCODE_HEIGHT">300dp</dimen>-->
+
+    <!-- 720p 方案二-->
+    <dimen name="ts_x_small">8sp</dimen>
+    <dimen name="ts_small">10sp</dimen>
+    <dimen name="ts_medium">12sp</dimen>
+    <dimen name="ts_large">14sp</dimen>
+    <dimen name="ts_x_large">16sp</dimen>
+    <dimen name="ts_xx_large">18sp</dimen>
+    <dimen name="ts_xxx_large">20sp</dimen>
+
+    <dimen name="ITEM_V_WIDTH">150dp</dimen>
+    <dimen name="ITEM_V_HEIGHT">310dp</dimen>
+    <dimen name="ITEM_H_WIDTH">310dp</dimen>
+    <dimen name="ITEM_H_HEIGHT">150dp</dimen>
+    <dimen name="ITEM_NORMAL_SIZE">150dp</dimen>
+
+    <dimen name="ITEM_VS_HEIGHT">236dp</dimen>
+    <!-- 推荐中横着View的高度-->
+    <dimen name="ITEM_HS_HEIGHT">113dp</dimen>
+    <!-- 推荐中View的高度-->
+    <dimen name="ITEM_NORMALS_HEIGHT">113dp</dimen>
+    <!-- 键盘每个按键的高度-->
+    <dimen name="KIYBORDWIDTH">50dp</dimen>
+    <!--资源详情的主题封面高度-->
+    <dimen name="COVER_HEIGHT">170dp</dimen>
+    <!--资源详情的主题封面宽度-->
+    <dimen name="COVER_WIDTH">230dp</dimen>
+    <!-- 二维码的高度-->
+    <dimen name="TOWCODE_HEIGHT">250dp</dimen>
+    <!--GridView的高度-->
+    <dimen name="GRID_ITEM_HEIGHT">175dp</dimen>
+    <!--GridView的宽度-->
+    <dimen name="GIRD_ITEM_WIDTH">170dp</dimen>
+    <!--GridView的子View中图片高度-->
+    <dimen name="GRID_ITEM_IMAGE_HEIGHT">140dp</dimen>
+    <!--GridView的子View中文字的高度-->
+    <dimen name="GRID_ITEM_TEXTVIEW_HEIGHT">35dp</dimen>
+
+    <!-- recyclerView 的高度 -->
+    <dimen name="RECYCLER_ITEM_HEIGHT">170dp</dimen>
+    <!-- recyclerView 的宽度 -->
+    <dimen name="RECYCLER_ITEM_WIDTH">150dp</dimen>
+    <!-- recyclerView 中子View中图片的高度 -->
+    <dimen name="RECYCLER_ITEM_IMAGER_HEIGHT">115dp</dimen>
+    <!-- recyclerView 的子View的文字高度 -->
+    <dimen name="RECYCLER_ITEM_TEXTVIEW_HEIGHT">35dp</dimen>
+</resources>

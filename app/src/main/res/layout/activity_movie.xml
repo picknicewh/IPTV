@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingTop="25dp"
+    android:paddingBottom="25dp"
+    tools:context=".activity.ResourcesListActivity">
+
+    <LinearLayout
+        android:layout_width="@dimen/px320"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="@dimen/px98"
+                android:layout_height="@dimen/px98"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_x0.5"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_leimu" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_hot_suite" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space"
+                android:text="李一冰"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:layout_centerHorizontal="true"
+                android:text="探险天数：226天"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_small" />
+        </RelativeLayout>
+
+        <net.hunme.kidsworld_iptv.widget.MyListView
+            android:id="@+id/lv_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/px1450"
+        android:layout_height="@dimen/px925"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="@dimen/px20"
+            android:layout_marginBottom="@dimen/px90"
+            android:id="@+id/iv_search"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@mipmap/ic_search" />
+
+        <com.open.androidtvwidget.view.GridViewTV
+            android:id="@+id/gv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:columnWidth="@dimen/px240"
+            android:horizontalSpacing="@dimen/space_x2.5"
+            android:numColumns="5"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/space_x2.5" />
+    </LinearLayout>
+
+</LinearLayout>

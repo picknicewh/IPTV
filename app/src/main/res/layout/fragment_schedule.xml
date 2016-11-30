@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.hunme.kidsworld_iptv.fragment.ScheduleFragment">
+
+    <TextView
+        android:layout_marginTop="@dimen/px50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="本周课程表"
+        android:textSize="@dimen/px36"
+        android:textColor="@color/item_yellow"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_marginTop="@dimen/px80"
+        android:layout_width="@dimen/px900"
+        android:layout_height="@dimen/px600"
+        android:src="@mipmap/ic_leimu"
+        android:layout_gravity="center"/>
+</LinearLayout>

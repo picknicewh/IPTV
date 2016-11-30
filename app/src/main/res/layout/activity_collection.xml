@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="net.hunme.kidsworld_iptv.activity.CollectionActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_keybord"
+        android:layout_width="@dimen/px650"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px80"
+        android:paddingRight="@dimen/px70"
+        android:paddingTop="@dimen/px100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/space"
+            android:paddingTop="@dimen/space">
+
+            <EditText
+                android:id="@+id/et_collection"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:drawableBottom="@mipmap/ic_line_white"
+                android:drawableLeft="@mipmap/ic_search_keybord"
+                android:drawablePadding="@dimen/space"
+                android:focusable="false"
+                android:hint="拼音首字母搜索"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/ts_xx_large" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px50"
+            android:columnWidth="@dimen/px162"
+            android:horizontalSpacing="@dimen/space"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/space_x1.5" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px50"
+            android:text="@string/keybord_text01"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_small" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/keybord_text02"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/px50"
+        android:layout_marginLeft="@dimen/px70"
+        android:layout_marginBottom="@dimen/px70"
+        android:layout_marginRight="@dimen/px50">
+
+        <include
+            android:id="@+id/ll_recommend"
+            layout="@layout/layout_collection_recommend"
+            android:visibility="visible" />
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/sv_search"
+            layout="@layout/layout_collection_search_result" />
+    </LinearLayout>
+</LinearLayout>

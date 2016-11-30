@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">KidsWorld-IPTV</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_menu01">用 户</string>
+    <string name="main_menu02">推 荐</string>
+    <string name="main_menu03">分 类</string>
+    <string name="main_menu04">应 用</string>
+    <string name="main_menu05">设置</string>
+    <string name="main_hold_menu01">通知</string>
+    <string name="main_hold_menu02">设置</string>
+    <string name="setting_forus">浙江红掌文化传播有限公司是一家专业提供幼儿教育云平台和内容的互联网技术企业，以云教育平台技术为导向，融合移动互联网、大数据教育分析、流媒体、语音图形识别、VR虚拟现实等技术，结合手机通讯运营商业务及其渠道资源，联合推出旗下产品幼儿教育云平台，保证学校、老师、家长和小朋友的各项需求，集管理、教学、亲子、互动学习提供综合的解决方案。红掌文化在幼儿教育内容这块与西泠印社签订战略合作协议，独家享有线上线下内容版权，专注于传统素质文化教育，在书法、绘画等内容上面充分采用创新的幼儿教育技术。</string>
+    <string name="forus_text01">浙江红掌文化传播有限公司</string>
+    <string name="forus_text02">客服电话：400-688-3506</string>
+    <string name="forus_text03">微信公众号：XXXXXXXX</string>
+    <string name="forus_text04">QQ：XXXXXXXX</string>
+    <string name="forus_text05">地址：杭州市江干区四季青街道钱江新城五星路118号荣安大厦1101</string>
+    <string name="forus_menu01">问题反馈</string>
+    <string name="forus_menu02">关于我们</string>
+    <string name="dialog_user_login01">贝贝虎APP</string>
+    <string name="dialog_user_login02">手机扫码登陆</string>
+    <string name="keybord_text01">1.中文搜索贝贝虎，需要输入BBH即可</string>
+    <string name="keybord_text02">2.英文搜索Baby，需输入Baby</string>
+</resources>

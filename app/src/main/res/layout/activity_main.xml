@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/lv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px50"
+            android:layout_marginTop="@dimen/px50"
+            android:src="@mipmap/ic_logo" />
+
+        <RelativeLayout
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/px100"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space">
+
+            <RelativeLayout
+                android:id="@+id/rl_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_train" />
+
+                <TextView
+                    android:id="@+id/tv_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="bottom"
+                    android:singleLine="true"
+                    android:text="欢迎来到孩子们的欢乐王国！"
+                    android:textColor="#803d356e"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ib_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px70"
+            android:layout_marginTop="@dimen/px34"
+            android:background="@mipmap/ic_setting" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/space"
+        android:paddingRight="@dimen/space">
+
+        <LinearLayout
+            android:id="@+id/ll_rank"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_rank" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space"
+                android:gravity="center"
+                android:text="贝贝榜\nbei bei bang"
+                android:textColor="#454545"
+                android:textSize="@dimen/ts_medium" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_home" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space"
+                android:gravity="center"
+                android:text="贝贝虎之家\nbei bei hu zhi jia"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/ts_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_movie"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_move" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space"
+                android:gravity="center"
+                android:text="动画坊\ndong hua fang"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/ts_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_music"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_music" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space"
+                android:gravity="center"
+                android:text="音悦台\nyin yue tai"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/ts_medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_magic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_magic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space"
+                android:gravity="center"
+                android:text="魔法乐园\nmo fa le yuan"
+                android:textColor="#454545"
+                android:textSize="@dimen/ts_medium" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@mipmap/ic_record_bg">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_left" />
+
+        <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
+            android:id="@+id/rv_record"
+            android:layout_width="@dimen/px880"
+            android:layout_height="@dimen/px170" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/space"
+            android:src="@mipmap/ic_right" />
+    </LinearLayout>
+
+</LinearLayout>

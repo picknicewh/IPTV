@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <net.hunme.kidsworld_iptv.widget.RoundImageView
+        android:id="@+id/iv_gird"
+        android:layout_width="@dimen/px250"
+        android:layout_height="@dimen/px350"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_leimu"
+        app:type="round"
+        app:borderRadius="@dimen/round"/>
+
+    <TextView
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="音乐欣赏"
+        android:textColor="@color/black"
+        android:textSize="@dimen/ts_small" />
+</LinearLayout>

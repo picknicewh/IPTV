@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.RecipesFragment">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/space"
+        android:text="今日食谱"
+        android:textColor="@color/black"
+        android:textSize="@dimen/ts_x_large" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/space_x2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_01"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px500"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_sword" />
+
+        <ImageView
+            android:id="@+id/iv_02"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px500"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_sword" />
+
+        <ImageView
+            android:id="@+id/iv_03"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px500"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_sword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/ll_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_x2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space"
+            android:text="一周食谱"
+            android:textSize="@dimen/ts_medium" />
+
+        <TextView
+            android:id="@+id/tv_monday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px80"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:background="@drawable/keybord_bg"
+            android:text="周一" />
+
+        <TextView
+            android:id="@+id/tv_tuesday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px80"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:background="@drawable/keybord_bg"
+            android:text="周二" />
+
+        <TextView
+            android:id="@+id/tv_wednesday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px80"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:background="@drawable/keybord_bg"
+            android:text="周三" />
+
+        <TextView
+            android:id="@+id/tv_thursday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px80"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:background="@drawable/keybord_bg"
+            android:text="周四" />
+
+        <TextView
+            android:id="@+id/tv_friday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/px80"
+            android:layout_margin="@dimen/space"
+            android:layout_weight="1"
+            android:background="@drawable/keybord_bg"
+            android:text="周五" />
+    </LinearLayout>
+</LinearLayout>

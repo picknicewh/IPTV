@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.hunme.kidsworld_iptv.fragment.NoticeFragment">
+
+    <LinearLayout
+        android:id="@+id/ll_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/px90"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_menu_black_bg">
+
+            <TextView
+                android:id="@+id/tv_system"
+                style="@style/MyTextViewStyle"
+                android:layout_width="@dimen/px250"
+                android:layout_height="@dimen/px90"
+                android:background="@mipmap/ic_home_menu_select"
+                android:text="系统通知" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space"
+            android:background="@drawable/home_menu_black_bg">
+
+            <TextView
+                android:textColor="@color/white_50"
+                android:id="@+id/tv_school"
+                style="@style/MyTextViewStyle"
+                android:layout_width="@dimen/px250"
+                android:layout_height="@dimen/px90"
+                android:text="校园通知" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <net.hunme.kidsworld_iptv.widget.MyListView
+        android:padding="@dimen/space"
+        android:id="@+id/lv_content"
+        android:scrollbars="none"
+        android:background="@drawable/resources_grid_view_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.open.androidtvwidget.view.MainUpView
+        android:id="@+id/upview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
