@@ -1,16 +1,19 @@
 package net.hunme.kidsworld_iptv.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
+import net.hunme.kidsworld_iptv.activity.StatusDetlisActivity;
 import net.hunme.kidsworld_iptv.adapter.NoticeAdapter;
 import net.hunme.kidsworld_iptv.contract.DynamicContract;
 import net.hunme.kidsworld_iptv.contract.DynamicPresenter;
@@ -59,6 +62,12 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
         adapter = new NoticeAdapter(lvContent, upview, dynamicInfoList, 0);
         adapter.setOnPaginListen(this);
         lvContent.setAdapter(adapter);
+        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(getActivity(), StatusDetlisActivity.class));
+            }
+        });
         tvClass.setOnFocusChangeListener(this);
         tvSchool.setOnFocusChangeListener(this);
         oldView = tvClass;
