@@ -158,6 +158,7 @@
     <color name="item_purple">#e1c9f1</color>
     <color name="item_red">#ff755d</color>
     <color name="item_green">#8ec500</color>
-    <color name="green_70">#808ec500</color>
+    <color name="green_70">#cc8ec500</color>
     <color name="keybord_text">#9B6724</color>
+    <color name="black_80">#80000000</color>
 </resources>

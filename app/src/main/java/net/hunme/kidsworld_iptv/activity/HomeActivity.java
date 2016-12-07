@@ -39,7 +39,6 @@ public class HomeActivity extends BaseActivity implements View.OnFocusChangeList
 
     @Bind(R.id.lv_menu)
     ListView lvMenu;
-
     private CollectionFragment collectionFt; //收藏
     private FootPrintFragment footPrintFt;//足迹
     private NoticeFragment noticeFt;//通知
@@ -65,7 +64,7 @@ public class HomeActivity extends BaseActivity implements View.OnFocusChangeList
         collectionFt = new CollectionFragment();
         footPrintFt = new FootPrintFragment();
         noticeFt = new NoticeFragment();
-        recipesFt = new RecipesFragment(upView);
+        recipesFt = new RecipesFragment();
         dynamicFt = new DynamicFragment();
         scheduleFt = new ScheduleFragment();
 

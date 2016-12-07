@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * 用户足迹
  */
-public class FootPrintFragment extends Fragment implements View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
+public class FootPrintFragment extends Fragment {
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
@@ -33,10 +32,8 @@ public class FootPrintFragment extends Fragment implements View.OnFocusChangeLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_foot_print, container, false);
         ButterKnife.bind(this, view);
-        adapter = new FootPrintAdapter();
+        adapter = new FootPrintAdapter(lvContent);
         lvContent.setAdapter(adapter);
-        lvContent.setOnItemSelectedListener(this);
-        lvContent.setOnFocusChangeListener(this);
         lvContent.addFooterView(LayoutInflater.from(getContext()).inflate(R.layout.item_foot_view_ftprint, null));
         return view;
     }
@@ -47,19 +44,4 @@ public class FootPrintFragment extends Fragment implements View.OnFocusChangeLis
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if (i < adapter.getCount())
-            adapter.selectItemView(view);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    @Override
-    public void onFocusChange(View view, boolean b) {
-
-    }
 }

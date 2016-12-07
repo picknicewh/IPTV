@@ -13,6 +13,7 @@
     <!-- 圆角的系数 -->
     <dimen name="round">4dp</dimen>
     <dimen name="item_round">14dp</dimen>
+    <dimen name="setting_round">10dp</dimen>
 
     <!--<dimen name="ts_small">12sp</dimen>-->
     <!--<dimen name="ts_medium">14sp</dimen>-->

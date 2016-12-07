@@ -9,12 +9,13 @@
         android:layout_marginTop="@dimen/px50"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="本周课程表"
+        android:text="本学期课程表"
         android:textSize="@dimen/px36"
         android:textColor="@color/item_yellow"
         android:gravity="center"/>
 
     <ImageView
+        android:id="@+id/iv_schedule"
         android:layout_marginTop="@dimen/px80"
         android:layout_width="@dimen/px900"
         android:layout_height="@dimen/px600"

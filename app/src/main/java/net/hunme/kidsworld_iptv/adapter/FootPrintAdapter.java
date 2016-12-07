@@ -3,8 +3,10 @@ package net.hunme.kidsworld_iptv.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import net.hunme.kidsworld_iptv.R;
@@ -17,14 +19,23 @@ import butterknife.ButterKnife;
  * ================================================
  * 作    者：ZLL
  * 时    间：2016/11/24
- * 描    述：
+ * 描    述：足迹适配器
  * 版    本：
  * 修订历史：
  * ================================================
  */
-public class FootPrintAdapter extends BaseAdapter {
+public class FootPrintAdapter extends BaseAdapter implements View.OnFocusChangeListener, AdapterView.OnItemSelectedListener {
     private View oldView;
     private ViewHolder holder;
+    private ListView listView;
+    //是否是第一次选中  页面加载会自动选择第一行 而需求需要用户自己手动选择 所以 第一选择状态需要撤销
+    private boolean isFirst = true;
+
+    public FootPrintAdapter(ListView listView) {
+        this.listView = listView;
+        this.listView.setOnFocusChangeListener(this);
+        this.listView.setOnItemSelectedListener(this);
+    }
 
     @Override
     public int getCount() {
@@ -50,6 +61,31 @@ public class FootPrintAdapter extends BaseAdapter {
         holder = (ViewHolder) view.getTag();
         holder.tvType.setText("未获得  " + i);
         return view;
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (b && oldView != null) {
+            selectItemView(oldView);
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (i < getCount()) {
+            if (isFirst) {
+                //取消第一次选状态
+                oldView = view;
+                isFirst = false;
+            } else {
+                selectItemView(view);
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     class ViewHolder {
@@ -89,7 +125,7 @@ public class FootPrintAdapter extends BaseAdapter {
      *
      * @param view 选择的View
      */
-    public void selectItemView(View view) {
+    private void selectItemView(View view) {
         if (oldView != null) {
             holder = (ViewHolder) oldView.getTag();
             holder.ivPoster.setVisibility(View.GONE);

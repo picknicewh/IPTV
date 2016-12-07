@@ -31,6 +31,8 @@
     </LinearLayout>
 
     <net.hunme.kidsworld_iptv.widget.MyListView
+        android:focusable="true"
+        android:nextFocusLeft="@id/footprint"
         android:divider="@null"
         android:id="@+id/lv_content"
         android:layout_width="match_parent"

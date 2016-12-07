@@ -43,7 +43,6 @@
     </LinearLayout>
 
     <net.hunme.kidsworld_iptv.widget.MyListView
-        android:padding="@dimen/space"
         android:id="@+id/lv_content"
         android:scrollbars="none"
         android:background="@drawable/resources_grid_view_bg"

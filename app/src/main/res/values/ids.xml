@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--足迹-->
+    <item name="footprint" type="id" />
+    <!--追剧收藏-->
+    <item name="collection" type="id" />
+    <!--通知-->
+    <item name="notice" type="id" />
+    <!--动态-->
+    <item name="dynamic" type="id" />
+    <!--食谱-->
+    <item name="recipes" type="id" />
+    <!--课程表-->
+    <item name="schedule" type="id" />
+</resources>

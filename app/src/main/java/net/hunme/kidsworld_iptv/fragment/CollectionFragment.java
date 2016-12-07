@@ -13,12 +13,19 @@ import com.open.androidtvwidget.view.MainUpView;
 import net.hunme.baselibrary.util.G;
 import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.adapter.GridAdapter;
+import net.hunme.kidsworld_iptv.contract.CollectionContract;
+import net.hunme.kidsworld_iptv.contract.CollectonPresenter;
+import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
+import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class CollectionFragment extends Fragment implements View.OnFocusChangeListener {
+public class CollectionFragment extends Fragment implements View.OnFocusChangeListener, CollectionContract.View, OnPaginSelectViewListen {
     //内容显示
     @Bind(R.id.gv_content)
     GridViewTV gvContent;
@@ -37,6 +44,9 @@ public class CollectionFragment extends Fragment implements View.OnFocusChangeLi
 
     private GridAdapter adapter;
     private View oldView;
+    private CollectionContract.Presenter presenter;
+    private List<CompilationsJsonVo> compilationsList;
+    private int type = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,11 +56,12 @@ public class CollectionFragment extends Fragment implements View.OnFocusChangeLi
         tvMove.setOnFocusChangeListener(this);
         tvMusic.setOnFocusChangeListener(this);
         tvMagic.setOnFocusChangeListener(this);
-        adapter = new GridAdapter(gvContent, upview);
+        compilationsList = new ArrayList<>();
+        adapter = new GridAdapter(gvContent, upview, compilationsList);
         gvContent.setAdapter(adapter);
-        oldView=tvMove;
-//        BorderView borderView = BorderView.getInstance(getActivity());
-//        borderView.setGirdViewTV(gvContent, upView.getDefaulFrame(getActivity()));
+        presenter = new CollectonPresenter(this);
+        presenter.getCollectionRes(1, type);
+        adapter.setItemViewListen(this);
         return view;
     }
 
@@ -65,8 +76,10 @@ public class CollectionFragment extends Fragment implements View.OnFocusChangeLi
         if (b) {
             switch (view.getId()) {
                 case R.id.tv_move:
+                    type = 1;
                     break;
                 case R.id.tv_music:
+                    type = 2;
                     break;
                 case R.id.tv_magic:
                     G.showToast(getActivity(), "暂未开放");
@@ -76,12 +89,30 @@ public class CollectionFragment extends Fragment implements View.OnFocusChangeLi
             }
             if (oldView != null) {
                 oldView.setBackgroundResource(R.drawable.dr);
-                ((TextView)oldView).setTextColor(getResources().getColor(R.color.white_50));
+                ((TextView) oldView).setTextColor(getResources().getColor(R.color.white_50));
             }
             view.setBackgroundResource(R.mipmap.ic_home_menu_select);
-            ((TextView)view).setTextColor(getResources().getColor(R.color.white));
+            ((TextView) view).setTextColor(getResources().getColor(R.color.white));
+            if (oldView==null||oldView.getId() != view.getId())
+                presenter.getCollectionRes(1, type);
             oldView = view;
         }
     }
 
+    @Override
+    public void showCollection(List<CompilationsJsonVo> resFavoritesList, boolean isPagin) {
+        if (isPagin) {
+            compilationsList.addAll(resFavoritesList);
+            adapter.notifyDataSetChanged();
+        } else {
+            compilationsList.clear();
+            compilationsList.addAll(resFavoritesList);
+            adapter.notifyDataSetInvalidated();
+        }
+    }
+
+    @Override
+    public void onPaginListen(View view, int position) {
+        presenter.getPaginCollectionRes();
+    }
 }

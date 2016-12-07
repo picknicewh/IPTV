@@ -3,35 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/ic_main_bg"
-    android:paddingBottom="60dp"
-    android:paddingTop="70dp"
     tools:context=".activity.SettingDetlisActivity">
 
-    <ListView
+    <net.hunme.kidsworld_iptv.widget.MyListView
+        android:layout_marginRight="@dimen/px60"
+        android:layout_marginTop="@dimen/px200"
+        android:layout_marginLeft="@dimen/space_x2"
         android:id="@+id/lv_user_menu"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/px255"
+        android:layout_height="@dimen/px399"
         android:divider="@null"
-        android:paddingLeft="30dp"
-        android:paddingRight="40dp"
         android:scrollbars="none" />
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_x2"
-        android:layout_toRightOf="@id/lv_user_menu"
-        android:paddingLeft="@dimen/space"
-        android:textColor="@color/white"
-        android:textSize="@dimen/ts_x_large" />
 
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_title"
-        android:layout_toRightOf="@+id/lv_user_menu"
-        android:padding="@dimen/space"/>
+        android:layout_toRightOf="@+id/lv_user_menu" />
 </RelativeLayout>

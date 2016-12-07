@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * ================================================
  * 作    者：ZLL
- * 时    间：2016/10/25
- * 描    述：食谱实体类
+ * 时    间：2016/12/6
+ * 描    述：
  * 版    本：
  * 修订历史：
  * ================================================
@@ -14,37 +14,7 @@ import java.util.List;
 public class CookBookVo {
     private String date;
     private String day;
-    private List<Dishes> dishesList;
-
-    public class Dishes {
-        private String dinnerTime;
-        private List<String> cookUrl;
-        private String cookName;
-
-        public String getDinnerTime() {
-            return dinnerTime;
-        }
-
-        public void setDinnerTime(String dinnerTime) {
-            this.dinnerTime = dinnerTime;
-        }
-
-        public List<String> getCookUrl() {
-            return cookUrl;
-        }
-
-        public void setCookUrl(List<String> cookUrl) {
-            this.cookUrl = cookUrl;
-        }
-
-        public String getCookName() {
-            return cookName;
-        }
-
-        public void setCookName(String cookName) {
-            this.cookName = cookName;
-        }
-    }
+    private List<DishesVo> dishesList;
 
     public String getDate() {
         return date;
@@ -62,11 +32,11 @@ public class CookBookVo {
         this.day = day;
     }
 
-    public List<Dishes> getDishesList() {
+    public List<DishesVo> getDishesList() {
         return dishesList;
     }
 
-    public void setDishesList(List<Dishes> dishesList) {
+    public void setDishesList(List<DishesVo> dishesList) {
         this.dishesList = dishesList;
     }
 }

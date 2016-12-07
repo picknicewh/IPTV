@@ -25,7 +25,7 @@ public class BorderView implements AdapterView.OnItemSelectedListener, View.OnFo
     private MainUpView defaultFrame;
     private Activity activity;
     private View oldView;
-    private GirdViewItemSelect itemSelect;
+    private OnPaginSelectViewListen itemSelect;
     private GridViewTV viewTV;
     public BorderView(Activity activity) {
         this.activity = activity;
@@ -61,7 +61,7 @@ public class BorderView implements AdapterView.OnItemSelectedListener, View.OnFo
 ////        }
 //    }
 
-    public void setGirdItemSelect(GirdViewItemSelect itemSelect) {
+    public void setGirdItemSelect(OnPaginSelectViewListen itemSelect) {
         this.itemSelect = itemSelect;
     }
 
@@ -87,7 +87,7 @@ public class BorderView implements AdapterView.OnItemSelectedListener, View.OnFo
             oldView = view;
         }
         if (itemSelect != null) {
-            itemSelect.onItemSelect(view, i);
+            itemSelect.onPaginListen(view, i);
         }
     }
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="net.hunme.kidsworld_iptv.activity.CollectionActivity">
+    tools:context=".activity.SearchActivity">
 
     <LinearLayout
         android:id="@+id/ll_keybord"
@@ -83,7 +83,9 @@
 
         <include
             android:visibility="gone"
-            android:id="@+id/sv_search"
+            android:id="@+id/ll_search"
             layout="@layout/layout_collection_search_result" />
     </LinearLayout>
+
+
 </LinearLayout>

@@ -18,8 +18,7 @@
     <string name="forus_text05">地址：杭州市江干区四季青街道钱江新城五星路118号荣安大厦1101</string>
     <string name="forus_menu01">问题反馈</string>
     <string name="forus_menu02">关于我们</string>
-    <string name="dialog_user_login01">贝贝虎APP</string>
-    <string name="dialog_user_login02">手机扫码登陆</string>
+    <string name="dialog_user_login">请使用“贝贝虎”App扫码登录</string>
     <string name="keybord_text01">1.中文搜索贝贝虎，需要输入BBH即可</string>
     <string name="keybord_text02">2.英文搜索Baby，需输入Baby</string>
 </resources>

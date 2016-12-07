@@ -14,7 +14,6 @@
         android:id="@+id/iv_poster"
         android:layout_width="@dimen/px82"
         android:layout_height="@dimen/px140"
-        android:src="@mipmap/ic_sword"
         app:type="round"
         app:borderRadius="@dimen/round"/>
 

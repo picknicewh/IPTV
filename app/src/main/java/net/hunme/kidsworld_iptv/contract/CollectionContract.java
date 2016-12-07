@@ -1,30 +1,25 @@
 package net.hunme.kidsworld_iptv.contract;
 
-import net.hunme.kidsworld_iptv.mode.ResourceContentVo;
+import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * ================================================
  * 作    者：ZLL
- * 时    间：2016/10/25
+ * 时    间：2016/12/5
  * 描    述：
  * 版    本：
  * 修订历史：
  * ================================================
  */
 public interface CollectionContract {
-    interface View {
-        void setKeyBord(List<Map<String, String>> mapList);
-
-        void setColletionContent(List<ResourceContentVo> contentList);
+    interface View{
+        void showCollection(List<CompilationsJsonVo> resFavoritesList,boolean isPagin);
     }
 
-    interface Presenter {
-        List<Map<String, String>> getKeyBordDate();
-
-        void getCollectionDate(String type, String name, String pageSize, String pageNumber);
-
+    interface Presenter{
+        void getCollectionRes(int pageNumber,int type);
+        void getPaginCollectionRes();
     }
 }

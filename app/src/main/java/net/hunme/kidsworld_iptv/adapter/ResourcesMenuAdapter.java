@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import net.hunme.kidsworld_iptv.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
     private ViewHold hold;
     private ListView listView;
     private ListView.OnItemSelectedListener itemSelect;
+    private List<Integer> ids;
+
     public ResourcesMenuAdapter(List<String> menuList) {
         this.menuList = menuList;
     }
@@ -36,6 +39,13 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
         this.menuList = menuList;
         this.listView = listView;
         this.listView.setOnItemSelectedListener(this);
+        ids = new ArrayList<>();
+//        ids.add(R.id.footprint);
+//        ids.add(R.id.collection);
+//        ids.add(R.id.notice);
+//        ids.add(R.id.dynamic);
+//        ids.add(R.id.recipes);
+//        ids.add(R.id.schedule);
     }
 
     @Override
@@ -59,6 +69,7 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_resources_menu, viewGroup, false);
             new ViewHold(view);
         }
+//        view.setId(ids.get(i));
         hold = (ViewHold) view.getTag();
         hold.tvMenu.setText(menuList.get(i));
         return view;
@@ -67,13 +78,14 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         setSelectView(view);
-        itemSelect.onItemSelected(adapterView,view,i,l);
+        itemSelect.onItemSelected(adapterView, view, i, l);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
 
     class ViewHold {
         TextView tvMenu;
@@ -101,7 +113,7 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
         notifyDataSetChanged();
     }
 
-    public void setItemSelect(ListView.OnItemSelectedListener itemSelect){
-        this.itemSelect=itemSelect;
+    public void setItemSelect(ListView.OnItemSelectedListener itemSelect) {
+        this.itemSelect = itemSelect;
     }
 }

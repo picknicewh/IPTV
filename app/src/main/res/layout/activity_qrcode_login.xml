@@ -1,89 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="net.hunme.kidsworld_iptv.activity.QRcodeLoginActivity">
 
     <LinearLayout
         android:id="@+id/ll_scancode"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/space_x1.5"
         android:visibility="visible">
 
-        <ImageView
+        <net.hunme.kidsworld_iptv.widget.RoundImageView
             android:id="@+id/iv_code"
-            android:layout_width="@dimen/TOWCODE_HEIGHT"
-            android:layout_height="@dimen/TOWCODE_HEIGHT"
-            android:padding="@dimen/space" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/dialog_user_login01"
-            android:textColor="@color/black"
-            android:textSize="@dimen/ts_x_large" />
+            android:layout_width="@dimen/px380"
+            android:layout_height="@dimen/px380"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/px310"
+            app:borderRadius="@dimen/round"
+            app:type="round" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/space"
-            android:text="@string/dialog_user_login02"
-            android:textColor="@color/black"
+            android:text="@string/dialog_user_login"
+            android:textColor="@color/white"
             android:textSize="@dimen/ts_x_large" />
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_scancode_success"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/space_x1.5">
+        android:visibility="gone">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <net.hunme.kidsworld_iptv.widget.RoundImageView
             android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/px300"
+            android:layout_height="@dimen/px300"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/px250"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_leimu"
-            app:civ_border_color="#0ff"
-            app:civ_border_width="2dp" />
+            app:type="circle" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/px80"
             android:text="扫码成功"
-            android:textColor="@color/black"
-            android:textSize="@dimen/ts_xx_large" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_xx_large"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/space_x2"
+            android:layout_marginTop="@dimen/space"
             android:text="请在手机上点击确认以登录"
+            android:textColor="@color/white"
             android:textSize="@dimen/ts_x_large" />
 
         <TextView
-            android:padding="@dimen/space"
-            android:background="@drawable/select_focuse_bg"
             android:id="@+id/tv_goback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/px130"
+            android:background="@drawable/select_focuse_bg"
             android:focusable="true"
+            android:padding="@dimen/space"
             android:text="返回二维码登录"
+            android:textColor="@color/item_yellow"
             android:textSize="@dimen/ts_x_large" />
     </LinearLayout>
 </LinearLayout>

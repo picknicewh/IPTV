@@ -1,75 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:scrollbars="none">-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="搜索结果"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ts_x_large"
+        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索结果"
-                android:textColor="@color/white"
-                android:textSize="@dimen/ts_x_large"
-                android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space"
+        android:text="专辑"
+        android:textColor="@color/item_yellow" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space"
-                android:text="专辑"
-                android:textColor="@color/item_yellow" />
+    <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
+        android:id="@+id/rv_album"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px400"
+        android:layout_marginTop="@dimen/space"
+        android:focusable="false" />
 
-            <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
-                android:focusable="false"
-                android:id="@+id/rv_album"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px400"
-                android:layout_marginTop="@dimen/space" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="资源名称"
+            android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="资源名称"
-                    android:textColor="@color/white" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="观看进度"
+            android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="观看进度"
-                    android:textColor="@color/white" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="所属专辑"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="所属专辑"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/space"
+        android:background="@mipmap/ic_dotted_line" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/space"
-                android:background="@mipmap/ic_dotted_line" />
-
-            <net.hunme.kidsworld_iptv.widget.NoScrollListView
-                android:id="@+id/lv_result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@mipmap/ic_dotted_line"
-                android:listSelector="@null"
-                android:scrollbars="none" />
-        </LinearLayout>
-</ScrollView>
+    <net.hunme.kidsworld_iptv.widget.MyListView
+        android:id="@+id/lv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@mipmap/ic_dotted_line"
+        android:scrollbars="none" />
+</LinearLayout><!--</ScrollView>-->

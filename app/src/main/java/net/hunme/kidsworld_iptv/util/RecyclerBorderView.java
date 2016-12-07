@@ -23,12 +23,10 @@ import net.hunme.kidsworld_iptv.R;
  * ================================================
  */
 public class RecyclerBorderView implements RecyclerViewTV.OnItemListener {
-    private MainUpView mainUpView;
     private Activity activity;
     private RecyclerViewTV recyclerView;
-    private View oldView;
-    private GirdViewItemSelect itemSelect;
-    private RecyclerViewBridge dafalutFrame;
+    private OnPaginSelectViewListen itemSelect;
+    private MainUpView upView;
     public RecyclerBorderView(Activity activity) {
         this.activity = activity;
     }
@@ -56,47 +54,40 @@ public class RecyclerBorderView implements RecyclerViewTV.OnItemListener {
 //        } else if (G.size.W == 1280) {
 //            mRecyclerViewBridge.setDrawUpRectPadding(new Rect(0, -20, 0, -75)); //设置边框的大小 不适配
 //        }
-        LinearLayoutManagerTV layoutManager = new LinearLayoutManagerTV(activity);
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManagerTV(activity, LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setSelectedItemAtCentered(true);
         recyclerView.setOnItemListener(this);
     }
 
     public void setRecyclerView(RecyclerViewTV recyclerView,MainUpView upView) {
-        upView.setEffectBridge(new RecyclerViewBridge());
+        this.upView=upView;
+        this.upView.setEffectBridge(new RecyclerViewBridge());
         this.recyclerView = recyclerView;
-        this.dafalutFrame = (RecyclerViewBridge) upView.getEffectBridge();
-        this.dafalutFrame.setDrawUpRectPadding(new Rect(20,10,20,20));
+        this.upView.setDrawUpRectPadding(new Rect(20,10,20,20));
         init();
     }
 
-    public void setItemSelect(GirdViewItemSelect itemSelect){
+    public void setItemSelect(OnPaginSelectViewListen itemSelect){
         this.itemSelect=itemSelect;
     }
 
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-        dafalutFrame.setUnFocusView(itemView);
+        upView.setUnFocusView(itemView);
     }
 
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-
-        dafalutFrame.setUpRectResource(R.drawable.ic_read);
-//        dafalutFrame.setShadowResource(R.drawable.ic_girad_bg);
-        dafalutFrame.setFocusView(itemView, G.ENLARGE);
-        oldView = itemView;
+        upView.setUpRectResource(R.drawable.ic_read);
+        upView.setFocusView(itemView, G.ENLARGE);
         if(itemSelect!=null){
-            itemSelect.onItemSelect(itemView,position);
+            itemSelect.onPaginListen(itemView,position);
         }
     }
 
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-//        dafalutFrame.setShadowResource(R.drawable.ic_girad_bg);
-        dafalutFrame.setUpRectResource(R.drawable.ic_read);
-        dafalutFrame.setFocusView(itemView, G.ENLARGE);
-        oldView = itemView;
+        upView.setUpRectResource(R.drawable.ic_read);
+        upView.setFocusView(itemView, G.ENLARGE);
     }
 }

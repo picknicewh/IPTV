@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/px1340"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="@dimen/px90"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/forus_menu02"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/px38" />
+
+    <TextView
+        android:layout_marginTop="@dimen/px55"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/setting_forus"
         android:textColor="@color/white"
-        android:textSize="@dimen/ts_large" />
+        android:textSize="@dimen/px32" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/space"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_marginTop="@dimen/space_x0.5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <net.hunme.kidsworld_iptv.widget.RoundImageView
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px380"
+            android:layout_marginTop="@dimen/px40"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_leimu" />
+            android:src="@mipmap/ic_leimu"
+            app:type="round"
+            app:borderRadius="@dimen/item_round"/>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/space_x2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px30"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space_x0.5"
-                android:textStyle="bold"
                 android:text="@string/forus_text01"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_xx_large" />
+                android:textSize="@dimen/px24"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +58,7 @@
                 android:padding="@dimen/space_x0.5"
                 android:text="@string/forus_text02"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_large" />
+                android:textSize="@dimen/px24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +66,7 @@
                 android:padding="@dimen/space_x0.5"
                 android:text="@string/forus_text03"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_large" />
+                android:textSize="@dimen/px24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +74,7 @@
                 android:padding="@dimen/space_x0.5"
                 android:text="@string/forus_text04"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_large" />
+                android:textSize="@dimen/px24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +82,7 @@
                 android:padding="@dimen/space_x0.5"
                 android:text="@string/forus_text05"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_large" />
+                android:textSize="@dimen/px24" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

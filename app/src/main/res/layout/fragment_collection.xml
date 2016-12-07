@@ -17,11 +17,13 @@
             android:background="@drawable/home_menu_black_bg">
 
             <TextView
+                android:textColor="@color/white_50"
+                android:nextFocusLeft="@id/collection"
+                android:nextFocusUp="@id/collection"
                 android:id="@+id/tv_move"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px250"
                 android:layout_height="@dimen/px90"
-                android:background="@mipmap/ic_home_menu_select"
                 android:text="动画坊" />
         </LinearLayout>
 
@@ -56,6 +58,7 @@
     </LinearLayout>
 
     <com.open.androidtvwidget.view.GridViewTV
+        android:nextFocusLeft="@id/collection"
         android:gravity="center"
         android:id="@+id/gv_content"
         android:layout_width="match_parent"

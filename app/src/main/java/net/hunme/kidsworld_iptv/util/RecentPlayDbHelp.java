@@ -1,12 +1,6 @@
 package net.hunme.kidsworld_iptv.util;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import net.hunme.kidsworld_iptv.mode.ResourceContentVo;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ================================================
@@ -38,19 +32,19 @@ public class RecentPlayDbHelp {
     /**
      * 查询所有数据数据,获取列表信息
      */
-    public List<ResourceContentVo> getSystemInformVo(SQLiteDatabase db) {
-        List<ResourceContentVo> resourceContentList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select * from recentplay", null);
-        int themeid = cursor.getColumnIndex("themeid");
-        int imgUrl = cursor.getColumnIndex("imgUrl");
-        int name = cursor.getColumnIndex("name");
-        while (cursor.moveToNext()) {
-            ResourceContentVo contentVo = new ResourceContentVo();
-            contentVo.setId(cursor.getString(themeid));
-            contentVo.setImgUrl(cursor.getString(imgUrl));
-            contentVo.setName(cursor.getString(name));
-            resourceContentList.add(0, contentVo);
-        }
-        return resourceContentList;
-    }
+//    public List<ResourceContentVo> getSystemInformVo(SQLiteDatabase db) {
+//        List<ResourceContentVo> resourceContentList = new ArrayList<>();
+//        Cursor cursor = db.rawQuery("select * from recentplay", null);
+//        int themeid = cursor.getColumnIndex("themeid");
+//        int imgUrl = cursor.getColumnIndex("imgUrl");
+//        int name = cursor.getColumnIndex("name");
+//        while (cursor.moveToNext()) {
+//            ResourceContentVo contentVo = new ResourceContentVo();
+//            contentVo.setId(cursor.getString(themeid));
+//            contentVo.setImgUrl(cursor.getString(imgUrl));
+//            contentVo.setName(cursor.getString(name));
+//            resourceContentList.add(0, contentVo);
+//        }
+//        return resourceContentList;
+//    }
 }

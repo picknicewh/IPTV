@@ -50,13 +50,13 @@ public class G {
     /**
      * 分页加载数量
      */
-    public static final int PAGESIZE = 20;
+    public static final int PAGESIZE = 30;
     /**
-     *  分页加载临界值
+     * 分页加载临界值
      */
-    public static final int CRITICALCODE=8;
+    public static final int CRITICALCODE = 5;
 
-    public static final float ENLARGE=1.15f;
+    public static final float ENLARGE = 1.15f;
 
     /**
      * 初始化屏幕尺寸
@@ -183,5 +183,10 @@ public class G {
             imageUrl = imageUrl.substring(0, index - 2) + imageUrl.substring(index, imageUrl.length());
         }
         return imageUrl;
+    }
+
+    public static class IPTV_TYPE {
+        public static int MOVE = 1;//视频
+        public static int MUSIC = 2;//音频
     }
 }

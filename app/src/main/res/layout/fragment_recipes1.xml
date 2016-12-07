@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,130 +11,146 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/px90"
         android:orientation="horizontal">
+
         <TextView
+            android:layout_width="@dimen/px300"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:padding="@dimen/space"
             android:text="一周食谱"
-            android:textSize="@dimen/ts_xx_large"
             android:textColor="@color/orange"
-            android:layout_gravity="center"
-            android:layout_width="@dimen/px300"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/ts_xx_large" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/home_menu_black_bg">
 
             <TextView
-                android:textColor="@color/white_50"
                 android:id="@+id/tv_monday"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px90"
-                android:background="@mipmap/ic_home_menu_select"
-                android:text="周一" />
+                android:text="周一"
+                android:textColor="@color/white_50" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space"
             android:background="@drawable/home_menu_black_bg">
+
             <TextView
                 android:id="@+id/tv_tuesday"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px90"
+                android:textColor="@color/white_50"
                 android:text="周二" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space"
             android:background="@drawable/home_menu_black_bg">
 
             <TextView
-                android:textColor="@color/white_50"
                 android:id="@+id/tv_wednesday"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px90"
-                android:text="周三" />
+                android:text="周三"
+                android:textColor="@color/white_50" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="@dimen/space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space"
             android:background="@drawable/home_menu_black_bg">
 
             <TextView
-                android:textColor="@color/white_50"
                 android:id="@+id/tv_thursday"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px90"
-                android:text="周四" />
+                android:text="周四"
+                android:textColor="@color/white_50" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginLeft="@dimen/space"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space"
             android:background="@drawable/home_menu_black_bg">
 
             <TextView
-                android:textColor="@color/white_50"
                 android:id="@+id/tv_friday"
                 style="@style/MyTextViewStyle"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px90"
-                android:text="周五" />
+                android:text="周五"
+                android:textColor="@color/white_50" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:background="@drawable/resources_grid_view_bg"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/resources_grid_view_bg"
+        android:orientation="vertical">
+
         <TextView
-            android:paddingTop="@dimen/px100"
-            android:gravity="center"
-            android:text="今日食谱"
-            android:textSize="@dimen/ts_xxx_large"
-            android:textColor="@color/orange"
+            android:id="@+id/tv_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:paddingTop="@dimen/px100"
+            android:text="今日食谱"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/ts_xxx_large" />
+
         <LinearLayout
-            android:layout_marginTop="@dimen/px150"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px150"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <net.hunme.kidsworld_iptv.widget.RoundImageView
                 android:id="@+id/iv_breakfast"
-                android:layout_marginLeft="@dimen/px64"
+                android:layout_width="@dimen/px416"
+                android:layout_height="@dimen/px290"
                 android:gravity="center"
                 android:src="@mipmap/ic_leimu"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290" />
-            <ImageView
+                app:borderRadius="@dimen/item_round"
+                app:type="round" />
+
+            <net.hunme.kidsworld_iptv.widget.RoundImageView
                 android:id="@+id/iv_launch"
-                android:layout_marginLeft="@dimen/px30"
+                android:layout_width="@dimen/px416"
+                android:layout_height="@dimen/px290"
+                android:layout_marginLeft="@dimen/px60"
                 android:gravity="center"
                 android:src="@mipmap/ic_leimu"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290" />
-            <ImageView
+                app:borderRadius="@dimen/item_round"
+                app:type="round" />
+
+            <net.hunme.kidsworld_iptv.widget.RoundImageView
                 android:id="@+id/iv_dinner"
+                android:layout_width="@dimen/px416"
+                android:layout_height="@dimen/px290"
                 android:layout_marginLeft="@dimen/px30"
                 android:gravity="center"
                 android:src="@mipmap/ic_leimu"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290" />
+                android:visibility="gone"
+                app:borderRadius="@dimen/item_round"
+                app:type="round"
+                />
         </LinearLayout>
     </LinearLayout>
-    <com.open.androidtvwidget.view.MainUpView
-        android:id="@+id/upview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </LinearLayout>

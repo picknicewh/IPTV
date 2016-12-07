@@ -1,5 +1,6 @@
 package net.hunme.kidsworld_iptv.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,8 +13,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
+import com.open.androidtvwidget.bridge.RecyclerViewBridge;
 import com.open.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
 import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
@@ -23,12 +24,12 @@ import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.adapter.CollectionKeyBordAdapter;
 import net.hunme.kidsworld_iptv.adapter.ColletionSearchAdapter;
 import net.hunme.kidsworld_iptv.adapter.RecylerViewAdapter;
-import net.hunme.kidsworld_iptv.contract.CollectionContract;
-import net.hunme.kidsworld_iptv.contract.CollectionPresenter;
-import net.hunme.kidsworld_iptv.mode.ResourceContentVo;
-import net.hunme.kidsworld_iptv.util.MasterUpView;
+import net.hunme.kidsworld_iptv.contract.SearchContract;
+import net.hunme.kidsworld_iptv.contract.SearchPresenter;
+import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
+import net.hunme.kidsworld_iptv.mode.ThemeManageVo;
 import net.hunme.kidsworld_iptv.widget.MyKeybordPopwindow;
-import net.hunme.kidsworld_iptv.widget.NoScrollListView;
+import net.hunme.kidsworld_iptv.widget.MyListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CollectionActivity extends BaseActivity implements CollectionContract.View {
+public class SearchActivity extends BaseActivity implements SearchContract.View {
 
     @Bind(R.id.et_collection)
     EditText etCollection;
@@ -46,9 +47,9 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
     GridView gvKeyboard;
 
     private LinearLayout llRecommend;
-    private ScrollView svSearch;
+    private LinearLayout llSearch;
     private CollectionKeyBordAdapter keyBordAdapter;
-    private CollectionContract.Presenter presenter;
+    private SearchContract.Presenter presenter;
     private List<String> menuDate;
     private MyKeybordPopwindow popwindow;
     private MainUpView upView;
@@ -61,8 +62,12 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
     private RecylerViewAdapter albumAdapter;
     private ColletionSearchAdapter searchAdapter;//搜索结果ListView Adapter
     private RecyclerViewTV rvAlbum; //搜索专辑
-    private NoScrollListView lvResult; //搜索结果
-
+    private MyListView lvResult; //搜索结果
+    private List<Map<String, String>> mapList;
+    private List<CompilationsJsonVo> moveHotSearchList;
+    private List<CompilationsJsonVo> musicHotSearchList;
+    private List<CompilationsJsonVo> searchResDateList;
+    private List<ThemeManageVo> searchThemeList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +77,15 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
 
     @Override
     protected void initDate() {
-        upView = new MasterUpView().getDefaulFrame(this);
-        presenter = new CollectionPresenter(this);
+        upView = new MainUpView(this);
+        upView.attach2Window(this);
+        upView.setEffectBridge(new RecyclerViewBridge());
+        upView.setUpRectResource(R.drawable.select_frame);
+
+        mapList = new ArrayList<>();
+        keyBordAdapter = new CollectionKeyBordAdapter(mapList, gvKeyboard, upView);
+        gvKeyboard.setAdapter(keyBordAdapter);
+        presenter = new SearchPresenter(this);
         keyBordDate = presenter.getKeyBordDate();
         menuDate = new ArrayList<>();
         gvKeyboard.setSelector(new ColorDrawable(Color.TRANSPARENT));//去除gradView默认的选中背景
@@ -99,7 +111,7 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
                     menuDate.add(keyBordDate.get(i).get("letter"));//添加字母
                     menuDate.add(keyBordDate.get(i).get("number"));//添加数字
 
-                    popwindow = new MyKeybordPopwindow(CollectionActivity.this);
+                    popwindow = new MyKeybordPopwindow(SearchActivity.this);
                     popwindow.setTextViewContent(menuDate);//设置窗口数据
                     popwindow.showAtLocation(gvKeyboard, Gravity.CENTER_VERTICAL, -550, -40);//弹出键盘框
                     //键盘失去焦点提供焦点给按键选择数字
@@ -108,6 +120,7 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
                 }
             }
         });
+
         etCollection.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -124,7 +137,7 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
                     return;
                 }
                 llRecommend.setVisibility(View.GONE);
-                svSearch.setVisibility(View.VISIBLE);
+                llSearch.setVisibility(View.VISIBLE);
             }
         });
         initRecommendView();
@@ -133,14 +146,28 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
 
     @Override
     public void setKeyBord(List<Map<String, String>> mapList) {
-        keyBordAdapter = new CollectionKeyBordAdapter(mapList, gvKeyboard, upView);
-        gvKeyboard.setAdapter(keyBordAdapter);
+        this.mapList.clear();
+        this.mapList.addAll(mapList);
+        keyBordAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setColletionContent(List<ResourceContentVo> contentList) {
-        //设置搜索内容
+    public void setMoveHotSearch(List<CompilationsJsonVo> compilationsList) {
+        moveHotSearchList.addAll(compilationsList);
+        movieAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void setMusicHotSearch(List<CompilationsJsonVo> compilationsList) {
+        musicHotSearchList.addAll(compilationsList);
+        musicAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setSearchDate(List<CompilationsJsonVo> compilationsList, List<ThemeManageVo> manageList) {
+
+    }
+
 
     /**
      * 设置键盘按压的值
@@ -202,26 +229,66 @@ public class CollectionActivity extends BaseActivity implements CollectionContra
         llRecommend = (LinearLayout) findViewById(R.id.ll_recommend);
         rvMovie = (RecyclerViewTV) llRecommend.findViewById(R.id.rv_movie);
         rvMusic = (RecyclerViewTV) llRecommend.findViewById(R.id.rv_music);
-        movieAdapter = new RecylerViewAdapter(rvMovie, upView);
-        musicAdapter = new RecylerViewAdapter(rvMusic, upView);
-        rvMovie.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayout.HORIZONTAL, false));
-        rvMusic.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayout.HORIZONTAL, false));
+        moveHotSearchList=new ArrayList<>();
+        musicHotSearchList=new ArrayList<>();
+        movieAdapter = new RecylerViewAdapter(rvMovie, upView,moveHotSearchList);
+        musicAdapter = new RecylerViewAdapter(rvMusic, upView,musicHotSearchList);
 
+        rvMovie.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayout.HORIZONTAL, false));
+
+        rvMusic.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayout.HORIZONTAL, false));
         rvMusic.setAdapter(musicAdapter);
         rvMovie.setAdapter(movieAdapter);
+        presenter.getHotSearch(1,G.IPTV_TYPE.MOVE);
+        presenter.getHotSearch(1,G.IPTV_TYPE.MUSIC);
+        rvMovie.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+                if(moveHotSearchList.size()>0){
+                    Intent intent=new Intent(SearchActivity.this,ResourceDetlisActivity.class);
+                    intent.putExtra("compilation", moveHotSearchList.get(position));
+                    startActivity(intent);
+                }
+            }
+        });
+        rvMusic.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+                Intent intent=new Intent(SearchActivity.this,ResourceDetlisActivity.class);
+                intent.putExtra("compilation", musicHotSearchList.get(position));
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
      * 搜索结果
      */
     private void initSearchResult() {
-        svSearch= (ScrollView) findViewById(R.id.sv_search);
-        rvAlbum = (RecyclerViewTV) svSearch.findViewById(R.id.rv_album);
-        lvResult = (NoScrollListView) svSearch.findViewById(R.id.lv_result);
+        llSearch = (LinearLayout) findViewById(R.id.ll_search);
+        lvResult = (MyListView) llSearch.findViewById(R.id.lv_result);
+        rvAlbum = (RecyclerViewTV) llSearch.findViewById(R.id.rv_album);
         rvAlbum.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayout.HORIZONTAL, false));
-        albumAdapter = new RecylerViewAdapter(rvAlbum, upView);
+        searchResDateList=new ArrayList<>();
+
+        albumAdapter = new RecylerViewAdapter(rvAlbum, upView,searchResDateList);
         rvAlbum.setAdapter(albumAdapter);
-        searchAdapter = new ColletionSearchAdapter();
+        rvAlbum.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+                G.showToast(SearchActivity.this,position+"========");
+            }
+        });
+
+        searchAdapter = new ColletionSearchAdapter(upView,lvResult,albumAdapter);
         lvResult.setAdapter(searchAdapter);
+        lvResult.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        lvResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                G.showToast(SearchActivity.this,i+"xxxxxxxxxxxxxxxxxxxxxxxxxx");
+            }
+        });
     }
 }

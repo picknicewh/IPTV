@@ -15,7 +15,13 @@ import com.open.androidtvwidget.view.MainUpView;
 import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.activity.NoticeDetlisActivity;
 import net.hunme.kidsworld_iptv.adapter.NoticeAdapter;
+import net.hunme.kidsworld_iptv.contract.NoticeContract;
+import net.hunme.kidsworld_iptv.contract.NoticePresenter;
+import net.hunme.kidsworld_iptv.mode.MessageJsonVo;
 import net.hunme.kidsworld_iptv.widget.MyListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * 通知
  */
-public class NoticeFragment extends Fragment implements View.OnFocusChangeListener {
+public class NoticeFragment extends Fragment implements View.OnFocusChangeListener,NoticeContract.View{
     //系统通知
     @Bind(R.id.tv_system)
     TextView tvSystem;
@@ -39,6 +45,8 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
 
     private View oldView;
     private NoticeAdapter adapter;
+    private List<MessageJsonVo> messageList;
+    private NoticeContract.presenter presenter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +55,9 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
         tvSystem.setOnFocusChangeListener(this);
         tvSchool.setOnFocusChangeListener(this);
         oldView = tvSystem;
-        adapter=new NoticeAdapter(lvContent,upview);
+        messageList=new ArrayList<>();
+        presenter=new NoticePresenter(this);
+        adapter=new NoticeAdapter(lvContent,upview,messageList);
         lvContent.setAdapter(adapter);
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,6 +81,7 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
                 case R.id.tv_system:
                     break;
                 case R.id.tv_school:
+                    presenter.getSchoolNotice();
                     break;
                 default:
                     return;
@@ -83,5 +94,12 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
             ((TextView)view).setTextColor(getResources().getColor(R.color.white));
             oldView = view;
         }
+    }
+
+    @Override
+    public void showNotice(List<MessageJsonVo> messageList) {
+        this.messageList.clear();
+        this.messageList.addAll(messageList);
+        adapter.notifyDataSetChanged();
     }
 }
