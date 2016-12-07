@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/px400"
+    android:layout_height="@dimen/px400">
+     <ImageView
+         android:src="@mipmap/ic_leimu"
+         android:layout_gravity="center"
+         android:id="@+id/iv_item_image"
+         android:layout_width="@dimen/px400"
+         android:layout_height="@dimen/px400" />
+</FrameLayout>
