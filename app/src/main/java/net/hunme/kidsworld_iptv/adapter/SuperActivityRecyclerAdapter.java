@@ -1,6 +1,5 @@
 package net.hunme.kidsworld_iptv.adapter;
 
-import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +29,11 @@ public class SuperActivityRecyclerAdapter extends RecyclerView.Adapter<SuperActi
     private List<CompilationsJsonVo> compilationsList;
     private MainUpView upView;
     private RecyclerViewTV viewTV;
-
+    private ViewHold viewHold;
     public SuperActivityRecyclerAdapter(List<CompilationsJsonVo> compilationsList, MainUpView upView, RecyclerViewTV viewTV) {
         this.compilationsList = compilationsList;
         upView.setEffectBridge(new RecyclerViewBridge());
-        upView.setDrawUpRectPadding(new Rect(20,10,20,20));
+        upView.setUpRectResource(R.drawable.select_frame);
         this.upView = upView;
         this.viewTV = viewTV;
         this.viewTV.setSelectedItemAtCentered(true);
@@ -60,26 +59,34 @@ public class SuperActivityRecyclerAdapter extends RecyclerView.Adapter<SuperActi
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
         upView.setUnFocusView(itemView);
+        viewHold= (ViewHold) itemView.getTag();
+        viewHold.vLightBg.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-        upView.setUpRectResource(R.drawable.ic_read);
-        upView.setFocusView(itemView,1.0f);
+        upView.setFocusView(itemView, 1.0f);
+        viewHold= (ViewHold) itemView.getTag();
+        viewHold.vLightBg.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-        upView.setUpRectResource(R.drawable.ic_read);
-        upView.setFocusView(itemView,1.0f);
+        upView.setFocusView(itemView, 1.0f);
+        viewHold= (ViewHold) itemView.getTag();
+        viewHold.vLightBg.setVisibility(View.VISIBLE);
+
     }
 
     class ViewHold extends RecyclerView.ViewHolder {
         ImageView ivPoster;
+        View vLightBg;
 
         public ViewHold(View itemView) {
             super(itemView);
             ivPoster = (ImageView) itemView.findViewById(R.id.iv_poster);
+            vLightBg = itemView.findViewById(R.id.v_light_bg);
+            itemView.setTag(this);
         }
     }
 }

@@ -1,5 +1,7 @@
 package net.hunme.kidsworld_iptv.widget;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -11,11 +13,13 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import net.hunme.kidsworld_iptv.R;
@@ -29,7 +33,7 @@ import net.hunme.kidsworld_iptv.R;
  * 修订历史：
  * ================================================
  */
-public class RoundImageView extends ImageView{
+public class RoundImageView extends ImageView {
     /**
      * 图片的类型，圆形or圆角
      */
@@ -66,9 +70,8 @@ public class RoundImageView extends ImageView{
      */
     private int mWidth;
     private RectF mRoundRect;
-
+    private ObjectAnimator mRotateAnimator;
     public RoundImageView(Context context, AttributeSet attrs) {
-
         super(context, attrs);
         mMatrix = new Matrix();
         mBitmapPaint = new Paint();
@@ -85,6 +88,7 @@ public class RoundImageView extends ImageView{
         type = a.getInt(R.styleable.RoundImageView_type, TYPE_CIRCLE);// 默认为Circle
 
         a.recycle();
+        init();
     }
 
     public RoundImageView(Context context) {
@@ -241,5 +245,36 @@ public class RoundImageView extends ImageView{
     public int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
+    }
+
+    private void init() {
+        mRotateAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f);
+        mRotateAnimator.setDuration(14400);
+        mRotateAnimator.setInterpolator(new LinearInterpolator());
+        mRotateAnimator.setRepeatMode(ValueAnimator.RESTART);
+        mRotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
+    }
+
+    // Animation
+    public void startRotateAnimation() {
+        mRotateAnimator.cancel();
+        mRotateAnimator.start();
+    }
+
+    public void cancelRotateAnimation() {
+        mRotateAnimator.cancel();
+    }
+
+
+    public void pauseRotateAnimation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mRotateAnimator.pause();
+        }
+    }
+
+    public void resumeRotateAnimation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mRotateAnimator.resume();
+        }
     }
 }

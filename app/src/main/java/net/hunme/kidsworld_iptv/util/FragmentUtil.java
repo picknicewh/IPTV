@@ -38,7 +38,6 @@ public class FragmentUtil {
 //            } else {
 //                fragmentTransaction = fragmentTransaction.setCustomAnimations(R.anim.slide_top_in_s, R.anim.slide_top_out_s).hide(mContent);
 //            }
-            G.log("================="+!toFragment.isAdded());
             fragmentTransaction.hide(mContent); //将之前页面表现在最前面
             if (!toFragment.isAdded()) // 先判断是否被add过
                 fragmentTransaction.add(fragmentlayoutId, toFragment).commit(); // 隐藏当前的fragment，add下一个到Activity中

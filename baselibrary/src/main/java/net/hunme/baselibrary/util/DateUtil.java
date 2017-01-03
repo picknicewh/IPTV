@@ -28,7 +28,7 @@ public class DateUtil {
         if(G.isEmteny(dateStr)){
             return "";
         }
-        String data = DATE_TIME.format(Integer.parseInt(dateStr));
+        String data = DATE_TIME.format((int)Double.parseDouble(dateStr));
         return data;
     }
 
@@ -110,7 +110,7 @@ public class DateUtil {
      * @return
      */
     public static String getWeekOfDate(Date dt) {
-        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;

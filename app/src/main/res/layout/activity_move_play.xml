@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,22 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center" />
-    <!--<fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard-->
-    <!--android:id="@+id/custom_videoplayer_standard"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-    <!--</fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>-->
 
-    <!--<net.hunme.kidsworld_iptv.widge.CustomVideoView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/vv_move"/>-->
+    <RelativeLayout
+        android:id="@+id/ll_music_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/ic_music_play_bg" />
+
+        <net.hunme.kidsworld_iptv.widget.RoundImageView
+            android:id="@+id/riv_album"
+            android:layout_width="@dimen/px400"
+            android:layout_height="@dimen/px400"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px300"
+            android:visibility="visible"
+            app:type="circle" />
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/ll_hint"
         android:layout_width="@dimen/px300"
         android:layout_height="@dimen/px160"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px460"
+        android:layout_marginTop="@dimen/px700"
         android:background="@drawable/play_type_bg"
         android:orientation="vertical"
         android:visibility="gone">
@@ -50,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="00:39"
                 android:textColor="@color/item_yellow"
                 android:textSize="@dimen/px24" />
 
@@ -59,7 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="/45:16"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px24" />
         </LinearLayout>
@@ -89,13 +101,16 @@
             android:layout_height="@dimen/px90"
             android:src="@mipmap/ic_pause" />
 
-        <ProgressBar
+        <SeekBar
             android:id="@+id/pb_play"
-            style="@style/StyleProgressBarMini"
             android:layout_width="@dimen/px1370"
-            android:layout_height="@dimen/px5"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/px60" />
+            android:layout_marginLeft="@dimen/px60"
+            android:focusable="false"
+            android:maxHeight="@dimen/px5"
+            android:progressDrawable="@drawable/shape_progressbar_mini"
+            android:thumb="@mipmap/ic_thumb" />
 
         <TextView
             android:id="@+id/tv_play_speed"
@@ -103,7 +118,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/px30"
-            android:text="00:39"
             android:textColor="@color/item_yellow"
             android:textSize="@dimen/px24" />
 
@@ -112,7 +126,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="/45:16"
             android:textColor="@color/white"
             android:textSize="@dimen/px24" />
     </LinearLayout>
@@ -131,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space"
-            android:text="镇魂街"
             android:textColor="@color/white"
             android:textSize="@dimen/ts_x_large" />
 
@@ -141,7 +153,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/space"
             android:paddingLeft="@dimen/space"
-            android:text="共20集"
             android:textColor="@color/white_50"
             android:textSize="@dimen/ts_large" />
 

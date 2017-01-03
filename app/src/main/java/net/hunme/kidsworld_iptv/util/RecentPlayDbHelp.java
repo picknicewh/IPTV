@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class RecentPlayDbHelp {
     private static RecentPlayDbHelp dbHelp;
 
-    public static RecentPlayDbHelp getinstance() {
+    public static RecentPlayDbHelp getInstance() {
         if (dbHelp == null) {
             dbHelp = new RecentPlayDbHelp();
         }

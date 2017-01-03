@@ -22,11 +22,11 @@ public interface ResListContract {
     }
 
     interface Presenter {
-        void getResReleases(int pageNumber, int type, String url,boolean isThemeByAlbum);
+        void getResReleases(int pageNumber, String type, String url,boolean isThemeByAlbum);
 
         void getPaginReleases();
 
-        void getThemeList(int pageNumber, int type);
+        void getThemeList(int pageNumber, String type);
 
         void getPaginTheme();
     }

@@ -5,72 +5,83 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/space_x2">
+
     <TextView
-        android:textStyle="bold"
+        android:visibility="invisible"
+        android:focusable="true"
         android:id="@+id/tv_01"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignLeft="@id/tv_01"
         android:layout_below="@id/tv_01"
-        android:background="@drawable/keybord_bg"
+        android:background="@mipmap/ic_keybord_select_off"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/ts_x_large" />
+        android:textColor="@color/keybord_text"
+        android:textSize="@dimen/ts_x_large"
+        android:textStyle="bold" />
 
-   <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
-       <TextView
-           android:textStyle="bold"
-           android:layout_marginTop="@dimen/space_x2"
-           android:id="@+id/tv_02"
-           android:layout_width="60dp"
-           android:layout_height="60dp"
-           android:layout_alignLeft="@id/tv_01"
-           android:layout_below="@id/tv_01"
-           android:background="@drawable/keybord_bg"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:textSize="@dimen/ts_x_large" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-       <TextView
-           android:textStyle="bold"
-           android:focusable="true"
-           android:layout_margin="@dimen/space_x2"
-           android:id="@+id/tv_05"
-           android:layout_width="60dp"
-           android:layout_height="60dp"
-           android:layout_alignLeft="@id/tv_01"
-           android:layout_below="@id/tv_01"
-           android:background="@drawable/keybord_bg"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:textSize="@dimen/ts_x_large" />
+        <TextView
+            android:visibility="invisible"
+            android:focusable="true"
+            android:id="@+id/tv_02"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignLeft="@id/tv_01"
+            android:layout_below="@id/tv_01"
+            android:layout_marginTop="@dimen/space_x2"
+            android:background="@mipmap/ic_keybord_select_off"
+            android:gravity="center"
+            android:textColor="@color/keybord_text"
+            android:textSize="@dimen/ts_x_large"
+            android:textStyle="bold" />
 
-       <TextView
-           android:textStyle="bold"
-           android:layout_marginTop="@dimen/space_x2"
-           android:id="@+id/tv_04"
-           android:layout_width="60dp"
-           android:layout_height="60dp"
-           android:layout_alignLeft="@id/tv_01"
-           android:layout_below="@id/tv_01"
-           android:background="@drawable/keybord_bg"
-           android:gravity="center"
-           android:textColor="@color/white"
-           android:textSize="@dimen/ts_x_large" />
-   </LinearLayout>
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_05"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignLeft="@id/tv_01"
+            android:layout_below="@id/tv_01"
+            android:layout_margin="@dimen/space_x2"
+            android:background="@mipmap/ic_keybord_select_off"
+            android:focusable="true"
+            android:gravity="center"
+            android:textColor="@color/keybord_text"
+            android:textSize="@dimen/ts_x_large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:visibility="invisible"
+            android:focusable="true"
+            android:id="@+id/tv_04"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignLeft="@id/tv_01"
+            android:layout_below="@id/tv_01"
+            android:layout_marginTop="@dimen/space_x2"
+            android:background="@mipmap/ic_keybord_select_off"
+            android:gravity="center"
+            android:textColor="@color/keybord_text"
+            android:textSize="@dimen/ts_x_large"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
+        android:visibility="invisible"
+        android:focusable="true"
         android:id="@+id/tv_03"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignLeft="@id/tv_01"
         android:layout_below="@id/tv_01"
-        android:background="@drawable/keybord_bg"
+        android:background="@mipmap/ic_keybord_select_off"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:textSize="@dimen/ts_x_large" />
+        android:textColor="@color/keybord_text"
+        android:textSize="@dimen/ts_x_large"
+        android:textStyle="bold" />
 </LinearLayout>

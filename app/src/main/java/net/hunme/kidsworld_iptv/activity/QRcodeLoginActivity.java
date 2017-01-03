@@ -57,6 +57,8 @@ public class QRcodeLoginActivity extends BaseActivity implements QRcodeLoginCont
 
     @Override
     public void setUserHeadImg(String headImg) {
+        llScancode.setVisibility(View.GONE);
+        llScancodeSuccess.setVisibility(View.VISIBLE);
         ImageCache.imageLoader(headImg, profileImage);
     }
 

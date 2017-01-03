@@ -22,6 +22,6 @@ public interface MovePlayContract {
     }
 
     interface Presenter {
-
+        void savePlayTheRecording(String resourceid, String broadcastPace, int type);
     }
 }

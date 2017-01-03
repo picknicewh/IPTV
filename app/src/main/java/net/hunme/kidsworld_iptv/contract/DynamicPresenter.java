@@ -86,17 +86,18 @@ public class DynamicPresenter implements DynamicContract.Presenter, OkHttpListen
         } else if (AppUrl.GETDYNAMIC.equals(uri)) {
             Result<List<DynamicInfoJsonVo>> result = (Result<List<DynamicInfoJsonVo>>) date;
 //            createTime = result.getMsec();
-            if (result.getData().size() > 0)
-                view.setDynamicInfo(result.getData(), isChange);
-            else
-                pageNumber--;
+            view.setDynamicInfo(result.getData(), isChange);
+            if (result.getData().size() <= 0)
+                pageNumber = pageNumber > 1 ? pageNumber-- : 1;
+//            else
+//                pageNumber = pageNumber > 1 ? pageNumber-- : 1;
         }
     }
 
     @Override
     public void onError(String uri, String error) {
         if (AppUrl.GETDYNAMIC.equals(uri)) {
-            pageNumber--;
+            pageNumber = pageNumber > 1 ? pageNumber-- : 1;
         }
     }
 }

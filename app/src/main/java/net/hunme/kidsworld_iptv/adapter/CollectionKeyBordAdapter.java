@@ -87,6 +87,7 @@ public class CollectionKeyBordAdapter extends BaseAdapter implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        upView.setUpRectResource(R.drawable.dr);
         upView.setFocusView(view,oldView, G.ENLARGE);
         oldView = view;
     }
@@ -98,6 +99,7 @@ public class CollectionKeyBordAdapter extends BaseAdapter implements AdapterView
 
     @Override
     public void onFocusChange(View view, boolean b) {
+        upView.setUpRectResource(R.drawable.dr);
         if (b) {
             upView.setFocusView(oldView,G.ENLARGE);
         } else {

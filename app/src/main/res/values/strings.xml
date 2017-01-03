@@ -21,4 +21,5 @@
     <string name="dialog_user_login">请使用“贝贝虎”App扫码登录</string>
     <string name="keybord_text01">1.中文搜索贝贝虎，需要输入BBH即可</string>
     <string name="keybord_text02">2.英文搜索Baby，需输入Baby</string>
+    <string name="pay_prompt">你的资费已到期，为了不影响您收看，请及时购买套餐。</string>
 </resources>

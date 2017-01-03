@@ -22,43 +22,43 @@ public class DateWeekListUtil {
     public static List<String> getWeekList() {
         list=new ArrayList<>();
         String week = DateUtil.getWeekOfDate(new Date());
-        if (week.equals("星期一")) {
+        if (week.equals("周一")) {
             s1 = DateUtil.getNDaysLaterDate(0);
             s2 = DateUtil.getNDaysLaterDate(1);
             s3 = DateUtil.getNDaysLaterDate(2);
             s4 = DateUtil.getNDaysLaterDate(3);
             s5 = DateUtil.getNDaysLaterDate(4);
-        } else if (week.equals("星期二")) {
+        } else if (week.equals("周二")) {
             s1 = DateUtil.getNDaysLaterDate(-1);
             s2 = DateUtil.getNDaysLaterDate(0);
             s3 = DateUtil.getNDaysLaterDate(1);
             s4 = DateUtil.getNDaysLaterDate(2);
             s5 = DateUtil.getNDaysLaterDate(3);
-        } else if (week.equals("星期三")) {
+        } else if (week.equals("周三")) {
             s1 = DateUtil.getNDaysLaterDate(-2);
             s2 = DateUtil.getNDaysLaterDate(-1);
             s3 = DateUtil.getNDaysLaterDate(0);
             s4 = DateUtil.getNDaysLaterDate(1);
             s5 = DateUtil.getNDaysLaterDate(2);
-        } else if (week.equals("星期四")) {
+        } else if (week.equals("周四")) {
             s1 = DateUtil.getNDaysLaterDate(-3);
             s2 = DateUtil.getNDaysLaterDate(-2);
             s3 = DateUtil.getNDaysLaterDate(-1);
             s4 = DateUtil.getNDaysLaterDate(0);
             s5 = DateUtil.getNDaysLaterDate(1);
-        } else if (week.equals("星期五")) {
+        } else if (week.equals("周五")) {
             s1 = DateUtil.getNDaysLaterDate(-4);
             s2 = DateUtil.getNDaysLaterDate(-3);
             s3 = DateUtil.getNDaysLaterDate(-2);
             s4 = DateUtil.getNDaysLaterDate(-1);
             s5 = DateUtil.getNDaysLaterDate(0);
-        } else if (week.equals("星期六")) {
+        } else if (week.equals("周六")) {
             s1 = DateUtil.getNDaysLaterDate(-5);
             s2 = DateUtil.getNDaysLaterDate(-4);
             s3 = DateUtil.getNDaysLaterDate(-3);
             s4 = DateUtil.getNDaysLaterDate(-2);
             s5 = DateUtil.getNDaysLaterDate(-1);
-        } else if (week.equals("星期日")) {
+        } else if (week.equals("周日")) {
             s1 = DateUtil.getNDaysLaterDate(-6);
             s2 = DateUtil.getNDaysLaterDate(-5);
             s3 = DateUtil.getNDaysLaterDate(-4);

@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/space_x2"
     android:paddingTop="@dimen/space">
 
     <LinearLayout
+        android:layout_marginLeft="@dimen/px60"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,21 +28,22 @@
                 app:type="round" />
 
             <TextView
+                android:maxLines="1"
+                android:paddingLeft="@dimen/px5"
+                android:paddingRight="@dimen/px5"
                 android:id="@+id/tv_poster_name_01"
                 android:layout_width="@dimen/px200"
                 android:layout_height="@dimen/px70"
-                android:background="@drawable/item_yellow"
                 android:gravity="center"
-                android:text="习惯养成"
                 android:textColor="@color/white"
                 android:visibility="visible" />
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/px360"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="@dimen/px80"
             android:gravity="center|bottom|left"
             android:orientation="vertical">
 
@@ -50,20 +51,17 @@
                 android:id="@+id/tv_res_name"
                 android:layout_width="@dimen/px240"
                 android:layout_height="@dimen/px70"
-                android:background="@drawable/item_purple"
                 android:gravity="center"
                 android:paddingLeft="@dimen/space"
                 android:paddingRight="@dimen/space"
-                android:text="正确的握笔和写字姿势"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ts_small" />
 
             <TextView
                 android:id="@+id/tv_poster_name_02"
-                android:layout_width="@dimen/px200"
+                android:layout_width="@dimen/px240"
                 android:layout_height="@dimen/px70"
                 android:gravity="center"
-                android:text="习惯养成"
                 android:textColor="@color/white"
                 android:visibility="gone" />
         </LinearLayout>
@@ -73,46 +71,44 @@
             android:layout_width="@dimen/px130"
             android:layout_height="@dimen/px50"
             android:layout_gravity="center|bottom"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/item_red"
+            android:layout_marginLeft="@dimen/px80"
             android:gravity="center_horizontal|center"
-            android:text="12:36"
             android:textColor="@color/white" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_look_progress"
             android:layout_width="@dimen/px130"
             android:layout_height="@dimen/px50"
             android:layout_gravity="center|bottom"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/item_green"
+            android:layout_marginLeft="@dimen/px80"
             android:gravity="center_horizontal|center"
-            android:text="70%"
             android:textColor="@color/white" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="@dimen/px80"
             android:orientation="vertical">
 
             <Button
+                android:layout_marginBottom="@dimen/px14"
+                android:layout_marginLeft="@dimen/px10"
                 android:id="@+id/b_operation"
-                android:layout_width="@dimen/px240"
-                android:layout_height="@dimen/px108"
+                android:layout_width="@dimen/px280"
+                android:layout_height="@dimen/px140"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/item_yellow"
+                android:background="@mipmap/ic_light_lookagin"
                 android:padding="@dimen/space"
-                android:text="点击继续"
+                android:focusable="false"
                 android:textColor="@color/white"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="未获得"
                 android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>

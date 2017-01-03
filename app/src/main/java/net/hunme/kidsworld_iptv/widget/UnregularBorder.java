@@ -53,8 +53,8 @@ public class UnRegularBorder extends View {
         frame = new Rect();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        bg_drawable = getResources().getDrawable(R.mipmap.picture);
-        pic_drawable = getResources().getDrawable(R.mipmap.ic_leimu);
+//        bg_drawable = getResources().getDrawable(R.mipmap.picture);
+//        pic_drawable = getResources().getDrawable(R.mipmap.ic_leimu);
         Bitmap fg = combineImages();
         pic_drawable = new BitmapDrawable(fg);
     }

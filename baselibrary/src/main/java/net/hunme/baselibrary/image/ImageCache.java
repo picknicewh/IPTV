@@ -8,6 +8,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import net.hunme.baselibrary.R;
+import net.hunme.baselibrary.util.G;
 
 /**
  * ================================================
@@ -22,12 +23,14 @@ import net.hunme.baselibrary.R;
 public class ImageCache {
     private static DisplayImageOptions options;
     private static ImageLoader imageLoader;
+
     /**
-     *  实例化设置获取图片的时候一些参数
+     * 实例化设置获取图片的时候一些参数
+     *
      * @return
      */
     private static ImageLoader ImageCache() {
-        if(imageLoader==null){
+        if (imageLoader == null) {
             options = new DisplayImageOptions.Builder()
                     .showImageOnLoading(R.mipmap.ic_img_error) // 设置图片下载期间显示的图片
                     .showImageForEmptyUri(R.mipmap.ic_img_error) // 设置图片Uri为空或是错误的时候显示的图片
@@ -36,38 +39,55 @@ public class ImageCache {
                     .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                     .considerExifParams(true) // 启用EXIF和JPEG图像格式
                     // .displayer(new RoundedBitmapDisplayer(10)) // 设置成圆角图片
-                    .bitmapConfig(Bitmap.Config.ARGB_4444).build(); // 构建完成
-            imageLoader =ImageLoader.getInstance();
+                    .bitmapConfig(Bitmap.Config.ARGB_8888).build(); // 构建完成
+            imageLoader = ImageLoader.getInstance();
         }
         return imageLoader;
     }
 
     /**
-     *  显示普通图片
-     * @param uri 图片地址
+     * 显示普通图片
+     *
+     * @param uri       图片地址
      * @param imageView
      */
-    public static void imageLoader(String uri, ImageView imageView){
-        ImageCache().displayImage(uri, imageView, options);
+    public static void imageLoader(String uri, ImageView imageView) {
+        if(imageView==null){
+            return;
+        }
+        ImageCache().displayImage(transFromImagUrl(uri), imageView, options);
     }
 
     /**
-     *  获取图片下载进度监听
+     * 获取图片下载进度监听
+     *
      * @param uri
      * @param imageView
-     * @param listener 图片下载进度监听
+     * @param listener  图片下载进度监听
      */
-    public static void imageLoader(String uri, ImageView imageView, SimpleImageLoadingListener listener){
-        ImageCache().displayImage(uri, imageView, listener);
+    public static void imageLoader(String uri, ImageView imageView, SimpleImageLoadingListener listener) {
+        ImageCache().displayImage(transFromImagUrl(uri), imageView, listener);
     }
 
     /**
-     *  获取一个uri的bitmap对象
+     * 获取一个uri的bitmap对象
+     *
      * @param uri
      * @return
      */
-    public static Bitmap getBitmap(String uri){
-        return ImageCache().loadImageSync(uri);
+    public static Bitmap getBitmap(String uri) {
+        return ImageCache().loadImageSync(transFromImagUrl(uri));
     }
 
+
+    private static String transFromImagUrl(String imgUrl) {
+        if(G.isEmteny(imgUrl)){
+            return "";
+        }
+
+//        if (imgUrl.contentEquals("\\")) {
+            imgUrl = imgUrl.replace("\\", "/");
+//        }
+        return imgUrl;
+    }
 }

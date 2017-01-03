@@ -1,5 +1,6 @@
 package net.hunme.kidsworld_iptv.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,15 @@ import android.widget.TextView;
 
 import com.open.androidtvwidget.view.MainUpView;
 
+import net.hunme.baselibrary.util.G;
 import net.hunme.kidsworld_iptv.R;
+import net.hunme.kidsworld_iptv.application.IPTVApp;
+import net.hunme.kidsworld_iptv.mode.FootPrintVo;
+import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
+import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,26 +35,46 @@ import butterknife.ButterKnife;
  * ================================================
  */
 public class ColletionSearchAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener, View.OnFocusChangeListener {
-    private MainUpView upView;
     private ListView listView;
     private View oldView;
     private ViewHolder hold;
     private int white_50;
     private int white;
-    private RecylerViewAdapter reyAdapter;
-    public ColletionSearchAdapter(MainUpView upView, ListView view,RecylerViewAdapter reyAdapter) {
-        this.upView = upView;
+    private List<ResourceManageVo> searchThemeList;
+    private List<FootPrintVo> footPrintList;
+    private OnPaginSelectViewListen onPaginSelectListen;
+    private MainUpView upView;
+    private boolean isFirstSelect = true;
+
+    public ColletionSearchAdapter(MainUpView upView, ListView view, List<ResourceManageVo> searchThemeList) {
         this.listView = view;
+        this.upView = upView;
+        this.searchThemeList = searchThemeList;
+        init();
+    }
+
+    public ColletionSearchAdapter(MainUpView upView, ListView view, ArrayList<FootPrintVo> footPrintList) {
+        this.listView = view;
+        this.upView = upView;
+        this.footPrintList = footPrintList;
+        init();
+    }
+
+
+    private void init() {
         this.listView.setOnItemSelectedListener(this);
         this.listView.setOnFocusChangeListener(this);
-        this.reyAdapter=reyAdapter;
-        white_50 = this.listView.getResources().getColor(R.color.white_50);
-        white = this.listView.getResources().getColor(R.color.white);
+        white_50 = ContextCompat.getColor(IPTVApp.getInstance().getApplicationContext(), R.color.white_50);
+        white = ContextCompat.getColor(IPTVApp.getInstance().getApplicationContext(), R.color.white);
     }
 
     @Override
     public int getCount() {
-        return 20;
+        if (searchThemeList != null)
+            return searchThemeList.size();
+        else if (footPrintList != null)
+            return footPrintList.size();
+        return 0;
     }
 
     @Override
@@ -65,12 +94,34 @@ public class ColletionSearchAdapter extends BaseAdapter implements AdapterView.O
             new ViewHolder(view);
         }
         hold = (ViewHolder) view.getTag();
+        if (searchThemeList != null) {
+            ResourceManageVo manage = searchThemeList.get(i);
+            hold.tvName.setText(manage.getResourceName());
+            hold.tvAlbum.setText(manage.getAlbumName());
+            hold.tvProgress.setVisibility(View.GONE);
+//            hold.tvProgress.setText(G.isEmteny(manage.getBroadcastPace()) ? "0%" : manage.getBroadcastPace());
+        } else if (footPrintList != null) {
+            FootPrintVo print = footPrintList.get(i);
+            hold.tvName.setText(print.getRESOURCE_NAME());
+            hold.tvAlbum.setText(print.getALBUM_NAME());
+            hold.tvProgress.setVisibility(View.GONE);
+//            hold.tvProgress.setText(G.isEmteny(print.getBroadcastPace()) ? "0%" : print.getBroadcastPace());
+        }
         return view;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (isFirstSelect) {
+            //搜索第一次取消选择
+            isFirstSelect = false;
+            oldView = view;
+            return;
+        }
         selectItemView(view);
+        if (onPaginSelectListen != null && searchThemeList != null && searchThemeList.size() - i < G.CRITICALCODE) {
+            onPaginSelectListen.onPaginListen(view, i);
+        }
     }
 
     @Override
@@ -80,8 +131,18 @@ public class ColletionSearchAdapter extends BaseAdapter implements AdapterView.O
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if(b){
-            selectItemView(oldView);
+        if (oldView != null) {
+            if (b) {
+                selectItemView(oldView);
+            } else {
+                hold = (ViewHolder) oldView.getTag();
+                hold.tvAlbum.setTextColor(white_50);
+                hold.tvName.setTextColor(white_50);
+                hold.tvProgress.setTextColor(white_50);
+                hold.tvAlbum.getPaint().setFakeBoldText(false);
+                hold.tvName.getPaint().setFakeBoldText(false);
+                hold.tvProgress.getPaint().setFakeBoldText(false);
+            }
         }
     }
 
@@ -105,19 +166,29 @@ public class ColletionSearchAdapter extends BaseAdapter implements AdapterView.O
     }
 
     private void selectItemView(View itemView) {
+        this.upView.setUpRectResource(0);
         if (oldView != null) {
             hold = (ViewHolder) oldView.getTag();
-            upView.setUnFocusView(hold.llBg);
             hold.tvAlbum.setTextColor(white_50);
             hold.tvName.setTextColor(white_50);
             hold.tvProgress.setTextColor(white_50);
+            hold.tvAlbum.getPaint().setFakeBoldText(false);
+            hold.tvName.getPaint().setFakeBoldText(false);
+            hold.tvProgress.getPaint().setFakeBoldText(false);
+            this.upView.setUnFocusView(oldView);
         }
         hold = (ViewHolder) itemView.getTag();
-        upView.setFocusView(hold.llBg, 1.0f);
         hold.tvAlbum.setTextColor(white);
         hold.tvName.setTextColor(white);
         hold.tvProgress.setTextColor(white);
+        hold.tvAlbum.getPaint().setFakeBoldText(true);
+        hold.tvName.getPaint().setFakeBoldText(true);
+        hold.tvProgress.getPaint().setFakeBoldText(true);
         oldView = itemView;
+        this.upView.setFocusView(itemView, 1.0f);
     }
 
+    public void setOnPaginSelectListen(OnPaginSelectViewListen onPaginSelectListen) {
+        this.onPaginSelectListen = onPaginSelectListen;
+    }
 }

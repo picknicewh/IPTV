@@ -28,7 +28,7 @@ public class ResDetilsPresenter implements ResDetilsContract.Presenter, OkHttpLi
     private ResDetilsContract.View view;
     private int pageNumber = 1;
     private String albumId;
-
+    private boolean isClean;
     public ResDetilsPresenter(ResDetilsContract.View view) {
         this.view = view;
     }
@@ -40,22 +40,24 @@ public class ResDetilsPresenter implements ResDetilsContract.Presenter, OkHttpLi
      * @param pageNumber
      */
     @Override
-    public void getCompilationsAllResource(String albumId, int pageNumber) {
+    public void getCompilationsAllResource(String albumId, int pageNumber,boolean isClean) {
         Map<String, Object> map = new HashMap<>();
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("pageSize", G.PAGESIZE);
         map.put("pageNumber", pageNumber);
         map.put("albumId", albumId);
+        map.put("account_id",IPTVApp.um.getAccounId());
         Type type = new TypeToken<Result<List<ResourceManageVo>>>() {
         }.getType();
         OkHttps.sendPost(type, AppUrl.GETCOMPILATIONALLRESOURCE, map, this);
         this.albumId = albumId;
+        this.isClean=isClean;
     }
 
     @Override
     public void getPaginCompialation() {
         pageNumber++;
-        getCompilationsAllResource(albumId, pageNumber);
+        getCompilationsAllResource(albumId, pageNumber,false);
     }
 
     @Override
@@ -73,13 +75,13 @@ public class ResDetilsPresenter implements ResDetilsContract.Presenter, OkHttpLi
     public void onSuccess(String uri, Object date) {
         Result<List<ResourceManageVo>> result = (Result<List<ResourceManageVo>>) date;
         if (result.getData().size() > 0)
-            view.showCompilationResource(result.getData());
+            view.showCompilationResource(result.getData(),isClean);
         else
-            pageNumber--;
+            pageNumber = pageNumber > 1 ? pageNumber-- : 1;
     }
 
     @Override
     public void onError(String uri, String error) {
-        pageNumber--;
+        pageNumber = pageNumber > 1 ? pageNumber-- : 1;
     }
 }

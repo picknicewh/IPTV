@@ -1,6 +1,7 @@
 package net.hunme.kidsworld_iptv.contract;
 
 import net.hunme.kidsworld_iptv.mode.MessageJsonVo;
+import net.hunme.kidsworld_iptv.util.PushDb;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface NoticeContract {
 
     interface presenter {
         void getSchoolNotice();
+        void getSystemNotice(PushDb db);
     }
 }

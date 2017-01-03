@@ -14,6 +14,7 @@ public class RQCodeVo {
     private String ts_name;
     private String imgurl;
     private String ts_id;
+    private String account_id;
 
     public String getMsg() {
         return msg;
@@ -45,5 +46,13 @@ public class RQCodeVo {
 
     public void setTs_id(String ts_id) {
         this.ts_id = ts_id;
+    }
+
+    public String getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(String account_id) {
+        this.account_id = account_id;
     }
 }

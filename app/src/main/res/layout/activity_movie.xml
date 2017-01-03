@@ -4,36 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingLeft="15dp"
-    android:paddingTop="25dp"
     android:paddingBottom="25dp"
+    android:paddingTop="25dp"
     tools:context=".activity.ResourcesListActivity">
 
     <LinearLayout
         android:layout_width="@dimen/px320"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/px320"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/space">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_image"
-                android:layout_width="@dimen/px98"
-                android:layout_height="@dimen/px98"
+                android:layout_width="@dimen/px90"
+                android:layout_height="@dimen/px90"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/space_x0.5"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_leimu" />
+                android:layout_marginTop="@dimen/px20"
+                android:focusable="false" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px100"
+                android:layout_height="@dimen/px100"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/ic_hot_suite" />
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_hot_suite"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/user_name"
@@ -53,31 +54,47 @@
                 android:layout_centerHorizontal="true"
                 android:text="探险天数：226天"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_small" />
+                android:textSize="@dimen/ts_small"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <net.hunme.kidsworld_iptv.widget.MyListView
             android:id="@+id/lv_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/px20"
+            android:animateLayoutChanges="true"
+            android:divider="@null"
+            android:focusable="true"
             android:scrollbars="none" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="@dimen/px1450"
+        android:layout_width="@dimen/px1470"
         android:layout_height="@dimen/px925"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_marginTop="@dimen/px20"
-            android:layout_marginBottom="@dimen/px90"
-            android:id="@+id/iv_search"
-            android:focusable="true"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:src="@mipmap/ic_search" />
+            android:layout_height="@dimen/px140"
+            android:layout_gravity="right">
+
+            <View
+                android:id="@+id/v_light_bg"
+                android:layout_width="@dimen/px125"
+                android:layout_height="@dimen/px85"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_search_light"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="@dimen/px100"
+                android:layout_height="@dimen/px60"
+                android:layout_centerInParent="true"
+                android:focusable="true"
+                android:src="@mipmap/ic_search" />
+        </RelativeLayout>
 
         <com.open.androidtvwidget.view.GridViewTV
             android:id="@+id/gv_content"
@@ -85,11 +102,11 @@
             android:layout_height="match_parent"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:columnWidth="@dimen/px240"
-            android:horizontalSpacing="@dimen/space_x2.5"
+            android:columnWidth="@dimen/px268"
+            android:horizontalSpacing="@dimen/px25"
             android:numColumns="5"
-            android:scrollbars="none"
-            android:verticalSpacing="@dimen/space_x2.5" />
+            android:paddingLeft="@dimen/px60"
+            android:scrollbars="none" />
     </LinearLayout>
 
 </LinearLayout>

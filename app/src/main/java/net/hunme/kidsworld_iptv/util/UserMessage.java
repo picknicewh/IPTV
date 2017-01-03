@@ -27,14 +27,24 @@ public class UserMessage {
         return um;
     }
 
+    public void setUserName(String userName) {
+        editor.putString("userName", userName);
+        editor.commit();
+    }
+
+    public String getUserName() {
+        return spf.getString("userName", "");
+    }
+
     public void setUserTsId(String tsId) {
         editor.putString("tsId", tsId);
         editor.commit();
     }
-//c14dceea93e244b6be7ceed3d65bf037
+
+    //c14dceea93e244b6be7ceed3d65bf037  王桦 c14dceea93e244b6be7ceed3d65bf037
     //正式服tsId: a83837fe72274191b3ee9e629debbd89    测试tsId: 9fc62f95a4014bb7bfcfaee7578787fc  c9441620ad664bf691b5d0d007488b2b
     public String getUserTsId() {
-        return spf.getString("tsId", "c14dceea93e244b6be7ceed3d65bf037");
+        return spf.getString("tsId", "");
     }
 
     public void setUserImgUrl(String imgUrl) {
@@ -55,5 +65,12 @@ public class UserMessage {
         return spf.getString("pushId", "");
     }
 
-    ;
+    public void setAccountId(String accountId) {
+        editor.putString("accountId", accountId);
+        editor.commit();
+    }
+
+    public String getAccounId() {
+        return spf.getString("accountId", "");
+    }
 }

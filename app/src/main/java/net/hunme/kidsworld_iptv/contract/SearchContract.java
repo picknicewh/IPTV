@@ -1,7 +1,8 @@
 package net.hunme.kidsworld_iptv.contract;
 
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
-import net.hunme.kidsworld_iptv.mode.ThemeManageVo;
+import net.hunme.kidsworld_iptv.mode.FootPrintVo;
+import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
 
 import java.util.List;
 import java.util.Map;
@@ -23,16 +24,24 @@ public interface SearchContract {
 
         void setMusicHotSearch(List<CompilationsJsonVo> compilationsList);
 
-        void setSearchDate(List<CompilationsJsonVo> compilationsList, List<ThemeManageVo> manageList);
+        void setSearchDate(List<CompilationsJsonVo> compilationsList, List<ResourceManageVo> manageList, boolean isPagin);
+
+        void setSearchFootPrint(List<FootPrintVo> footPrintList);
+
+        void intentFromFootPrint(ResourceManageVo manageLis);
     }
 
     interface Presenter {
         List<Map<String, String>> getKeyBordDate();
 
-        void getHotSearch(int pageNumber,int type);
+        void getHotSearch(int pageNumber, int type);
 
-        void getSearchDate();
+        void getSearchDate(int type, int pageNumber, String tag);
 
         void getPaginSearch();
+
+        void getSearchFootPrint(String tag);
+
+        void getFootPrintDetails(String resourceId);
     }
 }

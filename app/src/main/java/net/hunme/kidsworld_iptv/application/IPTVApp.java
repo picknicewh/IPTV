@@ -23,6 +23,7 @@ public class IPTVApp extends Application {
     private static IPTVApp instance;
     public static UserMessage um;
     public static String pushId;
+
     public static IPTVApp getInstance() {
         return instance;
     }
@@ -30,20 +31,25 @@ public class IPTVApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-        um = UserMessage.getInstance(this);
-        BaseLibrary.initializer(this);
-        //极光初始化
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
-        setJpushAilas();
+        String processName = ProcessManager.getProcessName(this, android.os.Process.myPid());
+        if (processName.equals("net.hunme.kidsworld_iptv")) {
+            //应用进程初始化
+            instance = this;
+            um = UserMessage.getInstance(this);
+            BaseLibrary.initializer(this);
+            //极光进程初始化
+            JPushInterface.setDebugMode(true);
+            JPushInterface.init(this);
+            setJpushAilas();
+        }
     }
 
-    public void setJpushAilas(){
-        if(G.isEmteny(um.getPushId())){
-            pushId= MD5Utils.encode(String.valueOf(System.currentTimeMillis()+Math.random()*100));
+    public void setJpushAilas() {
+        if (G.isEmteny(um.getPushId())) {
+            pushId = MD5Utils.encode(String.valueOf(System.currentTimeMillis() + Math.random() * 100));
+            G.log("================向极光传入的pushId===" + pushId);
             new JPushUtil().setJpushAlias(pushId);
         }
-        G.log("======================"+um.getPushId());
+        G.log("==========已经已保存的PushId============" + um.getPushId());
     }
 }

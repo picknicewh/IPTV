@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingTop="@dimen/px70"
     tools:context=".activity.ResourceDetlisActivity">
@@ -15,32 +15,31 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/px320"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="@dimen/space_x0.5"
                 android:id="@+id/user_image"
-                android:layout_width="@dimen/px98"
-                android:layout_height="@dimen/px98"
-                android:layout_centerHorizontal="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_leimu" />
+                android:layout_width="@dimen/px90"
+                android:layout_height="@dimen/px90"
+                android:layout_marginTop="@dimen/px20"
+                android:focusable="false" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/ic_hot_suite" />
+                android:layout_width="@dimen/px100"
+                android:layout_height="@dimen/px100"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_hot_suite"
+                android:visibility="visible" />
 
             <TextView
-                android:layout_marginTop="@dimen/space"
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_image"
-                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space"
                 android:text="李一冰"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ts_large" />
@@ -52,17 +51,17 @@
                 android:layout_centerHorizontal="true"
                 android:text="探险天数：226天"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_small" />
+                android:textSize="@dimen/ts_small"
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <net.hunme.kidsworld_iptv.widget.RoundImageView
             android:id="@+id/iv_cover"
             android:layout_width="@dimen/px160"
             android:layout_height="@dimen/px207"
-            android:layout_marginTop="@dimen/px60"
-            app:type="round"
+            android:layout_marginTop="@dimen/px20"
             app:borderRadius="@dimen/round"
-            android:src="@mipmap/ic_sword" />
+            app:type="round" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,23 +80,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
+                android:focusable="false"
                 android:text=" 2134收藏"
                 android:textSize="@dimen/px18" />
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/px10"
             android:id="@+id/tv_name"
             style="@style/MyTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px10"
+            android:focusable="false"
             android:text="习惯养成" />
 
         <TextView
             style="@style/MyTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px70"
+            android:layout_marginTop="@dimen/space"
+            android:focusable="false"
             android:text="节目介绍：" />
 
         <TextView
@@ -105,8 +107,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space"
+            android:ellipsize="end"
+            android:maxLines="6"
             android:textColor="@color/white"
-            android:text="习惯养成专辑专门针对3-4岁宝宝的日常习惯的引导，旨在培养宝宝的自主解决日常小问题的能力，帮助宝爸宝妈轻松教育宝宝好习惯，记得按顺序观看哦~"
             android:textSize="@dimen/px18" />
 
         <TextView
@@ -114,34 +117,57 @@
             style="@style/MyTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="bottom"
             android:layout_marginBottom="@dimen/px136"
+            android:focusable="false"
+            android:gravity="bottom"
             android:text="贝贝虎成长值：3点/集" />
     </LinearLayout>
 
     <LinearLayout
-        android:paddingLeft="@dimen/px60"
-        android:layout_width="@dimen/px1450"
+        android:layout_width="@dimen/px1470"
         android:layout_height="@dimen/px925"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px60">
+
         <LinearLayout
-            android:paddingTop="@dimen/px30"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px180"
+            android:layout_height="@dimen/px140"
             android:orientation="horizontal">
+
             <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
-                android:layout_marginTop="@dimen/space_x0.5"
                 android:id="@+id/rv_search_res"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_marginTop="@dimen/space_x0.5"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:visibility="gone" />
 
-            <ImageView
-                android:focusable="true"
-                android:id="@+id/iv_search"
-                android:layout_width="@dimen/px100"
-                android:layout_height="@dimen/px60"
-                android:src="@mipmap/ic_search"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/v_light_bg"
+                    android:layout_width="@dimen/px125"
+                    android:layout_height="@dimen/px85"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_search_light"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="@dimen/px100"
+                    android:layout_height="@dimen/px60"
+                    android:layout_centerInParent="true"
+                    android:focusable="true"
+                    android:src="@mipmap/ic_search" />
+            </RelativeLayout>
         </LinearLayout>
 
         <com.open.androidtvwidget.view.GridViewTV
@@ -151,10 +177,10 @@
             android:layout_weight="1"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:columnWidth="@dimen/px200"
-            android:horizontalSpacing="@dimen/space_x2.5"
+            android:columnWidth="@dimen/px268"
+            android:focusable="true"
+            android:horizontalSpacing="@dimen/px25"
             android:numColumns="5"
-            android:scrollbars="none"
-            android:verticalSpacing="@dimen/space_x2.5" />
+            android:scrollbars="none" />
     </LinearLayout>
 </LinearLayout>

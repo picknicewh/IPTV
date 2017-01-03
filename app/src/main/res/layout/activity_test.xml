@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="net.hunme.kidsworld_iptv.activity.TestActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_test01"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test02"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test03"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test05"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/space_x2"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_test04"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test06"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test07"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test08"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/space_x2"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_test09"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test10"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test11"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+
+        <ImageView
+            android:id="@+id/iv_test12"
+            android:layout_width="@dimen/px500"
+            android:layout_height="@dimen/px300" />
+    </LinearLayout>
+</LinearLayout>

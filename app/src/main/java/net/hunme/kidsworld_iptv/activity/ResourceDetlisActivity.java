@@ -14,9 +14,11 @@ import com.open.androidtvwidget.view.GridViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.baselibrary.image.ImageCache;
+import net.hunme.baselibrary.util.G;
 import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.adapter.GridAdapter;
 import net.hunme.kidsworld_iptv.adapter.ResourceInfoSearchAdpter;
+import net.hunme.kidsworld_iptv.application.IPTVApp;
 import net.hunme.kidsworld_iptv.contract.ResDetilsContract;
 import net.hunme.kidsworld_iptv.contract.ResDetilsPresenter;
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ResourceDetlisActivity extends BaseActivity implements ResDetilsContract.View, OnPaginSelectViewListen {
@@ -62,6 +65,9 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     @Bind(R.id.iv_search)
     ImageView ivSearch;
 
+    @Bind(R.id.v_light_bg)
+    View vLightBg;
+
     private GridAdapter adapter;
     //资源搜索适配器
     private ResourceInfoSearchAdpter searchAdpter;
@@ -70,19 +76,26 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     private List<ResourceManageVo> manageList;
     private CompilationsJsonVo compilation;//专辑
     private ResDetilsContract.Presenter presenter;
-    private boolean isClean=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_info);
+        ButterKnife.bind(this);
 
     }
 
     @Override
     protected void initDate() {
+        if (G.isEmteny(IPTVApp.um.getUserImagUrl())) {
+            userImage.setImageResource(R.mipmap.ic_portrait);
+        } else {
+            ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
+        }
+        userName.setText(IPTVApp.um.getUserName());
         upView = new MainUpView(this);
         upView.attach2Window(this);
+        ivSearch.clearFocus();
         compilation = (CompilationsJsonVo) getIntent().getSerializableExtra("compilation");
         presenter = new ResDetilsPresenter(this);
         manageList = new ArrayList<>();
@@ -95,8 +108,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
         searchAdpter.setOnPaginSelectViewListen(new OnPaginSelectViewListen() {
             @Override
             public void onPaginListen(View view, int position) {
-                isClean = true;
-                presenter.getCompilationsAllResource(compilation.getAlbumId(), position + 1);
+                presenter.getCompilationsAllResource(compilation.getAlbumId(), position + 1, true);
             }
         });
         rvSearchRes.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL, false));
@@ -111,17 +123,40 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
         gvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent=new Intent(ResourceDetlisActivity.this, MovePlayActivity.class);
-                intent.putExtra("compilation", compilation);
-                intent.putExtra("manageList", (Serializable) manageList);
-                intent.putExtra("pageNumber",presenter.getPageNumber());
-                intent.putExtra("playIndex",i);
-                startActivity(intent);
+//                if (manageList.get(i).getType().equals("1")) {
+                if (manageList.get(i).getPay().equals("2")) {
+                    Intent intent = new Intent(ResourceDetlisActivity.this, MovePlayActivity.class);
+                    intent.putExtra("compilation", compilation);
+                    intent.putExtra("manageList", (Serializable) manageList);
+                    intent.putExtra("pageNumber", presenter.getPageNumber());
+                    intent.putExtra("playIndex", i);
+                    startActivity(intent);
+                } else {
+                    G.showToast(ResourceDetlisActivity.this, getString(R.string.pay_prompt));
+                }
+//                } else if (manageList.get(i).getType().equals("2")) {
+//                    Intent intent = new Intent(ResourceDetlisActivity.this, MusicPlayActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
         setRescurseDetils(compilation);
-        presenter.getCompilationsAllResource(compilation.getAlbumId(), 1);
-        setSearchDateList(Integer.parseInt(compilation.getSize()));
+        presenter.getCompilationsAllResource(compilation.getAlbumId(), 1, true);
+//        setSearchDateList(Integer.parseInt(compilation.getSize()));
+
+        ivSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                upView.setUpRectResource(R.drawable.dr);
+                if (b) {
+                    vLightBg.setVisibility(View.VISIBLE);
+                    upView.setFocusView(ivSearch, 1.0f);
+                } else {
+                    vLightBg.setVisibility(View.INVISIBLE);
+                    upView.setUnFocusView(ivSearch);
+                }
+            }
+        });
     }
 
     private void setSearchDateList(int nmber) {
@@ -134,12 +169,12 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     }
 
     @Override
-    public void showCompilationResource(List<ResourceManageVo> manageList) {
+    public void showCompilationResource(List<ResourceManageVo> manageList, boolean isClean) {
         if (isClean) {
             this.manageList.clear();
             this.manageList.addAll(manageList);
             adapter.notifyDataSetInvalidated();
-            this.isClean = false;
+            gvContent.setDefualtSelect(0);
         } else {
             this.manageList.addAll(manageList);
             adapter.notifyDataSetChanged();
@@ -147,9 +182,8 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
 
     }
 
-
     private void setRescurseDetils(CompilationsJsonVo compilation) {
-        tvName.setText(compilation.getName());
+        tvName.setText(compilation.getAlbumName());
         tvIntroduce.setText(compilation.getBrief());
         tvCollectionNumber.setText(compilation.getFavorites());
         ImageCache.imageLoader(compilation.getImageUrl(), ivCover);

@@ -15,11 +15,11 @@ import java.util.List;
  */
 public interface ResDetilsContract {
     interface View {
-        void showCompilationResource(List<ResourceManageVo> manageList);
+        void showCompilationResource(List<ResourceManageVo> manageList,boolean isClean);
     }
 
     interface Presenter {
-        void getCompilationsAllResource(String albumId,int pageNumber);
+        void getCompilationsAllResource(String albumId,int pageNumber,boolean isClean);
         void getPaginCompialation();
         void synDate(String albumId,int pageNumber);
         int getPageNumber();

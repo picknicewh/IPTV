@@ -13,9 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="小朋友爱清洁"
+        android:maxLines="1"
+        android:paddingRight="@dimen/space"
+        android:ellipsize="end"
         android:textColor="@color/white_50" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

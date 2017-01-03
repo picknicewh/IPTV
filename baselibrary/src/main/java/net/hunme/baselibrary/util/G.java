@@ -50,7 +50,7 @@ public class G {
     /**
      * 分页加载数量
      */
-    public static final int PAGESIZE = 30;
+    public static final int PAGESIZE = 20;
     /**
      * 分页加载临界值
      */

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipChildren="false"
     tools:context="net.hunme.kidsworld_iptv.fragment.CollectionFragment">
 
     <LinearLayout
@@ -22,82 +23,60 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/ts_xx_large" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_menu_black_bg">
+        <TextView
+            android:id="@+id/tv_monday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px90"
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="周一"
+            android:textColor="@color/white_50" />
 
-            <TextView
-                android:id="@+id/tv_monday"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px200"
-                android:layout_height="@dimen/px90"
-                android:text="周一"
-                android:textColor="@color/white_50" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_tuesday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_bg">
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="周二"
+            android:textColor="@color/white_50" />
 
-            <TextView
-                android:id="@+id/tv_tuesday"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px200"
-                android:layout_height="@dimen/px90"
-                android:textColor="@color/white_50"
-                android:text="周二" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_wednesday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_bg">
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="周三"
+            android:textColor="@color/white_50" />
 
-            <TextView
-                android:id="@+id/tv_wednesday"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px200"
-                android:layout_height="@dimen/px90"
-                android:text="周三"
-                android:textColor="@color/white_50" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_thursday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_bg">
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="周四"
+            android:textColor="@color/white_50" />
 
-            <TextView
-                android:id="@+id/tv_thursday"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px200"
-                android:layout_height="@dimen/px90"
-                android:text="周四"
-                android:textColor="@color/white_50" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_friday"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px200"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_bg">
-
-            <TextView
-                android:id="@+id/tv_friday"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px200"
-                android:layout_height="@dimen/px90"
-                android:text="周五"
-                android:textColor="@color/white_50" />
-        </LinearLayout>
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="周五"
+            android:textColor="@color/white_50" />
     </LinearLayout>
 
     <LinearLayout
+        android:clipChildren="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/resources_grid_view_bg"
@@ -115,42 +94,23 @@
             android:textSize="@dimen/ts_xxx_large" />
 
         <LinearLayout
+            android:paddingBottom="@dimen/px50"
+            android:layout_marginTop="@dimen/px80"
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px150"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
+            android:layerType="software"
+            android:clipChildren="false"
+            android:layout_marginBottom="@dimen/px100"
             android:orientation="horizontal">
 
-            <net.hunme.kidsworld_iptv.widget.RoundImageView
-                android:id="@+id/iv_breakfast"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290"
-                android:gravity="center"
-                android:src="@mipmap/ic_leimu"
-                app:borderRadius="@dimen/item_round"
-                app:type="round" />
-
-            <net.hunme.kidsworld_iptv.widget.RoundImageView
-                android:id="@+id/iv_launch"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290"
-                android:layout_marginLeft="@dimen/px60"
-                android:gravity="center"
-                android:src="@mipmap/ic_leimu"
-                app:borderRadius="@dimen/item_round"
-                app:type="round" />
-
-            <net.hunme.kidsworld_iptv.widget.RoundImageView
-                android:id="@+id/iv_dinner"
-                android:layout_width="@dimen/px416"
-                android:layout_height="@dimen/px290"
-                android:layout_marginLeft="@dimen/px30"
-                android:gravity="center"
-                android:src="@mipmap/ic_leimu"
-                android:visibility="gone"
-                app:borderRadius="@dimen/item_round"
-                app:type="round"
-                />
+            <android.support.v4.view.ViewPager
+                android:focusable="true"
+                android:id="@+id/vp_recipes"
+                android:layout_width="@dimen/px400"
+                android:layout_height="wrap_content"
+                android:clipChildren="false" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

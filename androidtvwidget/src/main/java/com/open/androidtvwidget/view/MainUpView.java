@@ -18,10 +18,6 @@ limitations under the License.
  */
 package com.open.androidtvwidget.view;
 
-import com.open.androidtvwidget.R;
-import com.open.androidtvwidget.bridge.BaseEffectBridge;
-import com.open.androidtvwidget.bridge.OpenEffectBridge;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -29,11 +25,19 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+
+import com.open.androidtvwidget.R;
+import com.open.androidtvwidget.bridge.BaseEffectBridge;
+import com.open.androidtvwidget.bridge.OpenEffectBridge;
+
+import java.io.Serializable;
 
 /**
  * MainUpView是一个在最上层的移动边框，你可以使用它的API来完成你想要的效果.
@@ -88,7 +92,7 @@ import android.widget.FrameLayout;
  * <li>attr ref #MainUpView_shadowImageRes
  * </ul>
  */
-public class MainUpView extends FrameLayout {
+public class MainUpView extends FrameLayout implements Parcelable {
 
 	private static final String TAG = "MainUpView";
 	private static final float DEFUALT_SCALE = 1.0f;
@@ -385,4 +389,13 @@ public class MainUpView extends FrameLayout {
 		super.onDraw(canvas);
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel parcel, int i) {
+
+	}
 }

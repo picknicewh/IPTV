@@ -3,9 +3,11 @@ package net.hunme.kidsworld_iptv.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,10 +32,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static net.hunme.kidsworld_iptv.R.id.ib_setting;
 
 public class MainActivity extends BaseActivity implements View.OnFocusChangeListener, OkHttpListener {
 
@@ -52,9 +58,13 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
     @Bind(R.id.rl_notice)
     RelativeLayout rlNotice;
 
+    @Bind(R.id.ib_setting)
+    ImageButton ibSetting;
     private MainUpView upView;
     private SuperActivityRecyclerAdapter adapterRecord;
     private List<CompilationsJsonVo> compilationsList;
+    private Timer timer;
+    private boolean isExit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +97,8 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
         for (int i = 0; i < rlMenu.getChildCount(); i++) {
             rlMenu.getChildAt(i).setOnFocusChangeListener(this);
         }
-
-        TranslateAnimation animation = new TranslateAnimation(
+        ibSetting.setOnFocusChangeListener(this);
+        final TranslateAnimation animation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, -1.0f,
                 Animation.RELATIVE_TO_SELF, 2.4f,
                 Animation.RELATIVE_TO_SELF, 0f,
@@ -106,12 +116,13 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
     public void onFocusChange(View view, boolean b) {
         if (b) {
             upView.setUpRectResource(R.drawable.dr);
-            upView.setFocusView(view, 1.2f);
-        } else
+            upView.setFocusView(view, 1.3f);
+        } else {
             upView.setUnFocusView(view);
+        }
     }
 
-    @OnClick({R.id.ll_rank, R.id.ll_home, R.id.ll_movie, R.id.ll_music, R.id.ll_magic, R.id.ib_setting})
+    @OnClick({R.id.ll_rank, R.id.ll_home, R.id.ll_movie, R.id.ll_music, R.id.ll_magic, ib_setting})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -119,23 +130,23 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
                 G.showToast(this, "暂未开放");
                 break;
             case R.id.ll_home:
-//                if (G.isEmteny(IPTVApp.um.getUserTsId()))
-//                    intent = new Intent(this, QRcodeLoginActivity.class);
-//                else
-                intent = new Intent(this, HomeActivity.class);
+                if (G.isEmteny(IPTVApp.um.getUserTsId()))
+                    intent = new Intent(this, QRcodeLoginActivity.class);
+                else
+                    intent = new Intent(this, HomeActivity.class);
                 break;
             case R.id.ll_movie:
                 intent = new Intent(this, ResourcesListActivity.class);
-                intent.putExtra("actionType", G.IPTV_TYPE.MOVE);
+                intent.putExtra("actionType", String.valueOf(G.IPTV_TYPE.MOVE));
                 break;
             case R.id.ll_music:
                 intent = new Intent(this, ResourcesListActivity.class);
-                intent.putExtra("actionType", G.IPTV_TYPE.MUSIC);
+                intent.putExtra("actionType", String.valueOf(G.IPTV_TYPE.MUSIC));
                 break;
             case R.id.ll_magic:
                 G.showToast(this, "暂未开放");
                 break;
-            case R.id.ib_setting:
+            case ib_setting:
                 intent = new Intent(this, SettingDetlisActivity.class);
                 break;
         }
@@ -171,5 +182,28 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
     @Override
     public void onError(String uri, String error) {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (isExit) {
+                finish();
+            } else {
+                G.showToast(this, "再按一次退出程序");
+            }
+            if (timer != null) timer.cancel();
+            timer = new Timer();
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            };
+            isExit = true;
+            timer.schedule(timerTask, 1000);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

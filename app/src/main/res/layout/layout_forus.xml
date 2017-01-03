@@ -32,7 +32,7 @@
             android:layout_height="@dimen/px380"
             android:layout_marginTop="@dimen/px40"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_leimu"
+            android:src="@mipmap/ic_adress"
             app:type="round"
             app:borderRadius="@dimen/item_round"/>
 

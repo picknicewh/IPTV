@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
@@ -21,13 +22,13 @@
             android:src="@mipmap/ic_logo" />
 
         <RelativeLayout
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="@dimen/px100"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space">
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="@dimen/space"
+            android:layout_weight="1">
 
             <RelativeLayout
                 android:id="@+id/rl_notice"
@@ -44,10 +45,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="27dp"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginTop="@dimen/px45"
                     android:gravity="bottom"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:text="欢迎来到孩子们的欢乐王国！"
                     android:textColor="#803d356e"
                     android:textSize="12sp" />
@@ -69,23 +70,22 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/space"
-        android:paddingRight="@dimen/space">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_rank"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="@dimen/px70"
-            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginTop="@dimen/px50"
+            android:layout_weight="0.8"
             android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/px210"
+                android:layout_height="@dimen/px352"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_rank" />
 
@@ -96,7 +96,7 @@
                 android:gravity="center"
                 android:text="贝贝榜\nbei bei bang"
                 android:textColor="#454545"
-                android:textSize="@dimen/ts_medium" />
+                android:textSize="@dimen/ts_small" />
         </LinearLayout>
 
 
@@ -104,14 +104,14 @@
             android:id="@+id/ll_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/px70"
+            android:layout_marginTop="@dimen/px50"
             android:layout_weight="1"
             android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px250"
+                android:layout_height="@dimen/px362"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_home" />
 
@@ -129,14 +129,14 @@
             android:id="@+id/ll_movie"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/px70"
+            android:layout_marginTop="@dimen/px50"
             android:layout_weight="1"
             android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px250"
+                android:layout_height="@dimen/px362"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_move" />
 
@@ -154,14 +154,14 @@
             android:id="@+id/ll_music"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/px70"
+            android:layout_marginTop="@dimen/px50"
             android:layout_weight="1"
             android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px250"
+                android:layout_height="@dimen/px362"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_music" />
 
@@ -176,18 +176,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginRight="@dimen/px60"
             android:id="@+id/ll_magic"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="@dimen/px70"
-            android:layout_weight="1"
+            android:layout_marginTop="@dimen/px50"
+            android:layout_weight="0.8"
             android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px210"
+                android:layout_height="@dimen/px352"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_magic" />
 
@@ -198,36 +198,39 @@
                 android:gravity="center"
                 android:text="魔法乐园\nmo fa le yuan"
                 android:textColor="#454545"
-                android:textSize="@dimen/ts_medium" />
+                android:textSize="@dimen/ts_small" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/px170"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:background="@mipmap/ic_record_bg">
-
-        <ImageView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px170">
+        <LinearLayout
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/px170"
             android:layout_gravity="center"
-            android:layout_marginRight="@dimen/space"
-            android:src="@mipmap/ic_left" />
+            android:background="@mipmap/ic_record_bg">
 
-        <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
-            android:focusable="false"
-            android:id="@+id/rv_record"
-            android:layout_width="@dimen/px880"
-            android:layout_height="@dimen/px170" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingRight="@dimen/px20"
+                android:src="@mipmap/ic_left" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/space"
-            android:src="@mipmap/ic_right" />
-    </LinearLayout>
+            <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
+                android:id="@+id/rv_record"
+                android:layout_width="@dimen/px840"
+                android:layout_height="@dimen/px170"
+                android:layout_gravity="center_horizontal" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/px20"
+                android:src="@mipmap/ic_right" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

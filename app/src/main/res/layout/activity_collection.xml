@@ -87,5 +87,4 @@
             layout="@layout/layout_collection_search_result" />
     </LinearLayout>
 
-
 </LinearLayout>

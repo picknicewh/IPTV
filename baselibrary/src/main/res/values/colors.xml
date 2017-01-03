@@ -153,7 +153,7 @@
     <color name="textview_bg">#90000000</color>
     <color name="keybord">#00c0fb</color>
     
-    <color name="black_50">#50000000</color>
+    <color name="black_50">#80000000</color>
     <color name="item_yellow">#ffcb48</color>
     <color name="item_purple">#e1c9f1</color>
     <color name="item_red">#ff755d</color>
@@ -161,4 +161,6 @@
     <color name="green_70">#cc8ec500</color>
     <color name="keybord_text">#9B6724</color>
     <color name="black_80">#80000000</color>
+    <color name="black_40">#5a000000</color>
+    <color name="black_30">#30000000</color>
 </resources>

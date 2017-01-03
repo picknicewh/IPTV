@@ -8,6 +8,8 @@ import net.hunme.baselibrary.network.OkHttps;
 import net.hunme.kidsworld_iptv.application.IPTVApp;
 import net.hunme.kidsworld_iptv.mode.MessageJsonVo;
 import net.hunme.kidsworld_iptv.util.AppUrl;
+import net.hunme.kidsworld_iptv.util.PushDb;
+import net.hunme.kidsworld_iptv.util.PushDbHelp;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -38,6 +40,11 @@ public class NoticePresenter implements NoticeContract.presenter, OkHttpListener
         Type type = new TypeToken<Result<List<MessageJsonVo>>>() {
         }.getType();
         OkHttps.sendPost(type, AppUrl.GETMESSAGE, map, this);
+    }
+
+    @Override
+    public void getSystemNotice(PushDb db) {
+        view.showNotice(PushDbHelp.getInstance().getSystemInformVo(db.getReadableDatabase()));
     }
 
     @Override

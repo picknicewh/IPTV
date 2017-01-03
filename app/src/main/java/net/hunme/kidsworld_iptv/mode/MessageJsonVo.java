@@ -1,5 +1,6 @@
 package net.hunme.kidsworld_iptv.mode;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * 修订历史：
  * ================================================
  */
-public class MessageJsonVo {
+public class MessageJsonVo implements Serializable{
     private String tsName;
     private String imgUrl;
     private String message;

@@ -3,13 +3,19 @@ package net.hunme.kidsworld_iptv.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.open.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
+import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
@@ -20,30 +26,31 @@ import net.hunme.kidsworld_iptv.contract.DynamicPresenter;
 import net.hunme.kidsworld_iptv.mode.DynamicInfoJsonVo;
 import net.hunme.kidsworld_iptv.mode.DynamicJsonVo;
 import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
-import net.hunme.kidsworld_iptv.widget.MyListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static net.hunme.kidsworld_iptv.R.id.tv_class;
+
 /**
  * 动态
  */
 public class DynamicFragment extends Fragment implements View.OnFocusChangeListener, DynamicContract.View, OnPaginSelectViewListen {
     //班级
-    @Bind(R.id.tv_class)
+    @Bind(tv_class)
     TextView tvClass;
     //学校
     @Bind(R.id.tv_school)
     TextView tvSchool;
     //内容
     @Bind(R.id.lv_content)
-    MyListView lvContent;
+    RecyclerViewTV lvContent;
     //选中框
-    @Bind(R.id.upview)
-    MainUpView upview;
+    private MainUpView upview;
 
     private NoticeAdapter adapter;
     private View oldView;
@@ -52,26 +59,39 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     private DynamicJsonVo schoolDynamic;
     private List<DynamicInfoJsonVo> dynamicInfoList;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dynamic, container, false);
         ButterKnife.bind(this, view);
+        upview = getArguments().getParcelable("upView");
         presenter = new DynamicPresenter(this);
         dynamicInfoList = new ArrayList<>();
+        lvContent.setLayoutManager(new LinearLayoutManagerTV(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new NoticeAdapter(lvContent, upview, dynamicInfoList, 0);
         adapter.setOnPaginListen(this);
         lvContent.setAdapter(adapter);
-        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvContent.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(getActivity(), StatusDetlisActivity.class));
+            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+                intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(position));
+                startActivity(intent);
             }
         });
+//        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+//                intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(i));
+//                startActivity(intent);
+//            }
+//        });
         tvClass.setOnFocusChangeListener(this);
         tvSchool.setOnFocusChangeListener(this);
-        oldView = tvClass;
         presenter.getHeadMessage();
+        oldView = tvClass;
         return view;
     }
 
@@ -86,7 +106,7 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     public void onFocusChange(View view, boolean b) {
         if (b) {
             switch (view.getId()) {
-                case R.id.tv_class:
+                case tv_class:
                     if (classDynamic != null)
                         presenter.getDynamicInfo(classDynamic.getGroupId(), classDynamic.getGroupType(), 1, "1", "");
                     break;
@@ -98,12 +118,18 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
                     return;
             }
             if (oldView != null) {
-                oldView.setBackgroundResource(R.drawable.dr);
-                ((TextView) oldView).setTextColor(getResources().getColor(R.color.white_50));
+                oldView.setBackgroundResource(R.drawable.home_menu_black_40_bg);
+                ((TextView) oldView).setTextColor(ContextCompat.getColor(getContext(), R.color.white_50));
             }
-            view.setBackgroundResource(R.mipmap.ic_home_menu_select);
-            ((TextView) view).setTextColor(getResources().getColor(R.color.white));
+            view.setBackgroundResource(R.drawable.home_menu_black_bg);
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             oldView = view;
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    upview.setVisibility(View.GONE);
+                }
+            }, 150);
         }
     }
 
@@ -129,7 +155,7 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
         if (isChange) {
             this.dynamicInfoList.clear();
             this.dynamicInfoList.addAll(dynamicInfoList);
-            adapter.notifyDataSetInvalidated();
+            adapter.notifyDataSetChanged();
         } else {
             this.dynamicInfoList.addAll(dynamicInfoList);
             adapter.notifyDataSetChanged();
@@ -138,6 +164,18 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
 
     @Override
     public void onPaginListen(View view, int position) {
-        presenter.getPaginDynamicInfo("1", dynamicInfoList.get(dynamicInfoList.size() - 1).getDynamicId());
+//        presenter.getPaginDynamicInfo("1", dynamicInfoList.get(dynamicInfoList.size() - 1).getDynamicId());
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (lvContent.getSelectPostion() == 0) {
+            if (oldView.getId() == R.id.tv_school) {
+                tvSchool.requestFocus();
+            } else if (oldView.getId() == tv_class) {
+                tvClass.requestFocus();
+            }
+        }
+        return true;
     }
 }

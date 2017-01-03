@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:paddingTop="25dp"
-    android:paddingLeft="15dp"
     tools:context=".activity.HomeActivity">
 
     <LinearLayout
@@ -14,30 +13,32 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/px320"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="@dimen/space_x0.5"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/user_image"
-                android:layout_width="@dimen/px98"
-                android:layout_height="@dimen/px98"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_leimu" />
+                android:layout_width="@dimen/px90"
+                android:layout_height="@dimen/px90"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px20"
+                android:focusable="false" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px100"
+                android:layout_height="@dimen/px100"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
                 android:src="@mipmap/ic_hot_suite"
-                android:layout_centerHorizontal="true"/>
+                android:visibility="visible" />
 
             <TextView
-                android:layout_below="@id/user_image"
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/user_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space"
                 android:text="李一冰"
@@ -45,21 +46,23 @@
                 android:textSize="@dimen/ts_large" />
 
             <TextView
-                android:layout_below="@id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
                 android:layout_centerHorizontal="true"
                 android:text="探险天数：226天"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_small" />
+                android:textSize="@dimen/ts_small"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <net.hunme.kidsworld_iptv.widget.MyListView
-            android:layout_marginTop="20dp"
             android:id="@+id/lv_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"/>
+            android:layout_marginTop="@dimen/px20"
+            android:divider="@null"
+            android:scrollbars="none" />
     </LinearLayout>
 
     <FrameLayout
@@ -67,4 +70,8 @@
         android:layout_width="@dimen/px1450"
         android:layout_height="@dimen/px925" />
 
+    <com.open.androidtvwidget.view.MainUpView
+        android:id="@+id/upview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

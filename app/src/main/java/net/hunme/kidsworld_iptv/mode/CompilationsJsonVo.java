@@ -24,6 +24,7 @@ public class CompilationsJsonVo implements Serializable {
     private String isFavorites;
     private String isUpdate;
     private String searchCount;
+    private String albumName;
 
     public String getAlbumId() {
         return albumId;
@@ -119,6 +120,14 @@ public class CompilationsJsonVo implements Serializable {
 
     public void setSearchCount(String searchCount) {
         this.searchCount = searchCount;
+    }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
     }
 }
 

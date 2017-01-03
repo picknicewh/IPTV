@@ -27,42 +27,52 @@ public class AppUrl {
     //获取通知
 //    public static final String GETMESSAGE = "/school/message.do";
     //搜索内容
-    public static final String GETRESOURCElIST="/rakuen/getResourceByTypeId.do";
+    public static final String GETRESOURCElIST = "/rakuen/getResourceByTypeId.do";
     //获取全部推荐
-    public static final String GETALLRECOMMEND="/rakuen/getRecommendedResource.do";
+    public static final String GETALLRECOMMEND = "/rakuen/getRecommendedResource.do";
     //获取动态
-    public static final String GETDYNAMICIPTV="/dynamics/getDynamicIPTV.do";
+    public static final String GETDYNAMICIPTV = "/dynamics/getDynamicIPTV.do";
     //获取二维码
-    public static final String GETQRCODE="/app/getQRCode.do";
-
+    public static final String GETQRCODE = "/app/getQRCode.do";
 
 
     //=======================IPTV 2.0=============================
     //追剧收藏
-    public static final String GETRESOURCEFAVORITES="/rakuen/getResourceFavorites.do";
+    public static final String GETRESOURCEFAVORITES = "/rakuen/getResourceFavorites.do";
     //播放记录
-    public static final String GETPLAYRECORDCOMPILATION="/rakuen/getPlayTheRecordingCompilations.do";
+    public static final String GETPLAYRECORDCOMPILATION = "/rakuen/getPlayTheRecordingCompilations.do";
     //最新上架资源
-    public static final String GETNEWRELEASES="/rakuen/newReleases.do";
+    public static final String GETNEWRELEASES = "/rakuen/newReleases.do";
     //获取热搜资源
-    public static final String GETHOTSEARCH="/rakuen/hotSearch.do";
+    public static final String GETHOTSEARCH = "/rakuen/hotSearch.do";
     //猜你喜欢
-    public static final String GETGUESSTYOULIKE="/rakuen/guessYouLike.do";
+    public static final String GETGUESSTYOULIKE = "/rakuen/guessYouLike.do";
     //获取主题列表
-    public static final String GETTHEMELIST="/rakuen/getThemeList.do";
+    public static final String GETTHEMELIST = "/rakuen/getThemeList.do";
     //根据主题获取对应的专辑
-    public static final String GETALBUMBYTHEME="/rakuen/getAlbumByTheme.do";
+    public static final String GETALBUMBYTHEME = "/rakuen/getAlbumByTheme.do";
     //根据专辑ID获取资源
-    public static final String GETCOMPILATIONALLRESOURCE="/rakuen/getCompilationsAllResource.do";
+    public static final String GETCOMPILATIONALLRESOURCE = "/rakuen/getCompilationsAllResource.do";
     //获取学校通知
-    public static final String GETMESSAGE="/school/message.do";
+    public static final String GETMESSAGE = "/school/message.do";
     //获取动态头部信息
-    public static final String GETDYNAMICHEAD="/dynamics/getDynamicHead.do";
+    public static final String GETDYNAMICHEAD = "/dynamics/getDynamicHead.do";
     //获取动态
-    public static final String GETDYNAMIC="/dynamics/getDynamic.do";
+    public static final String GETDYNAMIC = "/dynamics/getDynamic.do";
     //获取食谱
-    public static final String GETCOOKBOOK="/school/getCookbook.do";
+    public static final String GETCOOKBOOK = "/school/getCookbook.do";
     //获取课程表
-    public static final String GETSYLLABUSLIST="/school/getSyllabusList.do";
+    public static final String GETSYLLABUSLIST = "/school/getSyllabusList.do";
+    //获取搜索内容
+    public static final String GETRESOURCESEARCH = "/rakuen/resourceSearch.do";
+    //足迹
+    public static final String GETFOOTPRINT = "/rakuen/getFootprint.do";
+    //上传播放记录
+    public static final String SAVEPALYTHERESDING = "/rakuen/savePlayTheRecording.do";
+    //搜索足迹
+    public static final String SEARCHFOOTPRINT="/rakuen/searchFootprint.do";
+    //获取资源详情
+    public static final String GETFOOTPRINTDATAILS="/rakuen/getDetails.do";
+
 
 }

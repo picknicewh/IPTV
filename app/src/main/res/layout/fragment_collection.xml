@@ -11,67 +11,51 @@
         android:layout_height="@dimen/px90"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_menu_black_bg">
+        <TextView
+            android:id="@+id/tv_move"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px250"
+            android:layout_height="@dimen/px90"
+            android:background="@drawable/home_menu_black_bg"
+            android:text="动画坊"
+            android:textColor="@color/white" />
 
-            <TextView
-                android:textColor="@color/white_50"
-                android:nextFocusLeft="@id/collection"
-                android:nextFocusUp="@id/collection"
-                android:id="@+id/tv_move"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px250"
-                android:layout_height="@dimen/px90"
-                android:text="动画坊" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_music"
+            style="@style/MyTextViewStyle"
+            android:layout_width="@dimen/px250"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_menu_black_bg">
-            <TextView
-                android:textColor="@color/white_50"
-                android:id="@+id/tv_music"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px250"
-                android:layout_height="@dimen/px90"
-                android:text="音悦台" />
-        </LinearLayout>
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="音悦台"
+            android:textColor="@color/white_50" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_magic"
+            style="@style/MyTextViewStyle"
+            android:focusable="false"
+            android:layout_width="@dimen/px350"
+            android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/home_menu_black_bg">
-
-            <TextView
-                android:textColor="@color/white_50"
-                android:id="@+id/tv_magic"
-                style="@style/MyTextViewStyle"
-                android:layout_width="@dimen/px350"
-                android:layout_height="@dimen/px90"
-                android:text="魔法乐园（暂未开放）" />
-        </LinearLayout>
+            android:background="@drawable/home_menu_black_40_bg"
+            android:text="魔法乐园（暂未开放）"
+            android:textColor="@color/white_50" />
     </LinearLayout>
 
     <com.open.androidtvwidget.view.GridViewTV
-        android:nextFocusLeft="@id/collection"
-        android:gravity="center"
         android:id="@+id/gv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/resources_grid_view_bg"
-        android:columnWidth="@dimen/px240"
-        android:horizontalSpacing="@dimen/space_x2.5"
+        android:columnWidth="@dimen/px268"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/px25"
+        android:nextFocusLeft="@id/collection"
         android:numColumns="5"
-        android:paddingTop="@dimen/space_x2.5"
         android:paddingLeft="@dimen/space_x1.5"
         android:paddingRight="@dimen/space_x1.5"
-        android:scrollbars="none"
-        android:verticalSpacing="@dimen/space_x2.5" />
+        android:paddingTop="@dimen/space_x2.5"
+        android:scrollbars="none" />
 
     <com.open.androidtvwidget.view.MainUpView
         android:id="@+id/upview"

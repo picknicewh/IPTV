@@ -28,11 +28,12 @@ import java.util.Map;
 public class ResListPresenter implements ResListContract.Presenter, OkHttpListener {
     private ResListContract.View view;
     private int resPageNumber = 1; //资源页数
-    private int type;
+    private String type;
     private boolean isPagin;//是否分页
     private String url;//访问资源的Uri地址，用于分页加载 记录下来可以直接进行访问
     private int themePageNumber;//主题页数
     private boolean isThemeByAlbum; //是否通过服务端所传专辑ID访问资源
+
     public ResListPresenter(ResListContract.View view) {
         this.view = view;
     }
@@ -43,7 +44,7 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
      * @param type
      */
     @Override
-    public void getResReleases(int pageNumber, int type, String url, boolean isThemeByAlbum) {
+    public void getResReleases(int pageNumber, String type, String url, boolean isThemeByAlbum) {
         Map<String, Object> map = new HashMap<>();
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("pageSize", G.PAGESIZE);
@@ -60,7 +61,7 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
             this.resPageNumber = 1; //如果不是分页 还原分页数
             this.type = type;//保存当前type
             this.url = url;//保存当前url；
-            this.isThemeByAlbum=isThemeByAlbum;
+            this.isThemeByAlbum = isThemeByAlbum;
         }
     }
 
@@ -70,7 +71,7 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
     @Override
     public void getPaginReleases() {
         resPageNumber++;
-        getResReleases(resPageNumber, type, url,isThemeByAlbum);
+        getResReleases(resPageNumber, type, url, isThemeByAlbum);
     }
 
     /**
@@ -80,7 +81,7 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
      * @param type
      */
     @Override
-    public void getThemeList(int pageNumber, int type) {
+    public void getThemeList(int pageNumber, String type) {
         Map<String, Object> map = new HashMap<>();
         map.put("pageSize", G.PAGESIZE);
         map.put("type", type);
@@ -107,12 +108,19 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
             if (result.getData().size() > 0)
                 view.showThemeList(result.getData());
             else
-                themePageNumber--;
+                themePageNumber = themePageNumber > 1 ? themePageNumber-- : 1;
         } else {
             Result<List<CompilationsJsonVo>> result = (Result<List<CompilationsJsonVo>>) date;
-            view.showCollection(result.getData(), isPagin);
-            if (isPagin)
-                resPageNumber--;
+            if (isPagin) {
+                if (result.getData().size() < 0)
+                    resPageNumber--;
+            } else
+                view.showCollection(result.getData(), isPagin);
+
+//            if (result.getData().size() > 0)
+//                view.showCollection(result.getData(), isPagin);
+//            else if (isPagin)
+//                resPageNumber--;
         }
     }
 
@@ -120,7 +128,7 @@ public class ResListPresenter implements ResListContract.Presenter, OkHttpListen
     public void onError(String uri, String error) {
         G.showToast(IPTVApp.getInstance().getApplicationContext(), error);
         if (AppUrl.GETTHEMELIST.equals(uri)) {
-            themePageNumber--;
+            themePageNumber = themePageNumber > 1 ? themePageNumber-- : 1;
         } else {
             if (isPagin)
                 resPageNumber--;

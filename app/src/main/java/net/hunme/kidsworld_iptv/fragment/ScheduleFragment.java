@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.google.gson.reflect.TypeToken;
 
-import net.hunme.baselibrary.image.ImageCache;
+import net.hunme.baselibrary.image.ImageLoaderUtil;
 import net.hunme.baselibrary.mode.Result;
 import net.hunme.baselibrary.network.OkHttpListener;
 import net.hunme.baselibrary.network.OkHttps;
@@ -63,7 +63,7 @@ public class ScheduleFragment extends Fragment implements OkHttpListener {
         List<SyllabusJsonListVo> jsonList=result.getData();
         if(jsonList!=null&&jsonList.size()>0){
             if(jsonList.get(0).getImgs()!=null&&jsonList.get(0).getImgs().size()>0){
-                ImageCache.imageLoader(jsonList.get(0).getImgs().get(0),ivSchedule);
+                ImageLoaderUtil.getIntences().loadImage (jsonList.get(0).getImgs().get(0),ivSchedule);
             }
         }
     }

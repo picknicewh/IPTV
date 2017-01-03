@@ -1,5 +1,6 @@
 package net.hunme.kidsworld_iptv.mode;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * 修订历史：
  * ================================================
  */
-public class DynamicInfoJsonVo {
+public class DynamicInfoJsonVo implements Serializable{
     private String tsId;
     private String tsName;
     private String tsType;

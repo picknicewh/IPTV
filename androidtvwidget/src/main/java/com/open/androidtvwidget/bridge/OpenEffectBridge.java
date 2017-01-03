@@ -1,8 +1,5 @@
 package com.open.androidtvwidget.bridge;
 
-import com.open.androidtvwidget.utils.Utils;
-import com.open.androidtvwidget.view.MainUpView;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
@@ -11,6 +8,9 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+
+import com.open.androidtvwidget.utils.Utils;
+import com.open.androidtvwidget.view.MainUpView;
 
 /**
  * 自定义Anim Bridge DEMO. <br>
@@ -23,7 +23,7 @@ import android.view.animation.DecelerateInterpolator;
  */
 public class OpenEffectBridge extends BaseEffectBridgeWrapper {
 
-	public static final int DEFAULT_TRAN_DUR_ANIM = 300;
+	public static final int DEFAULT_TRAN_DUR_ANIM = 150;
 	private int mTranDurAnimTime = DEFAULT_TRAN_DUR_ANIM;
 	private AnimatorSet mCurrentAnimatorSet;
 	private boolean isInDraw = false;

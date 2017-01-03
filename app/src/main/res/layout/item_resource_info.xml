@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center">
     <net.hunme.kidsworld_iptv.widget.RoundImageView
+        android:focusable="true"
         android:id="@+id/iv_gird"
         android:layout_width="@dimen/px250"
         android:layout_height="@dimen/px350"

@@ -29,8 +29,7 @@
             android:layout_height="@dimen/px500"
             android:layout_margin="@dimen/space"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_sword" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/iv_02"
@@ -38,8 +37,7 @@
             android:layout_height="@dimen/px500"
             android:layout_margin="@dimen/space"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_sword" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/iv_03"
@@ -47,8 +45,7 @@
             android:layout_height="@dimen/px500"
             android:layout_margin="@dimen/space"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_sword" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <LinearLayout

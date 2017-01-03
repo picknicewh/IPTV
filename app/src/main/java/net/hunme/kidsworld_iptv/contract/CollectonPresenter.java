@@ -46,6 +46,7 @@ public class CollectonPresenter implements CollectionContract.Presenter, OkHttpL
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("pageSize", G.PAGESIZE);
         map.put("pageNumber", pageNumber);
+        map.put("account_id",IPTVApp.um.getAccounId());
         if (type > 0)
             map.put("type", type);
         Type mType = new TypeToken<Result<List<CompilationsJsonVo>>>() {

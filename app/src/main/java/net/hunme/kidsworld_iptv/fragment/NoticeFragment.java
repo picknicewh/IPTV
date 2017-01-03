@@ -3,68 +3,93 @@ package net.hunme.kidsworld_iptv.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.open.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
+import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
-import net.hunme.kidsworld_iptv.activity.NoticeDetlisActivity;
+import net.hunme.kidsworld_iptv.activity.StatusDetlisActivity;
 import net.hunme.kidsworld_iptv.adapter.NoticeAdapter;
 import net.hunme.kidsworld_iptv.contract.NoticeContract;
 import net.hunme.kidsworld_iptv.contract.NoticePresenter;
 import net.hunme.kidsworld_iptv.mode.MessageJsonVo;
-import net.hunme.kidsworld_iptv.widget.MyListView;
+import net.hunme.kidsworld_iptv.util.PushDb;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static net.hunme.kidsworld_iptv.R.id.tv_school;
+
 /**
  * 通知
  */
-public class NoticeFragment extends Fragment implements View.OnFocusChangeListener,NoticeContract.View{
+public class NoticeFragment extends Fragment implements View.OnFocusChangeListener, NoticeContract.View {
     //系统通知
     @Bind(R.id.tv_system)
     TextView tvSystem;
     //学校通知
-    @Bind(R.id.tv_school)
+    @Bind(tv_school)
     TextView tvSchool;
     //显示内容
     @Bind(R.id.lv_content)
-    MyListView lvContent;
+    RecyclerViewTV lvContent;
 
-    @Bind(R.id.upview)
-    MainUpView upview;
 
+    private MainUpView upview;
     private View oldView;
     private NoticeAdapter adapter;
     private List<MessageJsonVo> messageList;
     private NoticeContract.presenter presenter;
+    private PushDb pushDb;
+    private int SELECTMENUTYPE;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         ButterKnife.bind(this, view);
+        upview = getArguments().getParcelable("upView");
         tvSystem.setOnFocusChangeListener(this);
         tvSchool.setOnFocusChangeListener(this);
-        oldView = tvSystem;
-        messageList=new ArrayList<>();
-        presenter=new NoticePresenter(this);
-        adapter=new NoticeAdapter(lvContent,upview,messageList);
+        messageList = new ArrayList<>();
+        presenter = new NoticePresenter(this);
+        lvContent.setLayoutManager(new LinearLayoutManagerTV(getContext(), LinearLayoutManager.VERTICAL, false));
+        adapter = new NoticeAdapter(lvContent, upview, messageList);
         lvContent.setAdapter(adapter);
-        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvContent.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(getActivity(), NoticeDetlisActivity.class));
+            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+                intent.putExtra("messageList", (Serializable) messageList.get(position));
+                startActivity(intent);
             }
         });
+//        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+//                intent.putExtra("messageList", (Serializable) messageList.get(i));
+//                startActivity(intent);
+//            }
+//        });
+        pushDb = new PushDb(getContext());
+        oldView = tvSchool;
+        presenter.getSchoolNotice();
         return view;
     }
 
@@ -79,20 +104,27 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
         if (b) {
             switch (view.getId()) {
                 case R.id.tv_system:
+                    presenter.getSystemNotice(pushDb);
                     break;
-                case R.id.tv_school:
+                case tv_school:
                     presenter.getSchoolNotice();
                     break;
                 default:
                     return;
             }
             if (oldView != null) {
-                oldView.setBackgroundResource(R.drawable.dr);
-                ((TextView)oldView).setTextColor(getResources().getColor(R.color.white_50));
+                oldView.setBackgroundResource(R.drawable.home_menu_black_40_bg);
+                ((TextView) oldView).setTextColor(ContextCompat.getColor(getContext(), R.color.white_50));
             }
-            view.setBackgroundResource(R.mipmap.ic_home_menu_select);
-            ((TextView)view).setTextColor(getResources().getColor(R.color.white));
+            view.setBackgroundResource(R.drawable.home_menu_black_bg);
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             oldView = view;
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    upview.setVisibility(View.GONE);
+                }
+            }, 150);
         }
     }
 
@@ -101,5 +133,17 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
         this.messageList.clear();
         this.messageList.addAll(messageList);
         adapter.notifyDataSetChanged();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (lvContent.getSelectPostion() == 0) {
+            if (oldView.getId() == R.id.tv_school) {
+                tvSchool.requestFocus();
+            } else if (oldView.getId() == R.id.tv_system) {
+                tvSystem.requestFocus();
+            }
+        }
+        return true;
     }
 }

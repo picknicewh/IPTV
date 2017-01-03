@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/rl_bg"
     android:gravity="center"
     android:focusable="true"
-    android:layout_marginRight="@dimen/space_x2">
+    android:orientation="vertical"
+    android:id="@+id/ll_bg"
+    android:layout_marginRight="@dimen/px25">
 
-    <net.hunme.kidsworld_iptv.widget.RoundImageView
-        android:id="@+id/iv_gird"
-        android:layout_width="@dimen/px230"
-        android:layout_height="@dimen/px300"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_leimu"
-        app:type="round"
-        app:borderRadius="@dimen/round"/>
+    <RelativeLayout
+        android:id="@+id/rl_bg"
+        android:layout_width="@dimen/px268"
+        android:layout_height="@dimen/px338">
 
-    <ImageView
-        android:id="@+id/iv_corner"
-        android:layout_width="@dimen/px80"
-        android:layout_height="@dimen/px80"
-        android:src="@mipmap/ic_corner" />
+        <net.hunme.kidsworld_iptv.widget.RoundImageView
+            android:layout_marginLeft="@dimen/px19"
+            android:layout_marginTop="@dimen/px19"
+            android:id="@+id/iv_gird"
+            android:layout_width="@dimen/px230"
+            android:layout_height="@dimen/px300"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_leimu"
+            app:borderRadius="@dimen/round"
+            app:type="round" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/px19"
+            android:layout_marginTop="@dimen/px19"
+            android:id="@+id/iv_corner"
+            android:layout_width="@dimen/px80"
+            android:layout_height="@dimen/px80"
+            android:src="@mipmap/ic_corner" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/px19"
+            android:id="@+id/tv_res_number"
+            android:layout_width="@dimen/px190"
+            android:layout_height="@dimen/px40"
+            android:layout_alignBottom="@id/iv_gird"
+            android:layout_marginBottom="@dimen/space"
+            android:background="@drawable/item_resources_number"
+            android:gravity="center"
+            android:text="第1集(1/32)"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_res_number"
-        android:gravity="center"
-        android:paddingLeft="@dimen/px2"
-        android:background="@drawable/item_resources_number"
-        android:layout_alignBottom="@id/iv_gird"
-        android:text="第1集(1/32)"
-        android:textColor="@color/white"
-        android:layout_width="@dimen/px190"
-        android:layout_height="@dimen/px40"
-        android:layout_marginBottom="@dimen/space_x0.5"/>
-
-    <TextView
-        android:layout_below="@+id/iv_gird"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px50"
         android:ellipsize="end"
         android:maxLines="1"
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/space_x0.5"
+        android:paddingRight="@dimen/space_x0.5"
         android:text="音乐欣赏"
         android:textColor="@color/white_50"
         android:textSize="@dimen/ts_small" />
-</RelativeLayout>
+</LinearLayout>

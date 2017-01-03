@@ -11,7 +11,6 @@ import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.baselibrary.util.G;
-import net.hunme.kidsworld_iptv.R;
 
 /**
  * ================================================
@@ -78,7 +77,7 @@ public class RecyclerBorderView implements RecyclerViewTV.OnItemListener {
 
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-        upView.setUpRectResource(R.drawable.ic_read);
+//        upView.setUpRectResource(R.drawable.ic_read);
         upView.setFocusView(itemView, G.ENLARGE);
         if(itemSelect!=null){
             itemSelect.onPaginListen(itemView,position);
@@ -87,7 +86,7 @@ public class RecyclerBorderView implements RecyclerViewTV.OnItemListener {
 
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-        upView.setUpRectResource(R.drawable.ic_read);
+//        upView.setUpRectResource(R.drawable.ic_read);
         upView.setFocusView(itemView, G.ENLARGE);
     }
 }

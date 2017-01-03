@@ -78,6 +78,7 @@ public class JPushUtil implements TagAliasCallback {
             case 0:
                 G.log("设置成功！");
                 //将别名保存起了作为扫码时候的pushid
+                G.log("==========保存的pushId======"+IPTVApp.pushId);
                 IPTVApp.um.setPushId(IPTVApp.pushId);
                 break;
             case 6002:
@@ -99,6 +100,4 @@ public class JPushUtil implements TagAliasCallback {
 //        //设置静音时间段晚上10点半到早上八点半
 //        JPushInterface.setSilenceTime(IPTVApp.getInstance().getApplicationContext(), 22, 30, 8, 30);
 //    }
-
-
 }
