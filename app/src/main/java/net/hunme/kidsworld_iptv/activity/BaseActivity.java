@@ -36,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         view.setBackgroundResource(R.mipmap.ic_default_bg);
         ButterKnife.bind(this);
         initDate();
-
         //设置一个退出的 transitions 动画
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //允许使用transitions 动画
