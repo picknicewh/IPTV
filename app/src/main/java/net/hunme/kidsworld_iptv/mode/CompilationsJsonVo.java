@@ -25,7 +25,10 @@ public class CompilationsJsonVo implements Serializable {
     private String isUpdate;
     private String searchCount;
     private String albumName;
+    private String themeType;
 
+    //播放记录需要resourceid 字段
+    private String resourceid;
     public String getAlbumId() {
         return albumId;
     }
@@ -128,6 +131,22 @@ public class CompilationsJsonVo implements Serializable {
 
     public void setAlbumName(String albumName) {
         this.albumName = albumName;
+    }
+
+    public String getResourceid() {
+        return resourceid;
+    }
+
+    public void setResourceid(String resourceid) {
+        this.resourceid = resourceid;
+    }
+
+    public String getThemeType() {
+        return themeType;
+    }
+
+    public void setThemeType(String themeType) {
+        this.themeType = themeType;
     }
 }
 

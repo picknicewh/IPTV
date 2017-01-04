@@ -1,5 +1,9 @@
 package net.hunme.kidsworld_iptv.contract;
 
+import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
+
+import java.util.List;
+
 /**
  * ================================================
  * 作    者：ZLL
@@ -16,9 +20,13 @@ public interface QRcodeLoginContract {
         void setUserHeadImg(String headImg);
 
         void closeLogin();
+
+        void submitPlayRecord();
     }
 
     interface Presenter {
         void getQRCode(String pushId, String sign, String requestSource);
+
+        void submitPlayRecord(List<CompilationsJsonVo> compilationsList);
     }
 }

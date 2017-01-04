@@ -14,20 +14,27 @@ import android.database.sqlite.SQLiteOpenHelper;
  * ================================================
  */
 public class RecentPlayDb extends SQLiteOpenHelper {
-    private static final String DB_NAME = "user.db"; //数据库名称
+    private static final String DB_NAME = "recent.db"; //数据库名称
     private static final int version = 1; //数据库版本
-    private static final String TABLENAME = "recentplay";//表名
+    private static final String TABLENAME = "recent_play";//表名
+
     public RecentPlayDb(Context context) {
         super(context, DB_NAME, null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql="create table " +TABLENAME+
+        String sql = "create table " + TABLENAME +
                 " (uid integer primary key autoincrement," +
-                "themeid varchar(50) not null,"+
-                "imgUrl varchar(50) not null,"+
-                "name varchar(50) not null)";
+                "albumId varchar(50) not null," +
+                "name varchar(50) not null," +
+                "size varchar(50) not null," +
+                "currentProgress varchar(50) not null," +
+                "imageUrl varchar(50) not null," +
+                "brief varchar(50) not null," +
+                "resourceid varchar(50) not null," +
+                "themeType varchar(50) not null," +
+                "favorites varchar(50) not null)";
         sqLiteDatabase.execSQL(sql);
     }
 

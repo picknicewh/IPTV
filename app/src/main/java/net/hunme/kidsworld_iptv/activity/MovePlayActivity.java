@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.baselibrary.image.ImageCache;
+import net.hunme.baselibrary.image.ImageLoaderUtil;
 import net.hunme.baselibrary.util.G;
 import net.hunme.baselibrary.witget.LoadingDialog;
 import net.hunme.kidsworld_iptv.R;
@@ -36,6 +37,7 @@ import net.hunme.kidsworld_iptv.contract.ResDetilsPresenter;
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
 import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
 import net.hunme.kidsworld_iptv.util.ImagerComber;
+import net.hunme.kidsworld_iptv.util.RotateAnimator;
 import net.hunme.kidsworld_iptv.widget.MyListView;
 import net.hunme.kidsworld_iptv.widget.RoundImageView;
 
@@ -103,6 +105,9 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
     @Bind(ll_music_bg)
     RelativeLayout llMusicBg;
 
+    @Bind(R.id.rl_album_cover)
+    RelativeLayout rlAlbumCover;
+
     private MainUpView upView;
     private SurfaceHolder surfaceHolder;
     private MediaPlayer player;
@@ -132,7 +137,7 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
     //    private String resourceId;//资源Id
     private ResourceManageVo manage; // 单个资源类型对象
     private int seekToDate;
-
+    private RotateAnimator rotateAnimator; //旋转动画
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,6 +155,7 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
         upView.attach2Window(this);
         hitTimer = new TimerView();
         resMoveTimer = new TimerView();
+        rotateAnimator=RotateAnimator.getInstance(rlAlbumCover);
 
 //        moveUrl = getIntent().getStringExtra("moveUrl");
         manage = (ResourceManageVo) getIntent().getSerializableExtra("manage");
@@ -257,17 +263,19 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
             if (player.isPlaying()) {
                 llPlayContract.setVisibility(View.VISIBLE);
                 player.pause();
-                ivPlayType.setImageResource(R.mipmap.ic_play);
+                ivPlayType.setImageResource(R.mipmap.ic_pause);
                 if (isNotSearch && getIsMusicPlay(manageList.get(playIndex).getType())
                         || !isNotSearch && getIsMusicPlay(manage.getType())) {
-                    rivAlbum.pauseRotateAnimation();
+//                    rivAlbum.pauseRotateAnimation();
+                    rotateAnimator.pauseRotateAnimation();
                 }
             } else {
-                ivPlayType.setImageResource(R.mipmap.ic_pause);
+                ivPlayType.setImageResource(R.mipmap.ic_play);
                 player.start();
                 if (isNotSearch && getIsMusicPlay(manageList.get(playIndex).getType())
                         || !isNotSearch && getIsMusicPlay(manage.getType())) {
-                    rivAlbum.resumeRotateAnimation();
+//                    rivAlbum.resumeRotateAnimation();
+                    rotateAnimator.resumeRotateAnimation();
                 } else {
                     //延迟消失控制台
                     new Handler(getMainLooper()).postDelayed(new Runnable() {
@@ -341,6 +349,7 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
             if (isNotSearch) {
                 movePresenter.savePlayTheRecording(manageList.get(playIndex).getResourceId(), "", 1);
 //                if(manageList.get(playIndex).getType().equals("2"))
+//                player.setDataSource(MovePlayActivity.this, Uri.parse(manageList.get(playIndex).getResourceUrl()));
                 player.setDataSource(MovePlayActivity.this, Uri.parse(encodeChineseUrl(manageList.get(playIndex).getResourceUrl())));
             } else if (manage != null && !G.isEmteny(manage.getResourceUrl())) {
                 movePresenter.savePlayTheRecording(manage.getResourceId(), "", 1);
@@ -634,8 +643,10 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                     handler.sendEmptyMessage(0x12);
             }
         }).start();
-        ImageCache.imageLoader(manage.getImageUrl(), rivAlbum);
-        rivAlbum.startRotateAnimation();
+//        ImageCache.imageLoader(manage.getImageUrl(), rivAlbum);
+        ImageLoaderUtil.getIntences().loadImage(manage.getImageUrl(),rivAlbum);
+//        rivAlbum.startRotateAnimation();
+        rotateAnimator.startRotateAnimation();
         rivAlbum.setVisibility(View.VISIBLE);
         llMusicBg.setVisibility(View.VISIBLE);
     }

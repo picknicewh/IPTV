@@ -11,6 +11,8 @@ import net.hunme.kidsworld_iptv.application.IPTVApp;
 import net.hunme.kidsworld_iptv.contract.QRcodeLoginContract;
 import net.hunme.kidsworld_iptv.contract.QRcodeLoginPresenter;
 import net.hunme.kidsworld_iptv.util.RQCodeSign;
+import net.hunme.kidsworld_iptv.util.RecentPlayDb;
+import net.hunme.kidsworld_iptv.util.RecentPlayDbHelp;
 import net.hunme.kidsworld_iptv.widget.RoundImageView;
 
 import butterknife.Bind;
@@ -65,6 +67,11 @@ public class QRcodeLoginActivity extends BaseActivity implements QRcodeLoginCont
     @Override
     public void closeLogin() {
         finish();
+    }
+
+    @Override
+    public void submitPlayRecord() {
+        presenter.submitPlayRecord(RecentPlayDbHelp.getInstance().getRecordCompilation(new RecentPlayDb(this).getReadableDatabase()));
     }
 
     @Override

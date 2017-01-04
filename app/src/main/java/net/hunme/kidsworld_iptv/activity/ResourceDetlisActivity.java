@@ -24,6 +24,8 @@ import net.hunme.kidsworld_iptv.contract.ResDetilsPresenter;
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
 import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
 import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
+import net.hunme.kidsworld_iptv.util.RecentPlayDb;
+import net.hunme.kidsworld_iptv.util.RecentPlayDbHelp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     private List<ResourceManageVo> manageList;
     private CompilationsJsonVo compilation;//专辑
     private ResDetilsContract.Presenter presenter;
+    private RecentPlayDb playDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     protected void initDate() {
         if (G.isEmteny(IPTVApp.um.getUserImagUrl())) {
             userImage.setImageResource(R.mipmap.ic_portrait);
+            playDb = new RecentPlayDb(this);
         } else {
             ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
         }
@@ -125,6 +129,12 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                if (manageList.get(i).getType().equals("1")) {
                 if (manageList.get(i).getPay().equals("2")) {
+                    if (G.isEmteny(IPTVApp.um.getUserName())) {
+                        RecentPlayDbHelp.getInstance().insert(playDb.getWritableDatabase(),
+                                compilation.getAlbumId(), compilation.getName(), compilation.getSize(),
+                                String.valueOf(i + 1), compilation.getImageUrl(),
+                                compilation.getBrief(), manageList.get(i).getResourceId(), manageList.get(i).getType(), compilation.getFavorites());
+                    }
                     Intent intent = new Intent(ResourceDetlisActivity.this, MovePlayActivity.class);
                     intent.putExtra("compilation", compilation);
                     intent.putExtra("manageList", (Serializable) manageList);
@@ -185,7 +195,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
     private void setRescurseDetils(CompilationsJsonVo compilation) {
         tvName.setText(compilation.getAlbumName());
         tvIntroduce.setText(compilation.getBrief());
-        tvCollectionNumber.setText(compilation.getFavorites());
+        tvCollectionNumber.setText(compilation.getFavorites() + "人收藏");
         ImageCache.imageLoader(compilation.getImageUrl(), ivCover);
     }
 

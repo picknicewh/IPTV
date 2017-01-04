@@ -50,6 +50,7 @@ public class JpushReceiver extends BroadcastReceiver {
                             IPTVApp.um.setUserName(codeVo.getTs_name());//保存用户名
                             IPTVApp.um.setUserImgUrl(codeVo.getImgurl());//保存用户头像
                             QRcodeLoginActivity.view.closeLogin(); //关闭扫码页面
+                            QRcodeLoginActivity.view.submitPlayRecord(); //提交播放记录
                         }
                     }
                 } catch (Exception e) {

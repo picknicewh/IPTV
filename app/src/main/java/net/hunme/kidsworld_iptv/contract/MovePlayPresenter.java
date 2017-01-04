@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import net.hunme.baselibrary.mode.Result;
 import net.hunme.baselibrary.network.OkHttpListener;
 import net.hunme.baselibrary.network.OkHttps;
+import net.hunme.baselibrary.util.G;
 import net.hunme.kidsworld_iptv.application.IPTVApp;
 import net.hunme.kidsworld_iptv.util.AppUrl;
 
@@ -28,6 +29,9 @@ public class MovePlayPresenter implements MovePlayContract.Presenter, OkHttpList
     @Override
     public void savePlayTheRecording(String resourceid, String broadcastPace, int type) {
         Map<String, Object> map = new HashMap<>();
+        if (G.isEmteny(IPTVApp.um.getUserTsId())) {
+            return;
+        }
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("resourceid", resourceid);
         map.put("type", type);
@@ -35,8 +39,9 @@ public class MovePlayPresenter implements MovePlayContract.Presenter, OkHttpList
             //表示结束  需要传播放进度
             map.put("broadcastPace", broadcastPace);
         }
-        Type mType=new TypeToken<Result<String>>(){}.getType();
-        OkHttps.sendPost(mType, AppUrl.SAVEPALYTHERESDING,map,this);
+        Type mType = new TypeToken<Result<String>>() {
+        }.getType();
+        OkHttps.sendPost(mType, AppUrl.SAVEPALYTHERESDING, map, this);
     }
 
     @Override

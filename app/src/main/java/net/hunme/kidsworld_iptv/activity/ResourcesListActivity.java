@@ -22,6 +22,8 @@ import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
 import net.hunme.kidsworld_iptv.mode.ThemeManageVo;
 import net.hunme.kidsworld_iptv.util.AppUrl;
 import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
+import net.hunme.kidsworld_iptv.util.RecentPlayDb;
+import net.hunme.kidsworld_iptv.util.RecentPlayDbHelp;
 import net.hunme.kidsworld_iptv.widget.MyListView;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class ResourcesListActivity extends BaseActivity implements ResListContra
     private String type;
     private OnPaginSelectViewListen menuSelectListen, resSelectListen;
     private int currentPosition = -1;
+    private RecentPlayDb playDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +74,12 @@ public class ResourcesListActivity extends BaseActivity implements ResListContra
 
     @Override
     protected void initDate() {
-        if(G.isEmteny(IPTVApp.um.getUserImagUrl())){
+        if (G.isEmteny(IPTVApp.um.getUserImagUrl())) {
             userImage.setImageResource(R.mipmap.ic_portrait);
-        }else{
+        } else {
             ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
         }
+        playDb = new RecentPlayDb(this);
         userName.setText(IPTVApp.um.getUserName());
         type = getIntent().getStringExtra("actionType");
         presenter = new ResListPresenter(this);
@@ -183,7 +187,10 @@ public class ResourcesListActivity extends BaseActivity implements ResListContra
                         resAdapter.setLookRecord(false);
                         break;
                     case 2:
-                        presenter.getResReleases(1, type, AppUrl.GETPLAYRECORDCOMPILATION, false);
+                        if (G.isEmteny(IPTVApp.um.getUserName()))
+                            showCollection(RecentPlayDbHelp.getInstance().getRecordCompilation(playDb.getReadableDatabase(), type), false);
+                        else
+                            presenter.getResReleases(1, type, AppUrl.GETPLAYRECORDCOMPILATION, false);
                         resAdapter.setLookRecord(true);
                         break;
                     case 3:

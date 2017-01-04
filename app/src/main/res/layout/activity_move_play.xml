@@ -24,14 +24,27 @@
             android:layout_height="match_parent"
             android:background="@mipmap/ic_music_play_bg" />
 
-        <net.hunme.kidsworld_iptv.widget.RoundImageView
-            android:id="@+id/riv_album"
-            android:layout_width="@dimen/px400"
-            android:layout_height="@dimen/px400"
+        <RelativeLayout
+            android:id="@+id/rl_album_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/px300"
-            android:visibility="visible"
-            app:type="circle" />
+            android:layout_marginTop="@dimen/px100">
+
+            <View
+                android:layout_width="@dimen/px700"
+                android:layout_height="@dimen/px700"
+                android:background="@mipmap/ic_album_bg" />
+
+            <net.hunme.kidsworld_iptv.widget.RoundImageView
+                android:id="@+id/riv_album"
+                android:layout_width="@dimen/px600"
+                android:layout_height="@dimen/px600"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                app:type="circle" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout
