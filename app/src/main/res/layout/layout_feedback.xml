@@ -4,53 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/px260">
+    android:paddingTop="@dimen/px200">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <net.hunme.kidsworld_iptv.widget.RoundImageView
-            android:layout_width="@dimen/px500"
-            android:layout_height="@dimen/px380"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_leimu"
-            app:borderRadius="@dimen/setting_round"
-            app:type="round" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/px50"
-            android:text="为方便我们及时修复问题，请登录移动版App反馈问题"
-            android:textColor="@color/white"
-            android:textSize="@dimen/ts_x_large" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/px200"
         android:gravity="center"
         android:orientation="vertical">
 
         <net.hunme.kidsworld_iptv.widget.RoundImageView
             android:layout_width="@dimen/px380"
             android:layout_height="@dimen/px380"
+            android:src="@drawable/ic_android"
             app:borderRadius="@dimen/round"
-            app:type="round"
-            android:src="@drawable/ic_android" />
+            app:type="round" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="@dimen/px50"
+            android:gravity="center"
             android:text="扫码下载贝贝虎移动版App"
             android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px50"
+            android:gravity="center"
+            android:text="为方便我们及时修复问题，请登录移动版App反馈问题"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_x_large" />
     </LinearLayout>
 
 </LinearLayout>

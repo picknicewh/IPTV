@@ -65,8 +65,8 @@ public class FootPrintFragment extends Fragment implements FootPrintContract.Vie
                 if (i == footPrintList.size()) {
                     if (TYPE == 1) {
                         presenter.getFootPrint(1, 2);
-                        tvTitle.setText("最近一个月");
-                        adapter.getTvloadMore().setText("回到顶部");
+                        tvTitle.setText(getString(R.string.foot_print_tv01));
+                        adapter.getTvloadMore().setText(getString(R.string.foot_print_tv02));
                         TYPE = 2;
                     } else if (TYPE == 2) {
                         lvContent.setSelection(0);
@@ -88,15 +88,12 @@ public class FootPrintFragment extends Fragment implements FootPrintContract.Vie
         adapter.setOnPaginSelectListen(this);
         presenter.getFootPrint(1, 1);
         TYPE = 1;
-        tvTitle.setText("最近一周");
+        tvTitle.setText(getString(R.string.foot_print_tv03));
         lvSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    vLightBg.setVisibility(View.VISIBLE);
-                } else {
-                    vLightBg.setVisibility(View.INVISIBLE);
-                }
+                if (vLightBg != null)
+                    vLightBg.setVisibility(b ? View.VISIBLE : View.INVISIBLE);
             }
         });
         return view;
@@ -111,7 +108,7 @@ public class FootPrintFragment extends Fragment implements FootPrintContract.Vie
     @OnClick(R.id.iv_search)
     public void onClick() {
         Intent intent = new Intent(getActivity(), SearchActivity.class);
-        intent.putExtra("isFootPrint", true);
+        intent.putExtra("isFootPrint", true); //传递信息给搜索页面是来自于足迹搜索
         startActivity(intent);
     }
 
@@ -122,7 +119,6 @@ public class FootPrintFragment extends Fragment implements FootPrintContract.Vie
             adapter.notifyDataSetChanged();
             View footView = LayoutInflater.from(getActivity()).inflate(R.layout.item_foot_view_ftprint, null);
             lvContent.addFooterView(footView);
-
         } else {
             this.footPrintList.addAll(footPrintList);
             adapter.notifyDataSetChanged();

@@ -64,7 +64,6 @@ public class ResourcesListActivity extends BaseActivity implements ResListContra
     private OnPaginSelectViewListen menuSelectListen, resSelectListen;
     private int currentPosition = -1;
     private RecentPlayDb playDb;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,13 +73,16 @@ public class ResourcesListActivity extends BaseActivity implements ResListContra
 
     @Override
     protected void initDate() {
-        if (G.isEmteny(IPTVApp.um.getUserImagUrl())) {
-            userImage.setImageResource(R.mipmap.ic_portrait);
-        } else {
+        if (G.isEmteny(IPTVApp.um.getUserImagUrl()))
+            userImage.setImageResource(R.mipmap.ic_launcher);
+        else
             ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
+        if (!G.isEmteny(IPTVApp.um.getUserName())) {
+            userName.setVisibility(View.VISIBLE);
+            userName.setText(IPTVApp.um.getUserName());
         }
+
         playDb = new RecentPlayDb(this);
-        userName.setText(IPTVApp.um.getUserName());
         type = getIntent().getStringExtra("actionType");
         presenter = new ResListPresenter(this);
         upView = new MainUpView(this);

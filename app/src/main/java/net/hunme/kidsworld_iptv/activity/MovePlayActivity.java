@@ -1,14 +1,11 @@
 package net.hunme.kidsworld_iptv.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -22,9 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.open.androidtvwidget.view.MainUpView;
-
-import net.hunme.baselibrary.image.ImageCache;
 import net.hunme.baselibrary.image.ImageLoaderUtil;
 import net.hunme.baselibrary.util.G;
 import net.hunme.baselibrary.witget.LoadingDialog;
@@ -36,7 +30,7 @@ import net.hunme.kidsworld_iptv.contract.ResDetilsContract;
 import net.hunme.kidsworld_iptv.contract.ResDetilsPresenter;
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
 import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
-import net.hunme.kidsworld_iptv.util.ImagerComber;
+import net.hunme.kidsworld_iptv.util.MusicPlayStyle;
 import net.hunme.kidsworld_iptv.util.RotateAnimator;
 import net.hunme.kidsworld_iptv.widget.MyListView;
 import net.hunme.kidsworld_iptv.widget.RoundImageView;
@@ -49,8 +43,6 @@ import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static net.hunme.kidsworld_iptv.R.id.ll_music_bg;
 
 public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener, ResDetilsContract.View {
     //播放页面
@@ -102,20 +94,28 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
     @Bind(R.id.riv_album)
     RoundImageView rivAlbum;
     //音乐播放背景
-    @Bind(ll_music_bg)
+    @Bind(R.id.ll_music_bg)
     RelativeLayout llMusicBg;
 
     @Bind(R.id.rl_album_cover)
     RelativeLayout rlAlbumCover;
+    //上传者
+    @Bind(R.id.tv_upload)
+    TextView tvUpload;
+    //音乐播放背景
+    @Bind(R.id.v_music_bg)
+    View vMusicBg;
+    //音乐专辑封面
+    @Bind(R.id.v_circle_bg)
+    View vCircleBg;
 
-    private MainUpView upView;
     private SurfaceHolder surfaceHolder;
     private MediaPlayer player;
     //资源加载提示框
     private LoadingDialog dialog;
-    private TimerView hitTimer;//计时器
-    private TimerView resMoveTimer;
-    private SimpleDateFormat formatter;
+    private TimerView hitTimer;//计算控制台显示时间计时器
+    private TimerView resMoveTimer; //计算资源列表显示时间及时啊其
+    private SimpleDateFormat formatter; //视频时间总时长格式器
     //视频总时长
     private int duration;
     //当前视频播放时长
@@ -130,51 +130,47 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
     private ResDetilsContract.Presenter presenter;
     private CompilationsJsonVo compilation; //专辑对象
     private int pageNumber; //当前播放页数
-    //    private String moveUrl;
     private boolean isNotSearch; //是否单个播放源进行播放
     private MovePlayContract.Presenter movePresenter;
     private int playSecond; //播放时长（秒数）
-    //    private String resourceId;//资源Id
     private ResourceManageVo manage; // 单个资源类型对象
-    private int seekToDate;
+    private int seekToDate; //
     private RotateAnimator rotateAnimator; //旋转动画
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move_play);
         ButterKnife.bind(this);
-        dialog = new LoadingDialog(this, R.style.LoadingDialogTheme);
+        dialog = new LoadingDialog(this, R.style.LoadingDialogTheme); //初始化提示框
         dialog.setLoadingTextVis(false);
-        svMove.setClickable(false);
-        surfaceHolder = svMove.getHolder();
+        surfaceHolder = svMove.getHolder(); //得到Holder
         surfaceHolder.addCallback(this);
         movePresenter = new MovePlayPresenter();
-        presenter = new ResDetilsPresenter(this);
-        formatter = new SimpleDateFormat("mm:ss");
-        upView = new MainUpView(this);
-        upView.attach2Window(this);
+        presenter = new ResDetilsPresenter(this); //获取资源信息的Presenter
+        formatter = new SimpleDateFormat("mm:ss"); //播放时间格式转化
+
         hitTimer = new TimerView();
         resMoveTimer = new TimerView();
-        rotateAnimator=RotateAnimator.getInstance(rlAlbumCover);
+        rotateAnimator = RotateAnimator.getInstance(rlAlbumCover);
 
-//        moveUrl = getIntent().getStringExtra("moveUrl");
         manage = (ResourceManageVo) getIntent().getSerializableExtra("manage");
         isNotSearch = manage == null;
         if (isNotSearch) {
             compilation = (CompilationsJsonVo) getIntent().getSerializableExtra("compilation");
             manageList = (List<ResourceManageVo>) getIntent().getSerializableExtra("manageList");
-            pageNumber = getIntent().getIntExtra("pageNumber", 1);
-            playIndex = getIntent().getIntExtra("playIndex", 0);
+            pageNumber = getIntent().getIntExtra("pageNumber", 1);//当前页数
+            playIndex = getIntent().getIntExtra("playIndex", 0);  //当前播放集数
             if (manageList.get(playIndex).getPay().equals("1")) {//判断是否已经过期
                 G.showToast(MovePlayActivity.this, getString(R.string.pay_prompt));
                 finish();
                 return;
             }
             if (getIsMusicPlay(manageList.get(playIndex).getType())) {
-                setMusicPlayBoundary(manageList.get(playIndex));
+                setMusicPlayBackground(manageList.get(playIndex));
                 llPlayContract.setVisibility(View.VISIBLE);
             }
-            resAdapter = new MoveResourcseAdapter(manageList, upView, lvResources);
+            resAdapter = new MoveResourcseAdapter(manageList, lvResources);
             lvResources.setAdapter(resAdapter);
             resAdapter.setDefaultSelectItem(playIndex);
             presenter.synDate(compilation.getAlbumId(), pageNumber);//同步资源详情的加载页数 在资源详情的基础上继续分页
@@ -204,21 +200,19 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                     movePresenter.savePlayTheRecording(manageList.get(playIndex).getResourceId(), "", 1);
                     //设置下一个音频播放背景
                     if (getIsMusicPlay(manageList.get(playIndex).getType()))
-                        setMusicPlayBoundary(manageList.get(playIndex));
+                        setMusicPlayBackground(manageList.get(playIndex));
                 }
             });
             tvAlbumName.setText(compilation.getAlbumName());
             tvAlbumNumber.setText("共" + compilation.getSize() + "集");
         } else {
-//            resourceId = getIntent().getStringExtra("resId");
-//            resourceType=getIntent().getStringExtra("resourceType");
             if (manage.getPay() != null && manage.getPay().equals("1")) { //判断是否已经过期
                 G.showToast(MovePlayActivity.this, getString(R.string.pay_prompt));
                 finish();
                 return;
             }
             if (getIsMusicPlay(manage.getType())) {
-                setMusicPlayBoundary(manage);
+                setMusicPlayBackground(manage);
                 llPlayContract.setVisibility(View.VISIBLE);
             }
         }
@@ -266,7 +260,6 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                 ivPlayType.setImageResource(R.mipmap.ic_pause);
                 if (isNotSearch && getIsMusicPlay(manageList.get(playIndex).getType())
                         || !isNotSearch && getIsMusicPlay(manage.getType())) {
-//                    rivAlbum.pauseRotateAnimation();
                     rotateAnimator.pauseRotateAnimation();
                 }
             } else {
@@ -274,7 +267,6 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                 player.start();
                 if (isNotSearch && getIsMusicPlay(manageList.get(playIndex).getType())
                         || !isNotSearch && getIsMusicPlay(manage.getType())) {
-//                    rivAlbum.resumeRotateAnimation();
                     rotateAnimator.resumeRotateAnimation();
                 } else {
                     //延迟消失控制台
@@ -287,7 +279,7 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                 }
             }
         }
-
+        //返回键
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             //上传播放进度
             if (isNotSearch) {
@@ -295,8 +287,9 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
             } else {
                 movePresenter.savePlayTheRecording(manage.getResourceId(), String.valueOf(playSecond), 2);
             }
-            //返回键
+
             if (player != null) {
+                player.pause();
                 player.stop();
                 player.release();
             }
@@ -336,6 +329,16 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         if (dialog != null)
             dialog.show();
+        //弹框有个bug  在加载提示框出现的时候onBufferingUpdate()不在执行
+        //加一个弹框监听弹框的状态 在弹框消失的时候去进行播放 达到无缝连接
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (player != null && !player.isPlaying()) {
+                    player.start();
+                }
+            }
+        });
         player = new MediaPlayer();
         player.reset();//重置为初始状态
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);//设置音乐流的类型
@@ -350,10 +353,10 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
                 movePresenter.savePlayTheRecording(manageList.get(playIndex).getResourceId(), "", 1);
 //                if(manageList.get(playIndex).getType().equals("2"))
 //                player.setDataSource(MovePlayActivity.this, Uri.parse(manageList.get(playIndex).getResourceUrl()));
-                player.setDataSource(MovePlayActivity.this, Uri.parse(encodeChineseUrl(manageList.get(playIndex).getResourceUrl())));
+                player.setDataSource(MovePlayActivity.this, Uri.parse(G.encodeChineseUrl(manageList.get(playIndex).getResourceUrl())));
             } else if (manage != null && !G.isEmteny(manage.getResourceUrl())) {
                 movePresenter.savePlayTheRecording(manage.getResourceId(), "", 1);
-                player.setDataSource(MovePlayActivity.this, Uri.parse(encodeChineseUrl(manage.getResourceUrl())));
+                player.setDataSource(MovePlayActivity.this, Uri.parse(G.encodeChineseUrl(manage.getResourceUrl())));
             }
             player.prepareAsync();
         } catch (Exception e) {
@@ -434,8 +437,8 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
             //设置播放时间
             tvPlaySpeed.setText(playSpeed);
             tvPlaySpeedHint.setText(playSpeed);
-
         }
+
         //判断视频时候正在缓冲
         //是否缓冲完成 小于100表示没有缓冲完毕
         if (i < 100) {
@@ -463,7 +466,7 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
         } else {
             if (dialog.isShowing()) dialog.dismiss();
         }
-        G.log("视频缓冲百分比=====" + i + "=======视频播放百分比" + (Math.ceil(((float) currentPosititon / (float) duration) * 100)));
+        G.log(this, "视频缓冲百分比=====" + i + "=======视频播放百分比" + (Math.ceil(((float) currentPosititon / (float) duration) * 100)));
     }
 
     /**
@@ -473,8 +476,6 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
      */
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-//        position++;
-//        if (position < moveUrlList.size())
         if (isNotSearch) {
             //当前视频播放结束
             movePresenter.savePlayTheRecording(manageList.get(playIndex).getResourceId(), String.valueOf(playSecond), 2);
@@ -488,40 +489,18 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
             getNextPaly(mediaPlayer, manageList.get(playIndex).getResourceUrl());
             //设置音乐播放背景
             if (getIsMusicPlay(manageList.get(playIndex).getType()))
-                setMusicPlayBoundary(manageList.get(playIndex));
+                setMusicPlayBackground(manageList.get(playIndex));
         } else {
             finish();
             movePresenter.savePlayTheRecording(manage.getResourceId(), String.valueOf(playSecond), 2);
         }
-
-//        } else {
-//            G.showToast(IPTVApp.getInstance().getApplicationContext(), "播放完毕，请重新选择播放源");
-//            if (player != null) {
-////            player.stop();
-//                //释放资源
-//                player.release();
-//                finish();
-//            }
-//        }
     }
 
     private void getNextPaly(MediaPlayer mediaPlayer, String uri) {
         try {
-//            if (G.isEmteny(moveUrlList.get(position))) {
-//                G.showToast(this, "播放地址异常");
-//                if (player != null) {
-////            player.stop();
-//                    //释放资源
-//                    player.release();
-//                    finish();
-//                    return;
-//                }
-//            }
-
             mediaPlayer.reset();//重置为初始状态
-            mediaPlayer.setDataSource(MovePlayActivity.this, Uri.parse(encodeChineseUrl(uri)));
+            mediaPlayer.setDataSource(MovePlayActivity.this, Uri.parse(G.encodeChineseUrl(uri)));
             mediaPlayer.prepareAsync();
-//            G.log("moveUrl================"+moveUrlList.get(position));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -566,11 +545,10 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
      * @param base
      */
     private void playSeekTo(int base) {
-//        player.pause();
         seekToDate = pbPlayHint.getProgress() + ((duration - pbPlayHint.getProgress()) / 100 * base);
         if (base < 0 && seekToDate <= 0) seekToDate = 0;
         if (base > 0 && seekToDate >= duration) seekToDate = duration;
-//        player.seekTo(seekToDate);
+
         //更新进度条和播放时间
         pbPlayHint.setProgress(seekToDate);
         pbPlay.setProgress(seekToDate);
@@ -580,78 +558,63 @@ public class MovePlayActivity extends AppCompatActivity implements SurfaceHolder
         tvPlaySpeedHint.setText(playSpeed);
     }
 
-    public static String encodeChineseUrl(String url) {
-        int lastIndex = 0;
-        if (url.contains("Music")) {
-            lastIndex = url.lastIndexOf("Music");
-        } else if (url.contains("Video")) {
-            lastIndex = url.lastIndexOf("Video");
-        } else if (url.contains("Image")) {
-            lastIndex = url.lastIndexOf("Image");
-        }
-
-        int dosIndex = url.lastIndexOf(".");
-        if (dosIndex < lastIndex) {
-            return url;
-        } else {
-            String chineseUrl = url.substring(lastIndex, dosIndex);
-            G.log("============chineseUrl=============" + chineseUrl);
-            try {
-                String encodeUrl = Uri.encode(chineseUrl);
-                url = url.replace(chineseUrl, encodeUrl);
-//                if (url.contains("+")) {
-////                    //空格经过转换变成“+” 需要在次转化“%20”
-//                    url = url.replace("+", "%20");
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            if (msg.what == 0x12) {
+//                Bitmap bitmap = (Bitmap) msg.obj;
+//                if (bitmap != null) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                        bitmap = ImagerComber.fastBlur(MovePlayActivity.this, bitmap, 150);
+//                        llMusicBg.setBackground(new BitmapDrawable(getResources(), bitmap));
+//                    }
 //                }
-
-                if (url.contains("%2F")) {
-                    url = url.replace("%2F", "/");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        G.log("===========moveUrl==========" + url);
-        return url;
-    }
-
-    private Bitmap bitmap;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 0x12) {
-                bitmap = ImagerComber.fastBlur(MovePlayActivity.this, bitmap, 150);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    llMusicBg.setBackground(new BitmapDrawable(bitmap));
-                }
-            }
-        }
-    };
+//            }
+//        }
+//    };
 
     /**
      * 设置音乐播放背景状态
      *
      * @param manage
      */
-    private void setMusicPlayBoundary(final ResourceManageVo manage) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                bitmap = ImageCache.getBitmap(encodeChineseUrl(manage.getImageUrl()));
-                if (bitmap != null)
-                    handler.sendEmptyMessage(0x12);
-            }
-        }).start();
-//        ImageCache.imageLoader(manage.getImageUrl(), rivAlbum);
-        ImageLoaderUtil.getIntences().loadImage(manage.getImageUrl(),rivAlbum);
-//        rivAlbum.startRotateAnimation();
+    private void setMusicPlayBackground(ResourceManageVo manage) {
+//        G.log(this, imageUrl);
+//        if (isNotSearch) {
+        G.log(this, "=====createName=====" + manage.getCreateName());
+        tvUpload.setText(manage.getCreateName());
+        MusicPlayStyle.setMusicPlayStyle(vMusicBg, vCircleBg, tvUpload, manage.getCreateName());
+//        } else {
+//            G.log(this, "=====createName=====" + manage.getCreateName());
+//        }
+//        if (G.isEmteny(manage.getImageUrl())) return;
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Bitmap bitmap = ImageCache.getBitmap(G.encodeChineseUrl(imageUrl));
+//                if (bitmap != null) {
+//                    Message message = handler.obtainMessage();
+//                    message.obj = bitmap;
+//                    message.what = 0x12;
+//                    handler.sendMessage(message);
+//                }
+//
+//            }
+//        }).start();
+        ImageLoaderUtil.loadImage(manage.getImageUrl(), rivAlbum);
         rotateAnimator.startRotateAnimation();
         rivAlbum.setVisibility(View.VISIBLE);
         llMusicBg.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 是否属于音乐播放
+     *
+     * @param type
+     * @return
+     */
     private boolean getIsMusicPlay(String type) {
-        return type.equals("2");
+        return type.equals(String.valueOf(G.IPTV_TYPE.MUSIC));
     }
 }

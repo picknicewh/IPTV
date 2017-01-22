@@ -72,14 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space_x0.5"
-                android:text="@string/forus_text04"
-                android:textColor="@color/white"
-                android:textSize="@dimen/px24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_x0.5"
                 android:text="@string/forus_text05"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px24" />

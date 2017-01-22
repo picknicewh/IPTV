@@ -37,8 +37,6 @@ import com.open.androidtvwidget.R;
 import com.open.androidtvwidget.bridge.BaseEffectBridge;
 import com.open.androidtvwidget.bridge.OpenEffectBridge;
 
-import java.io.Serializable;
-
 /**
  * MainUpView是一个在最上层的移动边框，你可以使用它的API来完成你想要的效果.
  * <p>
@@ -56,7 +54,7 @@ import java.io.Serializable;
  * <li>{@link #setShadowDrawable}
  * <li>{@link #getShadowDrawable}
  * <li>{@link #setDrawShadowPadding(int)} 用于调整阴影图片边距.
- * <li>{@link #setDrawShadowPadding(RectF)} 用于调整阴影图片边距.
+ * <li>{@link #(RectF)} 用于调整阴影图片边距.
  * <p>
  * Effcet相关API:
  * <li>{@link #setEffectBridge} 你可以设置自己的放大，边框移动的动画效果.

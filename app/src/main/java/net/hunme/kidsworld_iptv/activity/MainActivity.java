@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.open.androidtvwidget.bridge.OpenEffectBridge;
 import com.open.androidtvwidget.leanback.recycle.LinearLayoutManagerTV;
 import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
@@ -25,6 +24,7 @@ import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.adapter.SuperActivityRecyclerAdapter;
 import net.hunme.kidsworld_iptv.application.IPTVApp;
 import net.hunme.kidsworld_iptv.mode.CompilationsJsonVo;
+import net.hunme.kidsworld_iptv.util.AnimationUtil;
 import net.hunme.kidsworld_iptv.util.AppUrl;
 
 import java.lang.reflect.Type;
@@ -39,9 +39,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static net.hunme.kidsworld_iptv.R.id.ib_setting;
-
-public class MainActivity extends BaseActivity implements View.OnFocusChangeListener, OkHttpListener {
+public class MainActivity extends BaseActivity implements View.OnFocusChangeListener, OkHttpListener, RecyclerViewTV.OnItemClickListener {
 
     @Bind(R.id.rv_record)
     RecyclerViewTV rvRecord;
@@ -60,7 +58,8 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
 
     @Bind(R.id.ib_setting)
     ImageButton ibSetting;
-    private MainUpView upView;
+
+    private MainUpView upView;   //焦点移动框
     private SuperActivityRecyclerAdapter adapterRecord;
     private List<CompilationsJsonVo> compilationsList;
     private Timer timer;
@@ -81,48 +80,35 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
         upView = new MainUpView(this);
         upView.attach2Window(this);
         compilationsList = new ArrayList<>();
-//        RecyclerBorderView borderView = RecyclerBorderView.getInstance(this);
-//        borderView.setRecyclerView(rvRecord, upView);
         rvRecord.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL, false));
         adapterRecord = new SuperActivityRecyclerAdapter(compilationsList, upView, rvRecord);
         rvRecord.setAdapter(adapterRecord);
-        rvRecord.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                Intent intent = new Intent(MainActivity.this, ResourceDetlisActivity.class);
-                intent.putExtra("compilation", compilationsList.get(position));
-                startActivity(intent);
-            }
-        });
+        rvRecord.setOnItemClickListener(this);
         for (int i = 0; i < rlMenu.getChildCount(); i++) {
             rlMenu.getChildAt(i).setOnFocusChangeListener(this);
         }
         ibSetting.setOnFocusChangeListener(this);
-        final TranslateAnimation animation = new TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, -1.0f,
-                Animation.RELATIVE_TO_SELF, 2.4f,
-                Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, 0f);
-        animation.setDuration(20000);//设置动画持续时间
-        animation.setRepeatCount(Integer.MAX_VALUE);//设置重复次数
-        animation.setRepeatMode(Animation.RESTART);//设置从头开始执行
-        rlNotice.setAnimation(animation);
-        animation.start();
+        AnimationUtil.tranLevelAnimation(rlNotice, -1.0f, 2.4f, 20000); //设置火车位移
         getRecommendList();
     }
 
-
     @Override
     public void onFocusChange(View view, boolean b) {
+        ((OpenEffectBridge) upView.getEffectBridge()).setVisibleWidget(true); //隐藏焦点框
         if (b) {
-            upView.setUpRectResource(R.drawable.dr);
-            upView.setFocusView(view, 1.3f);
+            float enlargeSpace;
+            if (view.getId() == R.id.ll_rank || view.getId() == R.id.ll_magic||view.getId()==R.id.ib_setting)
+                enlargeSpace = 1.3f;
+            else
+                enlargeSpace = 1.5f;
+            upView.setFocusView(view, enlargeSpace);
+            adapterRecord.setFouceForTheme(true);
         } else {
             upView.setUnFocusView(view);
         }
     }
 
-    @OnClick({R.id.ll_rank, R.id.ll_home, R.id.ll_movie, R.id.ll_music, R.id.ll_magic, ib_setting})
+    @OnClick({R.id.ll_rank, R.id.ll_home, R.id.ll_movie, R.id.ll_music, R.id.ll_magic, R.id.ib_setting})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -146,7 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
             case R.id.ll_magic:
                 G.showToast(this, "暂未开放");
                 break;
-            case ib_setting:
+            case R.id.ib_setting:
                 intent = new Intent(this, SettingDetlisActivity.class);
                 break;
         }
@@ -205,5 +191,12 @@ public class MainActivity extends BaseActivity implements View.OnFocusChangeList
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+        Intent intent = new Intent(MainActivity.this, ResourceDetlisActivity.class);
+        intent.putExtra("compilation", compilationsList.get(position));
+        startActivity(intent);
     }
 }

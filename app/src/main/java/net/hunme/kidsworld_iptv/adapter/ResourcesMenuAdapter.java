@@ -17,6 +17,7 @@ import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
+import net.hunme.kidsworld_iptv.util.MenuFocusChange;
 import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
 import net.hunme.kidsworld_iptv.widget.MyListView;
 
@@ -39,6 +40,7 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
     private ViewHold hold;
     private MyListView myListView;
     private OnPaginSelectViewListen itemSelect;
+    private MenuFocusChange menuFocusChange;
     private MainUpView upView;
     private View lightView;
     private TimerView timerView;
@@ -135,11 +137,13 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
 
     @Override
     public void onFocusChange(View view, boolean b) {
+        if (menuFocusChange != null) {
+            menuFocusChange.onFocusChangeListener(view, b, selectPosition);
+        }
         if (upView != null && oldView != null) {
             hold = (ViewHold) oldView.getTag();
             upView.setDrawUpRectPadding(new Rect(0, 0, 0, 0));
             upView.setUpRectResource(R.drawable.selsect_25_round);
-            if (upView.getVisibility() == View.GONE) upView.setVisibility(View.VISIBLE);
             if (b) {
                 timerView.timerViewShow(hold.ivMenuSelect);
                 upView.setFocusView(hold.tvMenu, 1.0f);
@@ -182,9 +186,8 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
         timerView.timerViewShow(hold.ivMenuSelect);
         hold.tvMenu.setTextColor(ContextCompat.getColor(view.getContext(), R.color.white));
         hold.tvMenu.getPaint().setFakeBoldText(true);
-        if (upView != null) {
+        if (upView != null)
             upView.setFocusView(hold.tvMenu, 1.0f);
-        }
         oldView = view;
     }
 
@@ -224,5 +227,9 @@ public class ResourcesMenuAdapter extends BaseAdapter implements AdapterView.OnI
 
     public void setSelectVis(boolean isSelectVis) {
         this.isSelectVis = isSelectVis;
+    }
+
+    public void setMenuFocusChange(MenuFocusChange menuFocusChange) {
+        this.menuFocusChange = menuFocusChange;
     }
 }

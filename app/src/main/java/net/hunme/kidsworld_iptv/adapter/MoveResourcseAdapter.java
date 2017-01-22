@@ -1,5 +1,6 @@
 package net.hunme.kidsworld_iptv.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
 import net.hunme.kidsworld_iptv.mode.ResourceManageVo;
@@ -27,15 +26,13 @@ import java.util.List;
  */
 public class MoveResourcseAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener {
     private List<ResourceManageVo> manageList;
-    private MainUpView upView;
     private MyListView listView;
     private View oldView;
     private ViewHold hold;
     public ListView.OnItemSelectedListener selectedListener;
 
-    public MoveResourcseAdapter(List<ResourceManageVo> manageList, MainUpView upView, MyListView listView) {
+    public MoveResourcseAdapter(List<ResourceManageVo> manageList,  MyListView listView) {
         this.manageList = manageList;
-        this.upView = upView;
         this.listView = listView;
         this.listView.setOnItemSelectedListener(this);
     }
@@ -90,12 +87,10 @@ public class MoveResourcseAdapter extends BaseAdapter implements AdapterView.OnI
     private void selectItemView(View itemView) {
         if (oldView != null) {
             hold = (ViewHold) oldView.getTag();
-            hold.tvResName.setTextColor(oldView.getResources().getColor(R.color.white_50));
-            upView.setUnFocusView(oldView);
+            hold.tvResName.setTextColor(ContextCompat.getColor(itemView.getContext(),R.color.white_50));
         }
         hold = (ViewHold) itemView.getTag();
-        hold.tvResName.setTextColor(itemView.getResources().getColor(R.color.white));
-        upView.setFocusView(itemView, 1.0f);
+        hold.tvResName.setTextColor(ContextCompat.getColor(itemView.getContext(),R.color.item_yellow));
         oldView = itemView;
     }
 

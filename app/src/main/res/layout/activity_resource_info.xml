@@ -25,6 +25,13 @@
                 android:layout_width="@dimen/px100"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_width="@dimen/px100"
+                    android:layout_height="@dimen/px100"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_hot_suite"
+                    android:visibility="visible" />
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
                     android:layout_width="@dimen/px90"
@@ -32,13 +39,6 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/px40"
                     android:focusable="false" />
-
-                <ImageView
-                    android:layout_width="@dimen/px100"
-                    android:layout_height="@dimen/px100"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_hot_suite"
-                    android:visibility="visible" />
             </RelativeLayout>
 
 
@@ -47,10 +47,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rl_user_image"
-                android:layout_marginTop="@dimen/space"
                 android:text="李一冰"
                 android:textColor="@color/white"
-                android:textSize="@dimen/ts_large" />
+                android:textSize="@dimen/ts_large"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:text="探险天数：226天"
                 android:textColor="@color/white"
                 android:textSize="@dimen/ts_small"
-                android:visibility="invisible" />
+                android:visibility="gone" />
         </RelativeLayout>
 
         <net.hunme.kidsworld_iptv.widget.RoundImageView
@@ -68,6 +68,7 @@
             android:layout_width="@dimen/px160"
             android:layout_height="@dimen/px207"
             android:layout_marginTop="@dimen/px20"
+            android:scaleType="centerCrop"
             app:borderRadius="@dimen/round"
             app:type="round" />
 
@@ -118,7 +119,7 @@
             android:ellipsize="end"
             android:maxLines="6"
             android:textColor="@color/white"
-            android:textSize="@dimen/px18" />
+            android:textSize="@dimen/px24" />
 
         <TextView
             android:id="@+id/tv_grow_value"

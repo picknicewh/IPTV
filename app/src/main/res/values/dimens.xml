@@ -14,7 +14,7 @@
     <dimen name="round">4dp</dimen>
     <dimen name="item_round">15dp</dimen>
     <dimen name="setting_round">10dp</dimen>
-
+    <dimen name="status_round">15dp</dimen>
     <!--<dimen name="ts_small">12sp</dimen>-->
     <!--<dimen name="ts_medium">14sp</dimen>-->
     <!--<dimen name="ts_large">16sp</dimen>-->

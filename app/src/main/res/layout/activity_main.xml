@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".activity.MainActivity">
 
     <LinearLayout
@@ -68,8 +70,7 @@
     <LinearLayout
         android:id="@+id/rl_menu"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/px700"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -176,10 +177,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginRight="@dimen/px60"
             android:id="@+id/ll_magic"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/px60"
             android:layout_marginTop="@dimen/px50"
             android:layout_weight="0.8"
             android:focusable="true"
@@ -202,13 +203,19 @@
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px170">
+        android:layout_height="@dimen/px180">
+
         <LinearLayout
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/px170"
+            android:layout_height="@dimen/px180"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:background="@mipmap/ic_record_bg">
 
@@ -221,9 +228,10 @@
 
             <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
                 android:id="@+id/rv_record"
-                android:layout_width="@dimen/px840"
-                android:layout_height="@dimen/px170"
-                android:layout_gravity="center_horizontal" />
+                android:layout_width="@dimen/px920"
+                android:layout_height="@dimen/px160"
+                android:gravity="center"
+                android:layout_gravity="center_vertical" />
 
             <ImageView
                 android:layout_width="wrap_content"

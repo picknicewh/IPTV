@@ -41,14 +41,14 @@ public class JpushReceiver extends BroadcastReceiver {
                     if (QRcodeLoginActivity.view != null) {
                         if (G.isEmteny(codeVo.getTs_id())) {
                             //扫码成功 等待移动端确认登录
-                            QRcodeLoginActivity.view.setUserHeadImg(codeVo.getImgurl());//显示用户头像
+                            QRcodeLoginActivity.view.setUserHeadImg(G.changUrlFor8082(codeVo.getImgurl()));//显示用户头像
                             G.log("========扫码成功 等待移动端确认登录========");
                         } else {
                             //移动端确认成功
                             IPTVApp.um.setUserTsId(codeVo.getTs_id());//保存用户tsId
                             IPTVApp.um.setAccountId(codeVo.getAccount_id()); //保存用户account_id
                             IPTVApp.um.setUserName(codeVo.getTs_name());//保存用户名
-                            IPTVApp.um.setUserImgUrl(codeVo.getImgurl());//保存用户头像
+                            IPTVApp.um.setUserImgUrl(G.changUrlFor8082(codeVo.getImgurl()));//保存用户头像
                             QRcodeLoginActivity.view.closeLogin(); //关闭扫码页面
                             QRcodeLoginActivity.view.submitPlayRecord(); //提交播放记录
                         }

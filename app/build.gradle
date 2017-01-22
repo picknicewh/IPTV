@@ -45,6 +45,7 @@ dependencies {
     compile 'cn.jiguang:jpush:2.2.0'
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.zhy:magic-viewpager:1.0.1'
+    //多种Viewpage切换动效
+//    compile 'com.zhy:magic-viewpager:1.0.1'
     testCompile 'junit:junit:4.12'
 }

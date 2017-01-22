@@ -10,6 +10,7 @@
         android:id="@+id/sv_move"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="false"
         android:gravity="center" />
 
     <RelativeLayout
@@ -17,12 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <View
+            android:id="@+id/v_music_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/ic_music_play_bg" />
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:id="@+id/rl_album_cover"
@@ -32,19 +33,35 @@
             android:layout_marginTop="@dimen/px100">
 
             <View
+                android:id="@+id/v_circle_bg"
                 android:layout_width="@dimen/px700"
-                android:layout_height="@dimen/px700"
-                android:background="@mipmap/ic_album_bg" />
+                android:layout_height="@dimen/px700" />
 
             <net.hunme.kidsworld_iptv.widget.RoundImageView
                 android:id="@+id/riv_album"
-                android:layout_width="@dimen/px600"
-                android:layout_height="@dimen/px600"
+                android:layout_width="@dimen/px400"
+                android:layout_height="@dimen/px400"
                 android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
                 android:visibility="visible"
                 app:type="circle" />
         </RelativeLayout>
 
+        <TextView
+            android:padding="@dimen/px10"
+            android:textSize="@dimen/px20"
+            android:gravity="center"
+            android:id="@+id/tv_upload"
+            android:layout_width="@dimen/px150"
+            android:layout_height="@dimen/px150"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:maxLength="5"
+            android:ellipsize="marquee"
+            android:layout_marginBottom="@dimen/px150"
+            android:layout_marginRight="@dimen/px100" />
     </RelativeLayout>
 
     <LinearLayout
@@ -52,7 +69,7 @@
         android:layout_width="@dimen/px300"
         android:layout_height="@dimen/px160"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px700"
+        android:layout_marginTop="@dimen/px780"
         android:background="@drawable/play_type_bg"
         android:orientation="vertical"
         android:visibility="gone">
@@ -112,7 +129,7 @@
             android:id="@+id/iv_play_type"
             android:layout_width="@dimen/px90"
             android:layout_height="@dimen/px90"
-            android:src="@mipmap/ic_pause" />
+            android:src="@mipmap/ic_play" />
 
         <SeekBar
             android:id="@+id/pb_play"

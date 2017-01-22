@@ -26,7 +26,7 @@
             android:layout_width="@dimen/px250"
             android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_40_bg"
+            android:background="@drawable/home_menu_black_20_bg"
             android:text="音悦台"
             android:textColor="@color/white_50" />
 
@@ -37,7 +37,7 @@
             android:layout_width="@dimen/px350"
             android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
-            android:background="@drawable/home_menu_black_40_bg"
+            android:background="@drawable/home_menu_black_20_bg"
             android:text="魔法乐园（暂未开放）"
             android:textColor="@color/white_50" />
     </LinearLayout>

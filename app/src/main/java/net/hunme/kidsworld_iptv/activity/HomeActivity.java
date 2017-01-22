@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.open.androidtvwidget.bridge.RecyclerViewBridge;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.baselibrary.image.ImageCache;
@@ -20,6 +21,7 @@ import net.hunme.kidsworld_iptv.fragment.NoticeFragment;
 import net.hunme.kidsworld_iptv.fragment.RecipesFragment;
 import net.hunme.kidsworld_iptv.fragment.ScheduleFragment;
 import net.hunme.kidsworld_iptv.util.FragmentUtil;
+import net.hunme.kidsworld_iptv.util.MenuFocusChange;
 import net.hunme.kidsworld_iptv.util.OnPaginSelectViewListen;
 import net.hunme.kidsworld_iptv.widget.MyListView;
 
@@ -30,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeActivity extends BaseActivity implements OnPaginSelectViewListen {
+public class HomeActivity extends BaseActivity implements OnPaginSelectViewListen, MenuFocusChange {
 
     @Bind(R.id.user_image)
     CircleImageView userImage;
@@ -68,12 +70,11 @@ public class HomeActivity extends BaseActivity implements OnPaginSelectViewListe
     protected void initDate() {
         ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
         userName.setText(IPTVApp.um.getUserName());
-
+        upview.setEffectBridge(new RecyclerViewBridge());
         upview.setUpRectResource(R.drawable.selsect_25_round);
         fragmentUtil = new FragmentUtil();
         Bundle bundle = new Bundle();
         bundle.putParcelable("upView", upview);
-
         collectionFt = new CollectionFragment();
         collectionFt.setArguments(bundle);
         footPrintFt = new FootPrintFragment();
@@ -95,6 +96,7 @@ public class HomeActivity extends BaseActivity implements OnPaginSelectViewListe
         menuList.add("课程表");
         menuAdapter.notifyDataSetChanged();
         menuAdapter.setItemSelect(this);
+        menuAdapter.setMenuFocusChange(this);
     }
 
     @Override
@@ -125,11 +127,10 @@ public class HomeActivity extends BaseActivity implements OnPaginSelectViewListe
                 menuAdapter.setSelectVis(true);
                 break;
         }
-
-        if (toFragment != null) {
+        if (toFragment != null)
             fragmentUtil.setFragment(HomeActivity.this, toFragment, R.id.frame_content);
-        }
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -138,10 +139,20 @@ public class HomeActivity extends BaseActivity implements OnPaginSelectViewListe
                 noticeFt.onKeyDown(keyCode, event);
             } else if (toFragment instanceof DynamicFragment) {
                 dynamicFt.onKeyDown(keyCode, event);
-            }else if(toFragment instanceof RecipesFragment){
-                recipesFt.onKeyDown(keyCode,event);
+            } else if (toFragment instanceof RecipesFragment) {
+                recipesFt.onKeyDown(keyCode, event);
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onFocusChangeListener(View view, boolean isFocus, int position) {
+        if (isFocus)
+            if (position == 3) {
+                dynamicFt.setRefreshDate();
+            } else if (position == 2) {
+                noticeFt.setRefreshDate();
+            }
     }
 }

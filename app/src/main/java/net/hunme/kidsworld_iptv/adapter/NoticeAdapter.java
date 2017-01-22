@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.open.androidtvwidget.bridge.RecyclerViewBridge;
 import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
@@ -48,11 +47,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     private List<DynamicInfoJsonVo> dynamicInfoList;
     private OnPaginSelectViewListen onPaginListen;
     private ViewHolder holder;
-    private View oldView;
     private int a_W;
     private int a_H;
     private int a_P;
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice_fragment, parent, false);
@@ -83,9 +80,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             holder.tvTitle.setText(message.getTitle());
             holder.tvTime.setText(message.getDateTime());
             holder.tvContent.setText(message.getMessage());
+            List<RoundImageView> roundViewList = holder.getRoundImageView();
             if (message.getMessageUrl() != null && message.getMessageUrl().size() > 0) {
                 for (int j = 0; j < message.getMessageUrl().size(); j++) {
-                    holder.setImageView(G.getBigImageUrl(message.getMessageUrl().get(j)), holder.getRoundImageView().get(j));
+                    holder.setImageView(message.getMessageUrl().get(j), roundViewList.get(j));
+//                    ImageLoaderUtil.getIntences().loadRoundImage(message.getMessageUrl().get(j),roundViewList.get())
                 }
                 holder.tvImgNumber.setText("共" + message.getMessageUrl().size() + "张");
                 holder.tvImgNumber.setVisibility(View.VISIBLE);
@@ -96,7 +95,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             holder.tvTitle.setText(dynamicInfo.getTsName());
             holder.tvTime.setText(dynamicInfo.getData());
             holder.tvContent.setText(dynamicInfo.getText());
-            List<RoundImageView> roundViewList = holder.getRoundImageView();
+            List<RoundImageView> roundViewList = holder.getRoundImageView(); //重置图片状态
             if (dynamicInfo.getImgUrl() != null && dynamicInfo.getImgUrl().size() > 0) {
                 for (int j = 0; j < dynamicInfo.getImgUrl().size() && j < roundViewList.size(); j++) {
                     holder.setImageView(G.getBigImageUrl(dynamicInfo.getImgUrl().get(j)), roundViewList.get(j));
@@ -126,7 +125,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     }
 
     private void init() {
-        this.upView.setEffectBridge(new RecyclerViewBridge());
+//        this.upView.setEffectBridge(new RecyclerViewBridge());
 //        this.upView.setUpRectResource(R.drawable.select_frame);
 //        this.listView.setOnItemSelectedListener(this);
 //        this.listView.setOnFocusChangeListener(this);
@@ -134,7 +133,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         this.listView.setSelectedItemAtCentered(true);
         a_W = (int) IPTVApp.getInstance().getResources().getDimension(R.dimen.px75);
         a_H = (int) IPTVApp.getInstance().getResources().getDimension(R.dimen.px20);
-        a_P=(int) IPTVApp.getInstance().getResources().getDimension(R.dimen.px20);
+        a_P = (int) IPTVApp.getInstance().getResources().getDimension(R.dimen.px20);
     }
 
 //    @Override
@@ -252,10 +251,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         upView.setDrawUpRectPadding(new Rect(-a_W, -a_H, -a_W, -a_H));
         upView.setFocusView(itemView, 1.0f);
 //        holder.llBg.setBackgroundResource(R.drawable.ic_test);
-        oldView = itemView;
         if (onPaginListen != null && dynamicInfoList != null && dynamicInfoList.size() - position < G.CRITICALCODE)
             onPaginListen.onPaginListen(itemView, position);
-
     }
 
     @Override
@@ -355,7 +352,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         holder = (ViewHolder) itemView.getTag();
         upView.setFocusView(holder.llBg, 1.0f);
 //        holder.llBg.setBackgroundResource(R.drawable.ic_test);
-        oldView = itemView;
     }
 
     public void setOnPaginListen(OnPaginSelectViewListen onPaginListen) {

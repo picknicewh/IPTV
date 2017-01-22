@@ -12,6 +12,7 @@ import net.hunme.kidsworld_iptv.util.PushDb;
 import net.hunme.kidsworld_iptv.util.PushDbHelp;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class NoticePresenter implements NoticeContract.presenter, OkHttpListener
 
     @Override
     public void getSchoolNotice() {
+        view.goneNoticeList();
         Map<String, Object> map = new HashMap<>();
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("dateTime", "2016-08-08 00:00:00");
@@ -44,6 +46,7 @@ public class NoticePresenter implements NoticeContract.presenter, OkHttpListener
 
     @Override
     public void getSystemNotice(PushDb db) {
+        view.goneNoticeList();
         view.showNotice(PushDbHelp.getInstance().getSystemInformVo(db.getReadableDatabase()));
     }
 
@@ -52,7 +55,12 @@ public class NoticePresenter implements NoticeContract.presenter, OkHttpListener
         if (AppUrl.GETMESSAGE.equals(uri)) {
             Result<List<MessageJsonVo>> result = (Result<List<MessageJsonVo>>) date;
             if (result.getData().size() > 0) {
-                view.showNotice(result.getData());
+                //让通知排序为倒序
+                List<MessageJsonVo> messageList = new ArrayList<>();
+                for (MessageJsonVo m : result.getData()) {
+                    messageList.add(0, m);
+                }
+                view.showNotice(messageList);
             }
         }
     }

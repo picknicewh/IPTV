@@ -17,6 +17,7 @@ import java.util.List;
 public interface NoticeContract {
     interface View {
         void showNotice(List<MessageJsonVo> messageList);
+        void goneNoticeList();
     }
 
     interface presenter {

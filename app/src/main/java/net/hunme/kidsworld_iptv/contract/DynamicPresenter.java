@@ -63,6 +63,7 @@ public class DynamicPresenter implements DynamicContract.Presenter, OkHttpListen
         }.getType();
         OkHttps.sendPost(mType, AppUrl.GETDYNAMIC, map, this);
         if (pageNumber == 1) {
+            view.goneDynamicList();
             isChange = true;
             this.pageNumber = 1;
             this.groupId = groupId;
@@ -76,6 +77,11 @@ public class DynamicPresenter implements DynamicContract.Presenter, OkHttpListen
     public void getPaginDynamicInfo(String type, String dynamicId) {
         pageNumber++;
         getDynamicInfo(groupId, groupType, pageNumber, type, dynamicId);
+    }
+
+    @Override
+    public void refreshDate() {
+        getDynamicInfo(groupId, groupType, 1, "1", "");
     }
 
     @Override

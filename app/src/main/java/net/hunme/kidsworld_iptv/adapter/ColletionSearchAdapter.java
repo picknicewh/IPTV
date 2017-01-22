@@ -134,6 +134,7 @@ public class ColletionSearchAdapter extends BaseAdapter implements AdapterView.O
         if (oldView != null) {
             if (b) {
                 selectItemView(oldView);
+//                listView.setSelection(0);
             } else {
                 hold = (ViewHolder) oldView.getTag();
                 hold.tvAlbum.setTextColor(white_50);

@@ -42,7 +42,7 @@ public class ImageLoaderUtil {
      * @param url
      * @param imageView
      */
-    public void loadImage(String url, ImageView imageView) {
+    public static void loadImage(String url, ImageView imageView) {
         Glide.with(imageView.getContext()).load(url)
                 .crossFade() // 淡入淡出动画
 //                .dontAnimate() //取消加载动画
@@ -57,18 +57,19 @@ public class ImageLoaderUtil {
      *
      * @param url
      * @param imageView
-     * @param rund
+     * @param round
      */
-    public void loadRoundImage(String url, ImageView imageView, int rund) {
+    public static void loadRoundImage(String url, ImageView imageView, int round) {
         Glide.with(imageView.getContext()).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(imageView.getDrawable())
                 .error(R.mipmap.ic_img_error)
                 .crossFade()
                 .centerCrop()
-                .bitmapTransform(new RoundedCornersTransformation(imageView.getContext(), rund, 0,
-                        RoundedCornersTransformation.CornerType.ALL)).crossFade(1000).
-                into(imageView);
+//                .bitmapTransform(new RoundedCornersTransformation(imageView.getContext(), round, 0,
+//                        RoundedCornersTransformation.CornerType.ALL)).crossFade(1000)
+                .transform(new GlideRoundTransform(imageView.getContext(),round))
+                .into(imageView);
     }
 
     /**
@@ -76,7 +77,7 @@ public class ImageLoaderUtil {
      *
      * @param context
      */
-    public void clearMemory(final Context context) {
+    public static void clearMemory(final Context context) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Glide.get(context.getApplicationContext()).clearMemory();
         } else {
@@ -85,11 +86,12 @@ public class ImageLoaderUtil {
     }
 
     /**
-     *  设置gif动画
+     * 设置gif动画
+     *
      * @param url
      * @param imageView
      */
-    public void setGifImage(String url,ImageView imageView) {
+    public static void setGifImage(String url, ImageView imageView) {
         Glide.with(imageView.getContext()).load(url).asGif()
 //                .crossFade() // 淡入淡出动画
 //                .dontAnimate() //取消加载动画

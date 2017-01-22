@@ -153,6 +153,7 @@ public class SearchPresenter implements SearchContract.Presenter, OkHttpListener
             this.pageNumber = 1;
             this.type = type;
             this.tag = tag;
+            view.showDialog();
         } else
             this.isPagin = true;
     }
@@ -202,15 +203,20 @@ public class SearchPresenter implements SearchContract.Presenter, OkHttpListener
             if (result.getData().size() > 0)
                 view.setMoveHotSearch(result.getData());
         } else if (AppUrl.GETRESOURCESEARCH.equals(uri)) {
+            view.dismissDialog();
             Result<SearchVo> result = (Result<SearchVo>) date;
             if (result.getData().getAlbumManageList().size() > 0 || result.getData().getResourceManageList().size() > 0) {
                 view.setSearchDate(result.getData().getAlbumManageList(), result.getData().getResourceManageList(), isPagin);
             } else {
-                if (isPagin)
+                if (isPagin) {
                     pageNumber--;
+                    //分页加载不进行提示
+                    return;
+                }
                 G.showToast(IPTVApp.getInstance().getApplicationContext(), "暂未搜索到该资源");
             }
         } else if (AppUrl.SEARCHFOOTPRINT.equals(uri)) {
+            view.dismissDialog();
             Result<List<FootPrintVo>> result = (Result<List<FootPrintVo>>) date;
             if (result.getData().size() > 0)
                 view.setSearchFootPrint(result.getData());
@@ -228,5 +234,6 @@ public class SearchPresenter implements SearchContract.Presenter, OkHttpListener
             if (isPagin)
                 pageNumber--;
         }
+        view.dismissDialog();
     }
 }

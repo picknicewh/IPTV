@@ -17,12 +17,19 @@ import java.util.List;
 public interface DynamicContract {
     interface View {
         void setHeadMessage(List<DynamicJsonVo> dynamicHeadList);
-        void setDynamicInfo(List<DynamicInfoJsonVo> dynamicInfoList,boolean isChange);
+
+        void setDynamicInfo(List<DynamicInfoJsonVo> dynamicInfoList, boolean isChange);
+
+        void goneDynamicList();
     }
 
     interface Presenter {
         void getHeadMessage();
-        void getDynamicInfo(String groupId,String groupType,int pageNumber,String type,String dynamicId );
-        void getPaginDynamicInfo(String type,String dynamicId);
+
+        void getDynamicInfo(String groupId, String groupType, int pageNumber, String type, String dynamicId);
+
+        void getPaginDynamicInfo(String type, String dynamicId);
+
+        void refreshDate();
     }
 }

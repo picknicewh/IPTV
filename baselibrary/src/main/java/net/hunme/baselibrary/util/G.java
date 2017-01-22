@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -85,12 +86,24 @@ public class G {
 
     /**
      * 记录调试信息
-     *
      * @param msg 调试信息
+     * @deprecated 已经过时 用log(Object mClass, Object msg)
      */
     public static void log(Object msg) {
         if (DEBUG) {
             Log.i("TAG", String.valueOf(msg));
+        }
+    }
+
+    /**
+     *  记录调试信息
+     * @param mClass  当前类名
+     * @param msg  调试信息
+     */
+    public static void log(Object mClass, Object msg) {
+        if (DEBUG) {
+//            String className=mClass.getClass().getCanonicalName();
+            Log.i(mClass.getClass().getSimpleName(),  "=====----->> "+String.valueOf(msg));
         }
     }
 
@@ -188,5 +201,40 @@ public class G {
     public static class IPTV_TYPE {
         public static int MOVE = 1;//视频
         public static int MUSIC = 2;//音频
+    }
+
+    public static String encodeChineseUrl(String url) {
+        int lastIndex = 0;
+        if (url.contains("Music")) {
+            lastIndex = url.lastIndexOf("Music");
+        } else if (url.contains("Video")) {
+            lastIndex = url.lastIndexOf("Video");
+        } else if (url.contains("Image")) {
+            lastIndex = url.lastIndexOf("Image");
+        }
+        int dosIndex = url.lastIndexOf(".");
+        if (dosIndex < lastIndex) {
+            return url;
+        } else {
+            String chineseUrl = url.substring(lastIndex, dosIndex);
+            try {
+                String encodeUrl = Uri.encode(chineseUrl);
+                url = url.replace(chineseUrl, encodeUrl);
+//                if (url.contains("+")) {
+////                    //空格经过转换变成“+” 需要在次转化“%20”
+//                    url = url.replace("+", "%20");
+//                }
+                if (url.contains("%2F")) {
+                    url = url.replace("%2F", "/");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return url;
+    }
+
+    public static String changUrlFor8082(String imgUrl){
+        return imgUrl.replace("8080","8082");
     }
 }

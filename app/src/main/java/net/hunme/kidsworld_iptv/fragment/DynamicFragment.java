@@ -19,7 +19,7 @@ import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
-import net.hunme.kidsworld_iptv.activity.StatusDetlisActivity;
+import net.hunme.kidsworld_iptv.activity.PictureCarouselActivity;
 import net.hunme.kidsworld_iptv.adapter.NoticeAdapter;
 import net.hunme.kidsworld_iptv.contract.DynamicContract;
 import net.hunme.kidsworld_iptv.contract.DynamicPresenter;
@@ -59,7 +59,6 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     private DynamicJsonVo schoolDynamic;
     private List<DynamicInfoJsonVo> dynamicInfoList;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,23 +70,23 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
         lvContent.setLayoutManager(new LinearLayoutManagerTV(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new NoticeAdapter(lvContent, upview, dynamicInfoList, 0);
         adapter.setOnPaginListen(this);
+        adapter.setHasStableIds(true); //解决recyleView 刷新焦点失去的问题！
         lvContent.setAdapter(adapter);
+        lvContent.setItemAnimator(null);
         lvContent.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
-                intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(position));
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+//                intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(position));
+//                startActivity(intent);
+                DynamicInfoJsonVo jsonVo = dynamicInfoList.get(position);
+                if (jsonVo.getImgUrl() != null && jsonVo.getImgUrl().size() > 0) {
+                    Intent intent = new Intent(getActivity(), PictureCarouselActivity.class);
+                    intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(position));
+                    startActivity(intent);
+                }
             }
         });
-//        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
-//                intent.putExtra("dynamicInfoList", (Serializable) dynamicInfoList.get(i));
-//                startActivity(intent);
-//            }
-//        });
         tvClass.setOnFocusChangeListener(this);
         tvSchool.setOnFocusChangeListener(this);
         presenter.getHeadMessage();
@@ -105,24 +104,25 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     @Override
     public void onFocusChange(View view, boolean b) {
         if (b) {
-            switch (view.getId()) {
-                case tv_class:
-                    if (classDynamic != null)
-                        presenter.getDynamicInfo(classDynamic.getGroupId(), classDynamic.getGroupType(), 1, "1", "");
-                    break;
-                case R.id.tv_school:
-                    if (schoolDynamic != null)
-                        presenter.getDynamicInfo(schoolDynamic.getGroupId(), schoolDynamic.getGroupType(), 1, "1", "");
-                    break;
-                default:
-                    return;
-            }
+            if (oldView != null && view.getId() != oldView.getId())
+                switch (view.getId()) {
+                    case tv_class:
+                        if (classDynamic != null)
+                            presenter.getDynamicInfo(classDynamic.getGroupId(), classDynamic.getGroupType(), 1, "1", "");
+                        break;
+                    case R.id.tv_school:
+                        if (schoolDynamic != null)
+                            presenter.getDynamicInfo(schoolDynamic.getGroupId(), schoolDynamic.getGroupType(), 1, "1", "");
+                        break;
+                    default:
+                        return;
+                }
             if (oldView != null) {
-                oldView.setBackgroundResource(R.drawable.home_menu_black_40_bg);
+                oldView.setBackgroundResource(R.drawable.home_menu_black_20_bg);
                 ((TextView) oldView).setTextColor(ContextCompat.getColor(getContext(), R.color.white_50));
             }
             view.setBackgroundResource(R.drawable.home_menu_black_bg);
-            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.item_yellow));
             oldView = view;
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
@@ -130,6 +130,9 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
                     upview.setVisibility(View.GONE);
                 }
             }, 150);
+        } else {
+            view.setBackgroundResource(R.drawable.home_menu_black_bg);
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
         }
     }
 
@@ -153,9 +156,13 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     @Override
     public void setDynamicInfo(List<DynamicInfoJsonVo> dynamicInfoList, boolean isChange) {
         if (isChange) {
-            this.dynamicInfoList.clear();
-            this.dynamicInfoList.addAll(dynamicInfoList);
-            adapter.notifyDataSetChanged();
+            if (dynamicInfoList.size() > 0) {
+                lvContent.setVisibility(View.VISIBLE);
+                this.dynamicInfoList.clear();
+                this.dynamicInfoList.addAll(dynamicInfoList);
+                adapter.notifyDataSetChanged();
+                lvContent.scrollToPosition(0);
+            }
         } else {
             this.dynamicInfoList.addAll(dynamicInfoList);
             adapter.notifyDataSetChanged();
@@ -163,8 +170,16 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
     }
 
     @Override
+    public void goneDynamicList() {
+        //数据在请求的时候有一点的时间延迟 这个时候在去选择lvContent 虽然没有内容但是焦点会被触发 这样容易形成焦点找不到
+        //为了解决这个bug 在数据请求的时候将lvContent 隐藏起来 让其焦点获取不到 等到加载数据出来的时候在显示 正常获取焦点
+        //通知也是同理
+        lvContent.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onPaginListen(View view, int position) {
-//        presenter.getPaginDynamicInfo("1", dynamicInfoList.get(dynamicInfoList.size() - 1).getDynamicId());
+        presenter.getPaginDynamicInfo("1", dynamicInfoList.get(dynamicInfoList.size() - 1).getDynamicId());
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -177,5 +192,9 @@ public class DynamicFragment extends Fragment implements View.OnFocusChangeListe
             }
         }
         return true;
+    }
+
+    public void setRefreshDate() {
+        presenter.refreshDate();
     }
 }

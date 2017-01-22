@@ -85,18 +85,20 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_info);
         ButterKnife.bind(this);
-
     }
 
     @Override
     protected void initDate() {
         if (G.isEmteny(IPTVApp.um.getUserImagUrl())) {
-            userImage.setImageResource(R.mipmap.ic_portrait);
+            userImage.setImageResource(R.mipmap.ic_launcher);
             playDb = new RecentPlayDb(this);
         } else {
             ImageCache.imageLoader(IPTVApp.um.getUserImagUrl(), userImage);
         }
-        userName.setText(IPTVApp.um.getUserName());
+        if (!G.isEmteny(IPTVApp.um.getUserName())) {
+            userName.setVisibility(View.VISIBLE);
+            userName.setText(IPTVApp.um.getUserName());
+        }
         upView = new MainUpView(this);
         upView.attach2Window(this);
         ivSearch.clearFocus();
@@ -130,6 +132,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
 //                if (manageList.get(i).getType().equals("1")) {
                 if (manageList.get(i).getPay().equals("2")) {
                     if (G.isEmteny(IPTVApp.um.getUserName())) {
+                        //用户未登录的情况下保存播放记录
                         RecentPlayDbHelp.getInstance().insert(playDb.getWritableDatabase(),
                                 compilation.getAlbumId(), compilation.getName(), compilation.getSize(),
                                 String.valueOf(i + 1), compilation.getImageUrl(),
@@ -151,6 +154,7 @@ public class ResourceDetlisActivity extends BaseActivity implements ResDetilsCon
             }
         });
         setRescurseDetils(compilation);
+        adapter.setAlbumImgUrl(compilation.getImageUrl());//设置资源专辑封面
         presenter.getCompilationsAllResource(compilation.getAlbumId(), 1, true);
 //        setSearchDateList(Integer.parseInt(compilation.getSize()));
 

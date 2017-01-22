@@ -50,6 +50,7 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
     private TimerView timerView;
     //是否是观看记录
     private boolean isLookRecord;
+    private String albumImgUrl;
 
     public void init(GridViewTV viewTV, MainUpView upView) {
         this.viewTV = viewTV;
@@ -105,13 +106,18 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
             String everyList = compilation.getSize(); //当前专辑总集数
             String resNumber;
             if (isLookRecord) {
+                currentNum = G.isEmteny(currentNum) ? "0" : currentNum;
+                everyList = G.isEmteny(everyList) ? "未知" : everyList;
                 //观看记录显示该专辑看到多少集
                 resNumber = "第" + currentNum + "集" + "(" + currentNum + "/" + everyList + ")";
             } else {
+                if (G.isEmteny(everyList))
+                    everyList = String.valueOf(0);
                 resNumber = "共" + everyList + "集";
             }
             hold.tvResNumber.setText(resNumber);
             ImageCache.imageLoader(compilation.getImageUrl(), hold.ivGird);
+//            ImageLoaderManger.getManger().display(hold.ivGird,compilation.getImageUrl());
         } else if (manageList != null && manageList.size() > 0) {
             //资源
             ResourceManageVo manage = manageList.get(i);
@@ -124,7 +130,10 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
 //                String lookType = "已经看" + manage.getBroadcastPace();
 //                hold.tvResNumber.setText(lookType);
 //            }
-            ImageCache.imageLoader(manage.getImageUrl(), hold.ivGird);
+            G.log(this, manage.getResourceName());
+            if (!G.isEmteny(albumImgUrl))
+                ImageCache.imageLoader(albumImgUrl, hold.ivGird);
+//            ImageLoaderManger.getManger().display(hold.ivGird,manage.getImageUrl());
         }
         return view;
     }
@@ -164,7 +173,7 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
                         upView.setVisibility(View.GONE);
                         if (lightView != null) lightView.setBackgroundResource(0);
                     }
-                }, 160);
+                }, 150);
             }
         }
     }
@@ -215,7 +224,6 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
 
     class TimerView {
         private Timer timer;
-
         /**
          * 计时显示View的状态
          */
@@ -242,5 +250,9 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
 
     public void setLookRecord(boolean isLookRecord) {
         this.isLookRecord = isLookRecord;
+    }
+
+    public void setAlbumImgUrl(String albumImgUrl) {
+        this.albumImgUrl = albumImgUrl;
     }
 }

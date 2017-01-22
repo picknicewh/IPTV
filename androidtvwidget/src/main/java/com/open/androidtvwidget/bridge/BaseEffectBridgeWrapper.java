@@ -1,7 +1,5 @@
 package com.open.androidtvwidget.bridge;
 
-import com.open.androidtvwidget.view.MainUpView;
-
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -13,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
+import com.open.androidtvwidget.view.MainUpView;
+
 public class BaseEffectBridgeWrapper extends BaseEffectBridge {
 
 	private static final float DEFAULT_SCALE = 1.0f;
-	private static final int DEFAULT_TRAN_DUR_ANIM = 300;
+	private static final int DEFAULT_TRAN_DUR_ANIM = 150;
 
 	private MainUpView mMainUpView;
 	private Drawable mDrawableShadow;

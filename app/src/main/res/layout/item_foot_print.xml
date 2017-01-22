@@ -114,6 +114,8 @@
     </LinearLayout>
 
     <View
+        android:layout_marginLeft="@dimen/px40"
+        android:layout_marginRight="@dimen/px40"
         android:layout_marginTop="@dimen/space"
         android:layout_width="match_parent"
         android:layout_height="1dp"

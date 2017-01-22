@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.hunme.kidsworld_iptv.activity.PictureCarouselActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black" />
+
+    <ImageView
+        android:id="@+id/iv_notice_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/px50"
+        android:src="@mipmap/ic_notice_left"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/iv_notice_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/px50"
+        android:src="@mipmap/ic_notice_right"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_ms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/black_40"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/px20"
+        android:paddingLeft="@dimen/px200"
+        android:paddingRight="@dimen/px200"
+        android:paddingTop="@dimen/px20">
+
+        <LinearLayout
+            android:layout_width="@dimen/px90"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <net.hunme.kidsworld_iptv.widget.RoundImageView
+                android:id="@+id/iv_image"
+                android:layout_width="@dimen/px60"
+                android:layout_height="@dimen/px60"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_notice"
+                android:layout_width="@dimen/px60"
+                android:layout_height="@dimen/px60"
+                android:src="@mipmap/ic_notice_big"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/iv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px10"
+                android:gravity="center"
+                android:text="明明"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/px35"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px40"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="秋季运动会"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/px30" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:maxLength="19"
+                android:text="2016-11-14 09:19:18"
+                android:textColor="@color/white_80" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_title"
+                android:layout_marginBottom="@dimen/px10"
+                android:layout_marginTop="@dimen/px10"
+                android:background="@mipmap/ic_dotted_line" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginTop="@dimen/px20"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px30" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

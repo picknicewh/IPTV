@@ -18,11 +18,11 @@
             android:layout_width="@dimen/px230"
             android:layout_height="@dimen/px300"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_leimu"
             app:borderRadius="@dimen/round"
             app:type="round" />
 
         <ImageView
+            android:visibility="invisible"
             android:layout_marginLeft="@dimen/px19"
             android:layout_marginTop="@dimen/px19"
             android:id="@+id/iv_corner"
@@ -46,12 +46,12 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/px200"
         android:layout_height="@dimen/px50"
-        android:ellipsize="end"
+        android:layout_marginRight="@dimen/px10"
+        android:layout_marginLeft="@dimen/px10"
         android:maxLines="1"
-        android:paddingLeft="@dimen/space_x0.5"
-        android:paddingRight="@dimen/space_x0.5"
+        android:ellipsize="end"
         android:gravity="center_horizontal"
         android:text="音乐欣赏"
         android:textColor="@color/white_50"

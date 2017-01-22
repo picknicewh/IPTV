@@ -53,9 +53,6 @@
             android:name=".activity.ResourceDetlisActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.NoticeDetlisActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -70,6 +67,7 @@
         <activity
             android:name=".activity.StatusDetlisActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.PictureCarouselActivity"></activity>
     </application>
 
 </manifest>

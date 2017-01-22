@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_bg"
-    android:layout_width="@dimen/px104"
-    android:layout_height="@dimen/px162"
+    android:layout_width="@dimen/px130"
+    android:layout_height="@dimen/px160"
     android:focusable="true"
     android:orientation="vertical">
 
@@ -11,17 +11,16 @@
         android:layout_centerVertical="true"
         android:visibility="invisible"
         android:id="@+id/v_light_bg"
-        android:layout_width="@dimen/px102"
-        android:layout_height="@dimen/px161"
+        android:layout_width="@dimen/px130"
+        android:layout_height="@dimen/px160"
         android:background="@mipmap/ic_main_foot" />
 
     <net.hunme.kidsworld_iptv.widget.RoundImageView
         android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/px12"
-        android:layout_marginLeft="@dimen/px10"
+        android:layout_marginLeft="@dimen/px13"
         android:id="@+id/iv_poster"
-        android:layout_width="@dimen/px82"
-        android:layout_height="@dimen/px140"
+        android:layout_width="@dimen/px104"
+        android:layout_height="@dimen/px138"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_leimu"
         app:borderRadius="@dimen/px6"

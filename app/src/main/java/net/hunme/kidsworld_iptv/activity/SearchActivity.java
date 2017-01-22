@@ -73,6 +73,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
     private ArrayList<FootPrintVo> footPrintList;
     private boolean isFootPrint;
     private LoadingDialog searchDialog;//搜索提示框
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         bridge.onInitBridge(upView);
         upView.setEffectBridge(bridge);
         upView.setUpRectResource(R.drawable.select_frame);
-        searchDialog=new LoadingDialog(this,R.style.LoadingDialogTheme);
+        searchDialog = new LoadingDialog(this, R.style.LoadingDialogTheme);
         searchDialog.setLoadingText("数据获取中...");
 
         mapList = new ArrayList<>();
@@ -120,10 +121,10 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
                     menuDate.add(keyBordDate.get(i).get("letter"));//添加字母
                     menuDate.add(keyBordDate.get(i).get("number"));//添加数字
 
-                    popwindow = new MyKeybordPopwindow(SearchActivity.this,etCollection);
+                    popwindow = new MyKeybordPopwindow(SearchActivity.this, etCollection);
                     popwindow.setTextViewContent(menuDate);//设置窗口数据
                     G.initDisplaySize(SearchActivity.this);
-                    popwindow.showAtLocation(gvKeyboard, Gravity.CENTER_VERTICAL, -G.size.W/3, 0);//弹出键盘框
+                    popwindow.showAtLocation(gvKeyboard, Gravity.CENTER_VERTICAL, -G.size.W / 3, 0);//弹出键盘框
                 }
             }
         });
@@ -147,7 +148,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
                     presenter.getSearchFootPrint(searchDate);
                 else
                     presenter.getSearchDate(4, 1, searchDate);
-                searchDialog.show();
             }
         });
         initRecommendView();  //初始化推荐资源
@@ -197,7 +197,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
      */
     @Override
     public void setSearchDate(List<CompilationsJsonVo> compilationsList, List<ResourceManageVo> manageList, boolean isPagin) {
-        searchDialog.dismiss(); //关闭搜索弹框
         llRecommend.setVisibility(View.GONE);
         llSearch.setVisibility(View.VISIBLE);
         if (isPagin) {
@@ -211,7 +210,17 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
             searchResDateList.addAll(compilationsList);
             searchThemeList.addAll(manageList);
             albumAdapter.notifyDataSetChanged();
-            searchAdapter.notifyDataSetInvalidated();
+            searchAdapter.notifyDataSetChanged();
+            G.log(this,searchResDateList.size());
+            if (searchResDateList.size() > 0)
+                rvAlbum.setVisibility(View.VISIBLE);
+            else
+                rvAlbum.setVisibility(View.GONE);
+            G.log(this,searchThemeList.size());
+            if (searchThemeList.size() > 0)
+                lvResult.setVisibility(View.VISIBLE);
+            else
+                lvResult.setVisibility(View.GONE);
         }
     }
 
@@ -222,6 +231,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
      */
     @Override
     public void setSearchFootPrint(List<FootPrintVo> footPrintList) {
+
         llRecommend.setVisibility(View.GONE);
         llSearch.setVisibility(View.VISIBLE);
         this.footPrintList.clear();
@@ -239,6 +249,16 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         Intent intent = new Intent(this, MovePlayActivity.class);
         intent.putExtra("manage", manageLis);
         startActivity(intent);
+    }
+
+    @Override
+    public void showDialog() {
+        searchDialog.show();
+    }
+
+    @Override
+    public void dismissDialog() {
+        searchDialog.dismiss(); //关闭搜索弹框
     }
 
 //    /**
@@ -337,6 +357,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
 
     private TextView tvSecharTilte;
     private TextView tvAlbum;
+
     /**
      * 搜索结果
      */
@@ -370,11 +391,11 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         });
         if (isFootPrint) {
             footPrintList = new ArrayList<>();
-            searchAdapter = new ColletionSearchAdapter(upView,lvResult, footPrintList);
+            searchAdapter = new ColletionSearchAdapter(upView, lvResult, footPrintList);
             lvResult.setAdapter(searchAdapter);
         } else {
             searchThemeList = new ArrayList<>();
-            searchAdapter = new ColletionSearchAdapter(upView,lvResult, searchThemeList);
+            searchAdapter = new ColletionSearchAdapter(upView, lvResult, searchThemeList);
             lvResult.setAdapter(searchAdapter);
         }
 

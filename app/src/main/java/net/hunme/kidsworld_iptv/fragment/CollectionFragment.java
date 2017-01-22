@@ -100,17 +100,20 @@ public class CollectionFragment extends Fragment implements View.OnFocusChangeLi
                     return;
             }
             if (oldView != null) {
-                oldView.setBackgroundResource(R.drawable.home_menu_black_40_bg);
+                oldView.setBackgroundResource(R.drawable.home_menu_black_20_bg);
                 ((TextView) oldView).setTextColor(ContextCompat.getColor(getContext(), R.color.white_50));
                 upview.setUnFocusView(oldView);
                 upview.setUpRectResource(R.drawable.dr);
             }
             upview.setFocusView(view, 1.0f);
             view.setBackgroundResource(R.drawable.home_menu_black_bg);
-            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.item_yellow));
             if (oldView == null || oldView.getId() != view.getId())
                 presenter.getCollectionRes(1, type);
             oldView = view;
+        } else {
+            view.setBackgroundResource(R.drawable.home_menu_black_bg);
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
         }
     }
 

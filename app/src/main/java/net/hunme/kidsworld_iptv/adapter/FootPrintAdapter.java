@@ -91,7 +91,7 @@ public class FootPrintAdapter extends BaseAdapter implements View.OnFocusChangeL
 //            pro = Math.ceil(Double.parseDouble(footPrint.getBroadcastPace()) * 100) + "%";
 //        }
 //        holder.tvLookProgress.setText(pro);
-        holder.bOperation.setText("继续观看");
+        holder.bOperation.setText("再次观看");
         return view;
     }
 

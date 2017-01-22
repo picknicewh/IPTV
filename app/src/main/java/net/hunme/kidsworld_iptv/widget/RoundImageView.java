@@ -1,28 +1,26 @@
 package net.hunme.kidsworld_iptv.widget;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import net.hunme.baselibrary.util.G;
 import net.hunme.kidsworld_iptv.R;
+
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Method;
 
 /**
  * ================================================
@@ -35,246 +33,197 @@ import net.hunme.kidsworld_iptv.R;
  */
 public class RoundImageView extends ImageView {
     /**
-     * 图片的类型，圆形or圆角
+     * 默认圆角半径
      */
-    private int type;
+    public static final int DEFAULT_RADIUS = 10;
+    /**
+     * 圆形
+     */
     public static final int TYPE_CIRCLE = 0;
+    /**
+     * 圆角
+     */
     public static final int TYPE_ROUND = 1;
     /**
-     * 圆角大小的默认值
+     * 图片的类型，圆形or圆角
      */
-    private static final int BODER_RADIUS_DEFAULT = 10;
+    private int mType = TYPE_CIRCLE;
     /**
-     * 圆角的大小
+     * 圆角半径
      */
-    private int mBorderRadius;
-
+    private int mRadius = DEFAULT_RADIUS;
     /**
-     * 绘图的Paint
+     * 弱引用
      */
-    private Paint mBitmapPaint;
-    /**
-     * 圆角的半径
-     */
-    private int mRadius;
-    /**
-     * 3x3 矩阵，主要用于缩小放大
-     */
-    private Matrix mMatrix;
-    /**
-     * 渲染图像，使用图像为绘制图形着色
-     */
-    private BitmapShader mBitmapShader;
-    /**
-     * view的宽度
-     */
-    private int mWidth;
-    private RectF mRoundRect;
-    private ObjectAnimator mRotateAnimator;
-    public RoundImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mMatrix = new Matrix();
-        mBitmapPaint = new Paint();
-        mBitmapPaint.setAntiAlias(true);
-
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.RoundImageView);
-
-        mBorderRadius = a.getDimensionPixelSize(
-                R.styleable.RoundImageView_borderRadius, (int) TypedValue
-                        .applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                                BODER_RADIUS_DEFAULT, getResources()
-                                        .getDisplayMetrics()));// 默认为10dp
-        type = a.getInt(R.styleable.RoundImageView_type, TYPE_CIRCLE);// 默认为Circle
-
-        a.recycle();
-        init();
-    }
+    private WeakReference<Bitmap> mWeakBitmap;
+    private Paint mPaint;
+    private Xfermode mXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+    private Bitmap mMaskBitmap;
 
     public RoundImageView(Context context) {
         this(context, null);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    public RoundImageView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-        /**
-         * 如果类型是圆形，则强制改变view的宽高一致，以小值为准
-         */
-        if (type == TYPE_CIRCLE) {
-            mWidth = Math.min(getMeasuredWidth(), getMeasuredHeight());
-            mRadius = mWidth / 2;
-            setMeasuredDimension(mWidth, mWidth);
-        }
-
+    public RoundImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        obtainStyleAttr(context, attrs, defStyleAttr);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
     }
 
     /**
-     * 初始化BitmapShader
+     * 获取attr
      */
-    private void setUpShader() {
-        Drawable drawable = getDrawable();
-        if (drawable == null) {
-            return;
-        }
-
-        Bitmap bmp = drawableToBitamp(drawable);
-        // 将bmp作为着色器，就是在指定区域内绘制bmp
-        mBitmapShader = new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        float scale = 1.0f;
-        float widthScale = 1.0f;
-        float heightScale = 1.0f;
-        if (type == TYPE_CIRCLE) {
-            // 拿到bitmap宽或高的小值
-            int bSize = Math.min(bmp.getWidth(), bmp.getHeight());
-            scale = mWidth * 1.0f / bSize;
-            // shader的变换矩阵，我们这里主要用于放大或者缩小
-            mMatrix.setScale(scale, scale);
-        } else if (type == TYPE_ROUND) {
-            Log.e("TAG",
-                    "b'w = " + bmp.getWidth() + " , " + "b'h = "
-                            + bmp.getHeight());
-            if (!(bmp.getWidth() == getWidth())) {
-                widthScale = getWidth() * 1.0f / bmp.getWidth();
-            }
-            if (!(bmp.getHeight() == getHeight())) {
-                heightScale = getHeight() * 1.0f / bmp.getHeight();
-            }
-            // shader的变换矩阵，我们这里主要用于放大或者缩小
-            mMatrix.setScale(widthScale, heightScale);
-        }
-        // 设置变换矩阵
-        mBitmapShader.setLocalMatrix(mMatrix);
-        // 设置shader
-        mBitmapPaint.setShader(mBitmapShader);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        Log.e("TAG", "onDraw");
-        if (getDrawable() == null) {
-            return;
-        }
-        setUpShader();
-
-        if (type == TYPE_ROUND) {
-            canvas.drawRoundRect(mRoundRect, mBorderRadius, mBorderRadius,
-                    mBitmapPaint);
-        } else {
-            canvas.drawCircle(mRadius, mRadius, mRadius, mBitmapPaint);
-            // drawSomeThing(canvas);
-        }
+    private void obtainStyleAttr(Context context, AttributeSet set, int defStyleAttr) {
+        TypedArray a = context.obtainStyledAttributes(set, R.styleable.RoundImageView, defStyleAttr, 0);
+        mRadius = a.getDimensionPixelSize(R.styleable.RoundImageView_borderRadius, dp2px(DEFAULT_RADIUS));
+        mType = a.getInteger(R.styleable.RoundImageView_type, mType);
+        a.recycle();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+    }
 
-        // 圆角图片的范围
-        if (type == TYPE_ROUND)
-            mRoundRect = new RectF(0, 0, w, h);
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Bitmap bitmap = mWeakBitmap == null ? null : mWeakBitmap.get();
+        if (bitmap == null || bitmap.isRecycled()) {
+            //获取Drawable
+            Drawable drawable = getDrawable();
+            if (drawable != null) {
+                bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+                Matrix matrix = null;
+                Canvas dstCanvas = new Canvas(bitmap);
+                dstCanvas.save();
+                if (getScaleType() == ScaleType.FIT_XY) {
+                    drawable.setBounds(0, 0, getWidth(), getHeight());
+                    matrix = null;
+                } else {
+                    matrix = new Matrix();
+                    getMatric(drawable, matrix);
+                }
+                if (matrix != null) {
+                    dstCanvas.concat(matrix);
+                }
+                drawable.draw(dstCanvas);
+                dstCanvas.restore();
+                if (mMaskBitmap == null || mMaskBitmap.isRecycled()) {
+                    mMaskBitmap = getBitmap();
+                }
+                mPaint.reset();
+                mPaint.setFilterBitmap(false);
+                mPaint.setXfermode(mXfermode);
+                dstCanvas.drawBitmap(mMaskBitmap, 0, 0, mPaint);
+                mPaint.setXfermode(null);
+                canvas.drawBitmap(bitmap, 0, 0, null);
+                mWeakBitmap = new WeakReference<Bitmap>(bitmap);
+            }
+        } else if (bitmap != null) {
+            mPaint.setXfermode(null);
+            canvas.drawBitmap(bitmap, 0.0f, 0.0f, mPaint);
+        }
+    }
+
+    private Bitmap getBitmap() {
+        try {
+            Bitmap bitmap = null;
+            bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            paint.setColor(Color.BLACK);
+            if (TYPE_CIRCLE == mType) {
+                canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, canvas.getWidth() / 2, paint);
+            } else {
+                canvas.drawRoundRect(new RectF(0, 0, canvas.getWidth(), canvas.getHeight()), mRadius, mRadius, paint);
+            }
+            return bitmap;
+        } catch (Exception e) {
+            G.log(this, e);
+            return null;
+        }
+
+    }
+
+    @Override
+    public void invalidate() {
+        mWeakBitmap = null;
+        if (mMaskBitmap != null) {
+            mMaskBitmap.recycle();
+            mMaskBitmap = null;
+        }
+        super.invalidate();
     }
 
     /**
-     * drawable转bitmap
+     * dp2px
      *
-     * @param drawable
-     * @return
+     * @param value
+     * @return px
      */
-    private Bitmap drawableToBitamp(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bd = (BitmapDrawable) drawable;
-            return bd.getBitmap();
-        }
-        int w = drawable.getIntrinsicWidth();
-        int h = drawable.getIntrinsicHeight();
-        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, w, h);
-        drawable.draw(canvas);
-        return bitmap;
+    private int dp2px(int value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getContext().getResources().getDisplayMetrics());
     }
 
-    private static final String STATE_INSTANCE = "state_instance";
-    private static final String STATE_TYPE = "state_type";
-    private static final String STATE_BORDER_RADIUS = "state_border_radius";
+    private void getMatric(Drawable drawable, Matrix matrix) {
+        ScaleType mScaleType = getScaleType();
+        //获取图片的宽高
+        int dwidth = drawable.getIntrinsicWidth();
+        int dheight = drawable.getIntrinsicHeight();
+        int vwidth = getWidth();
+        int vheight = getHeight();
+        if (ScaleType.MATRIX == mScaleType) {
+            /////
+        } else if (ScaleType.CENTER_CROP == mScaleType) {
+            float scale;
+            float dx = 0, dy = 0;
 
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(STATE_INSTANCE, super.onSaveInstanceState());
-        bundle.putInt(STATE_TYPE, type);
-        bundle.putInt(STATE_BORDER_RADIUS, mBorderRadius);
-        return bundle;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle) state;
-            super.onRestoreInstanceState(((Bundle) state)
-                    .getParcelable(STATE_INSTANCE));
-            this.type = bundle.getInt(STATE_TYPE);
-            this.mBorderRadius = bundle.getInt(STATE_BORDER_RADIUS);
-        } else {
-            super.onRestoreInstanceState(state);
-        }
-
-    }
-
-    public void setBorderRadius(int borderRadius) {
-        int pxVal = dp2px(borderRadius);
-        if (this.mBorderRadius != pxVal) {
-            this.mBorderRadius = pxVal;
-            invalidate();
-        }
-    }
-
-    public void setType(int type) {
-        if (this.type != type) {
-            this.type = type;
-            if (this.type != TYPE_ROUND && this.type != TYPE_CIRCLE) {
-                this.type = TYPE_CIRCLE;
+            if (dwidth * vheight > vwidth * dheight) {
+                scale = (float) vheight / (float) dheight;
+                dx = (vwidth - dwidth * scale) * 0.5f;
+            } else {
+                scale = (float) vwidth / (float) dwidth;
+                dy = (vheight - dheight * scale) * 0.5f;
             }
-            requestLayout();
-        }
 
-    }
+            matrix.setScale(scale, scale);
+            matrix.postTranslate(Math.round(dx), Math.round(dy));
+        } else if (ScaleType.CENTER_INSIDE == mScaleType) {
+            float scale;
+            float dx;
+            float dy;
 
-    public int dp2px(int dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, getResources().getDisplayMetrics());
-    }
-
-    private void init() {
-        mRotateAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f);
-        mRotateAnimator.setDuration(14400);
-        mRotateAnimator.setInterpolator(new LinearInterpolator());
-        mRotateAnimator.setRepeatMode(ValueAnimator.RESTART);
-        mRotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
-    }
-
-    // Animation
-    public void startRotateAnimation() {
-        mRotateAnimator.cancel();
-        mRotateAnimator.start();
-    }
-
-    public void cancelRotateAnimation() {
-        mRotateAnimator.cancel();
-    }
-
-
-    public void pauseRotateAnimation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mRotateAnimator.pause();
+            if (dwidth <= vwidth && dheight <= vheight) {
+                scale = 1.0f;
+            } else {
+                scale = Math.min((float) vwidth / (float) dwidth,
+                        (float) vheight / (float) dheight);
+            }
+            dx = Math.round((vwidth - dwidth * scale) * 0.5f);
+            dy = Math.round((vheight - dheight * scale) * 0.5f);
+            matrix.setScale(scale, scale);
+            matrix.postTranslate(dx, dy);
+        } else {
+            matrix.setRectToRect(new RectF(drawable.getBounds()), new RectF(0, 0, getWidth(), getHeight()), scaleTypeToScaleToFit(mScaleType));
         }
     }
 
-    public void resumeRotateAnimation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mRotateAnimator.resume();
+    private Matrix.ScaleToFit scaleTypeToScaleToFit(ScaleType mScaleType) {
+        Class mClass = ImageView.class;
+        try {
+            Method method = mClass.getDeclaredMethod("scaleTypeToScaleToFit", new Class[]{ScaleType.class});
+            method.setAccessible(true);
+            if (method != null) {
+                Matrix.ScaleToFit fit = (Matrix.ScaleToFit) (method.invoke(null, new Object[]{mScaleType}));
+                return fit;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return Matrix.ScaleToFit.FILL;
     }
 }

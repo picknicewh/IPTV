@@ -16,6 +16,7 @@ import java.util.List;
 public interface RecipesContract {
     interface View {
         void showCookBook(List<DishesVo> dishesList);
+        void goneRecipes();
     }
 
     interface Presenter {

@@ -29,6 +29,10 @@ public interface SearchContract {
         void setSearchFootPrint(List<FootPrintVo> footPrintList);
 
         void intentFromFootPrint(ResourceManageVo manageLis);
+
+        void showDialog();
+
+        void dismissDialog();
     }
 
     interface Presenter {

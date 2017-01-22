@@ -52,7 +52,7 @@ public class ImageCache {
      * @param imageView
      */
     public static void imageLoader(String uri, ImageView imageView) {
-        if(imageView==null){
+        if (imageView == null) {
             return;
         }
         ImageCache().displayImage(transFromImagUrl(uri), imageView, options);
@@ -81,12 +81,12 @@ public class ImageCache {
 
 
     private static String transFromImagUrl(String imgUrl) {
-        if(G.isEmteny(imgUrl)){
+        if (G.isEmteny(imgUrl)) {
             return "";
         }
-
+        imgUrl = G.changUrlFor8082(imgUrl);
 //        if (imgUrl.contentEquals("\\")) {
-            imgUrl = imgUrl.replace("\\", "/");
+        imgUrl = imgUrl.replace("\\", "/");
 //        }
         return imgUrl;
     }

@@ -19,7 +19,7 @@ import com.open.androidtvwidget.leanback.recycle.RecyclerViewTV;
 import com.open.androidtvwidget.view.MainUpView;
 
 import net.hunme.kidsworld_iptv.R;
-import net.hunme.kidsworld_iptv.activity.StatusDetlisActivity;
+import net.hunme.kidsworld_iptv.activity.PictureCarouselActivity;
 import net.hunme.kidsworld_iptv.adapter.NoticeAdapter;
 import net.hunme.kidsworld_iptv.contract.NoticeContract;
 import net.hunme.kidsworld_iptv.contract.NoticePresenter;
@@ -49,17 +49,15 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
     @Bind(R.id.lv_content)
     RecyclerViewTV lvContent;
 
-
     private MainUpView upview;
     private View oldView;
     private NoticeAdapter adapter;
     private List<MessageJsonVo> messageList;
     private NoticeContract.presenter presenter;
     private PushDb pushDb;
-    private int SELECTMENUTYPE;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         ButterKnife.bind(this, view);
@@ -74,19 +72,17 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
         lvContent.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
-                intent.putExtra("messageList", (Serializable) messageList.get(position));
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
+//                intent.putExtra("messageList", (Serializable) messageList.get(position));
+//                startActivity(intent);
+                MessageJsonVo jsonVo = messageList.get(position);
+                if (jsonVo.getMessageUrl() != null && jsonVo.getMessageUrl().size() > 0) {
+                    Intent intent = new Intent(getActivity(), PictureCarouselActivity.class);
+                    intent.putExtra("messageList", (Serializable) messageList.get(position));
+                    startActivity(intent);
+                }
             }
         });
-//        lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity(), StatusDetlisActivity.class);
-//                intent.putExtra("messageList", (Serializable) messageList.get(i));
-//                startActivity(intent);
-//            }
-//        });
         pushDb = new PushDb(getContext());
         oldView = tvSchool;
         presenter.getSchoolNotice();
@@ -102,22 +98,23 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
     @Override
     public void onFocusChange(View view, boolean b) {
         if (b) {
-            switch (view.getId()) {
-                case R.id.tv_system:
-                    presenter.getSystemNotice(pushDb);
-                    break;
-                case tv_school:
-                    presenter.getSchoolNotice();
-                    break;
-                default:
-                    return;
-            }
+            if (oldView != null && view.getId() != oldView.getId())
+                switch (view.getId()) {
+                    case R.id.tv_system:
+                        presenter.getSystemNotice(pushDb);
+                        break;
+                    case tv_school:
+                        presenter.getSchoolNotice();
+                        break;
+                    default:
+                        return;
+                }
             if (oldView != null) {
-                oldView.setBackgroundResource(R.drawable.home_menu_black_40_bg);
+                oldView.setBackgroundResource(R.drawable.home_menu_black_20_bg);
                 ((TextView) oldView).setTextColor(ContextCompat.getColor(getContext(), R.color.white_50));
             }
             view.setBackgroundResource(R.drawable.home_menu_black_bg);
-            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.item_yellow));
             oldView = view;
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
@@ -125,14 +122,26 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
                     upview.setVisibility(View.GONE);
                 }
             }, 150);
+        } else {
+            view.setBackgroundResource(R.drawable.home_menu_black_bg);
+            ((TextView) view).setTextColor(ContextCompat.getColor(getContext(), R.color.white));
         }
     }
 
     @Override
     public void showNotice(List<MessageJsonVo> messageList) {
-        this.messageList.clear();
-        this.messageList.addAll(messageList);
-        adapter.notifyDataSetChanged();
+        if (messageList.size() > 0) {
+            lvContent.setVisibility(View.VISIBLE);
+            this.messageList.clear();
+            this.messageList.addAll(messageList);
+            adapter.notifyDataSetChanged();
+            lvContent.scrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void goneNoticeList() {
+        lvContent.setVisibility(View.GONE);
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -145,5 +154,12 @@ public class NoticeFragment extends Fragment implements View.OnFocusChangeListen
             }
         }
         return true;
+    }
+
+    public void setRefreshDate() {
+        if (oldView.getId() == R.id.tv_system)
+            presenter.getSystemNotice(pushDb);
+        else if (oldView.getId() == R.id.tv_school)
+            presenter.getSchoolNotice();
     }
 }

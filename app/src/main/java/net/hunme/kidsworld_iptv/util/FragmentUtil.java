@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
-import net.hunme.baselibrary.util.G;
-
 /**
  * ================================================
  * 作    者：ZLL
@@ -18,16 +16,17 @@ import net.hunme.baselibrary.util.G;
 public class FragmentUtil {
     private FragmentTransaction fragmentTransaction;
     private Fragment mContent;
+
     /**
-     *  设置fragment
-     * @param fragment 当前fragmentActivity
-     * @param toFragment 设置的fragment
+     * 设置fragment
+     *
+     * @param fragment         当前fragmentActivity
+     * @param toFragment       设置的fragment
      * @param fragmentlayoutId fragment所处xml的id
      */
-    public void setFragment(FragmentActivity fragment, Fragment toFragment,int fragmentlayoutId){
+    public void setFragment(FragmentActivity fragment, Fragment toFragment, int fragmentlayoutId) {
         if (mContent != toFragment) {
             fragmentTransaction = fragment.getSupportFragmentManager().beginTransaction();
-
             if (mContent == null) {
                 fragmentTransaction.replace(fragmentlayoutId, toFragment).commit();
                 mContent = toFragment;

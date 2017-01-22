@@ -18,14 +18,6 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_image"
-                android:layout_width="@dimen/px90"
-                android:layout_height="@dimen/px90"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/px20"
-                android:focusable="false" />
-
             <ImageView
                 android:layout_width="@dimen/px100"
                 android:layout_height="@dimen/px100"
@@ -33,6 +25,14 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_hot_suite"
                 android:visibility="visible" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="@dimen/px90"
+                android:layout_height="@dimen/px90"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px20"
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/user_name"

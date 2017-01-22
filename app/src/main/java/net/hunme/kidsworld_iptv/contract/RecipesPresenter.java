@@ -31,6 +31,7 @@ public class RecipesPresenter implements RecipesContract.Presenter, OkHttpListen
 
     @Override
     public void getCookBook(String date) {
+        view.goneRecipes();
         Map<String, Object> map = new HashMap<>();
         map.put("tsId", IPTVApp.um.getUserTsId());
         map.put("date", date);

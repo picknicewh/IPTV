@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clipChildren="false"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/px190"
     android:paddingRight="@dimen/px190">
 
@@ -14,20 +14,19 @@
 
         <LinearLayout
             android:id="@+id/ll_user_ms"
-            android:layout_width="@dimen/px180"
+            android:layout_width="@dimen/px90"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px95"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <net.hunme.kidsworld_iptv.widget.RoundImageView
                 android:id="@+id/iv_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px180"
+                android:layout_width="@dimen/px90"
+                android:layout_height="@dimen/px90"
                 android:src="@mipmap/ic_leimu" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/iv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,15 +34,17 @@
                 android:gravity="center"
                 android:text="明明"
                 android:textColor="@color/orange"
-                android:textSize="@dimen/px35" />
+                android:textSize="@dimen/px35"
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageView
-            android:layout_marginTop="@dimen/px95"
             android:id="@+id/iv_notice"
-            android:layout_width="@dimen/px220"
-            android:layout_height="@dimen/px220"
-            android:src="@mipmap/ic_notice" />
+            android:layout_width="@dimen/px90"
+            android:layout_height="@dimen/px90"
+            android:layout_marginTop="@dimen/px95"
+            android:src="@mipmap/ic_notice_big"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -61,11 +62,11 @@
                 android:textSize="@dimen/px48" />
 
             <TextView
-                android:maxLength="19"
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:maxLength="19"
                 android:text="2016-11-14 09:19:18"
                 android:textColor="@color/white_80" />
 
@@ -74,29 +75,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:layout_marginTop="@dimen/px60"
-                android:text="希望大家踊跃参加秋季运动会，提高运动成绩，全面发展德智体教育，相应国家号召，当一个尤为了国之栋梁"
+                android:layout_marginTop="@dimen/px40"
                 android:textColor="@color/white"
                 android:textSize="@dimen/px30" />
         </RelativeLayout>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/px80"
+    <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px600"
-        android:gravity="center_horizontal"
-        android:layerType="software"
-        android:clipChildren="false"
+        android:layout_marginTop="@dimen/px80"
         android:orientation="horizontal">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_picture"
-            android:layout_width="@dimen/px700"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="@dimen/px800"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:clipChildren="false" />
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_notice_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px100"
+            android:layout_toLeftOf="@id/vp_picture"
+            android:src="@mipmap/ic_notice_left"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_notice_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px100"
+            android:layout_toRightOf="@id/vp_picture"
+            android:src="@mipmap/ic_notice_right"
+            android:visibility="invisible" />
+    </RelativeLayout>
 </LinearLayout>

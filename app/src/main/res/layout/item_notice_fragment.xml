@@ -82,6 +82,7 @@
                 android:orientation="horizontal">
 
                 <net.hunme.kidsworld_iptv.widget.RoundImageView
+                    android:focusable="false"
                     android:id="@+id/iv_01"
                     android:layout_width="@dimen/px230"
                     android:layout_height="@dimen/px160"
@@ -92,6 +93,7 @@
                     app:type="round" />
 
                 <net.hunme.kidsworld_iptv.widget.RoundImageView
+                    android:focusable="false"
                     android:id="@+id/iv_02"
                     android:layout_width="@dimen/px230"
                     android:layout_height="@dimen/px160"
@@ -102,6 +104,7 @@
                     app:type="round" />
 
                 <net.hunme.kidsworld_iptv.widget.RoundImageView
+                    android:focusable="false"
                     android:id="@+id/iv_03"
                     android:layout_width="@dimen/px230"
                     android:layout_height="@dimen/px160"
@@ -112,6 +115,7 @@
                     app:type="round" />
 
                 <net.hunme.kidsworld_iptv.widget.RoundImageView
+                    android:focusable="false"
                     android:id="@+id/iv_04"
                     android:layout_width="@dimen/px230"
                     android:layout_height="@dimen/px160"
@@ -122,6 +126,7 @@
                     app:type="round" />
 
                 <net.hunme.kidsworld_iptv.widget.RoundImageView
+                    android:focusable="false"
                     android:id="@+id/iv_05"
                     android:layout_width="@dimen/px230"
                     android:layout_height="@dimen/px160"

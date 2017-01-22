@@ -12,32 +12,39 @@
         android:orientation="horizontal">
 
         <TextView
-            android:background="@drawable/home_menu_black_bg"
             android:id="@+id/tv_school"
             style="@style/MyTextViewStyle"
             android:layout_width="@dimen/px250"
             android:layout_height="@dimen/px90"
+            android:background="@drawable/home_menu_black_bg"
             android:text="校园通知"
             android:textColor="@color/white" />
 
 
         <TextView
-            android:background="@drawable/home_menu_black_40_bg"
             android:id="@+id/tv_system"
             style="@style/MyTextViewStyle"
             android:layout_width="@dimen/px250"
             android:layout_height="@dimen/px90"
             android:layout_marginLeft="@dimen/space"
+            android:background="@drawable/home_menu_black_20_bg"
             android:text="系统通知"
             android:textColor="@color/white_50" />
     </LinearLayout>
 
-    <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
-        android:id="@+id/lv_content"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/resources_grid_view_bg"
-        android:scrollbars="none" />
+        android:background="@drawable/resources_grid_view_bg">
+
+        <com.open.androidtvwidget.leanback.recycle.RecyclerViewTV
+            android:visibility="gone"
+            android:id="@+id/lv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </RelativeLayout>
+
 
     <com.open.androidtvwidget.view.MainUpView
         android:id="@+id/upview"
