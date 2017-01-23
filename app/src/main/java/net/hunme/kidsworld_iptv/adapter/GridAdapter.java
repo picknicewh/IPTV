@@ -121,7 +121,8 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
         } else if (manageList != null && manageList.size() > 0) {
             //资源
             ResourceManageVo manage = manageList.get(i);
-            hold.tvName.setText(manage.getResourceName());
+            int a = i + 1; //必须用一个变量去接收它赋值  否则直接setText赋值 值会混乱
+            hold.tvName.setText("第" + a + "集");
             //是否显示隐藏 1表示显示 2 表示隐藏
             hold.ivCorner.setVisibility("1".equals(manage.getStatus()) ? View.VISIBLE : View.GONE);
 //            if (G.isEmteny(manage.getBroadcastPace())) {
@@ -130,7 +131,6 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
 //                String lookType = "已经看" + manage.getBroadcastPace();
 //                hold.tvResNumber.setText(lookType);
 //            }
-            G.log(this, manage.getResourceName());
             if (!G.isEmteny(albumImgUrl))
                 ImageCache.imageLoader(albumImgUrl, hold.ivGird);
 //            ImageLoaderManger.getManger().display(hold.ivGird,manage.getImageUrl());
@@ -224,6 +224,7 @@ public class GridAdapter extends BaseAdapter implements AdapterView.OnItemSelect
 
     class TimerView {
         private Timer timer;
+
         /**
          * 计时显示View的状态
          */

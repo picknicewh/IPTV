@@ -19,6 +19,8 @@ public class FootPrintVo {
     private String RESOURCE_URL;
     private String TYPE;
     private String PAY;
+    private String CREATE_NAME;
+
     public String getBroadcastPace() {
         return broadcastPace;
     }
@@ -89,5 +91,13 @@ public class FootPrintVo {
 
     public void setPAY(String PAY) {
         this.PAY = PAY;
+    }
+
+    public String getCREATE_NAME() {
+        return CREATE_NAME;
+    }
+
+    public void setCREATE_NAME(String CREATE_NAME) {
+        this.CREATE_NAME = CREATE_NAME;
     }
 }

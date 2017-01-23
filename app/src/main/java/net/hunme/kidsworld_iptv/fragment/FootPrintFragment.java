@@ -80,6 +80,7 @@ public class FootPrintFragment extends Fragment implements FootPrintContract.Vie
                     manageVo.setResourceUrl(printVo.getRESOURCE_URL());
                     manageVo.setImageUrl(printVo.getIMAGE_URL());
                     manageVo.setPay(printVo.getPAY());
+                    manageVo.setCreateName(printVo.getCREATE_NAME());
                     intent.putExtra("manage", manageVo);
                     startActivity(intent);
                 }
